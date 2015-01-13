@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>产品详情-渠道-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<div class="box">
+				<ul class="clear cp_detail_total">
+					<li><img src="{{detail.logoPath}}" width="32" height="32"></li>
+					<li>{{detail.productName}}</li>
+					<li>版本号：{{detail.versionNo}}</li>
+					<li>包大小：{{detail.packageSize}}M</li>
+					<li><span class="orange">价格：{{detail.unitPrice}}元</span></li>
+					<!-- <li><a href="javascript:;" class="b_r btn_gzcp">关注该产品</a></li> -->
+					{{if detail.status == 1}}
+						{{if detail.applyStatus == 1}}
+							{{if detail.hasSparePackageCount > 0}}
+							<li><a href="javascript:;" class="b_r btn_sqrw" id="sqrw-btn">申请任务</a></li>
+							{{else}}
+							<li><a href="javascript:;" class="b_r btn_qqjb" id="qqjb-btn">请求加包</a></li>
+							<li><span class="red">暂时没有可用包</span></li>
+							{{/if}}
+						{{else if detail.applyStatus == 2}}
+						<li><span class="green">任务申请中，请等待审核</span></li>
+						{{else if detail.applyStatus == 3}}
+						<li><span class="green">申请成功</span></li>
+						{{/if}}
+					{{else}}
+					<li><span class="red">该产品暂时不可以申请任务</span></li>
+					{{/if}}
+				</ul>
+			</div>
+			<div class="box">
+			status={{detail.status}}<br>
+			applyStatus={{detail.applyStatus}}<br>
+			hasSparePackageCount={{detail.hasSparePackageCount}}
+			</div>
+			<div class="box">
+				<div class="form_box cp_detail_form clear">
+					<div class="txtitem">
+						<label class="r_lb">计费方式：</label>
+						<span class="txt">{{detail.billingMethod}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">量级要求：</label>
+						<span class="txt">{{detail.amountLevel}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">推广要求：</label>
+						<span class="txt">{{detail.expandRequirement}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">推广方式：</label>
+						<span class="txt">{{detail.expandTypeList && detail.expandTypeList.join(',')}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">数据周期：</label>
+						<span class="txt">{{detail.dataCycle}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="box_nb cp_detail_info">
+				<p>{{detail.description}}</p>
+				<div class="imgs" id="cp-detail-imgs">
+					{{each detail.taskScreenshotList}}
+					<img src="{{$value}}" width="115" height="190">
+					{{/each}}
+				</div>
+			</div>
+			<div class="box_nb tb_list mt25">
+				<h3>评价</h3>
+				<div id="evaluation-list">
+					查询中...
+					<!-- <table>
+						<colgroup><col class="c100"/><col class="c140"/><col style="width:500px" /></colgroup>
+						<tr><th class="hd_bg">渠道ID</th><th class="hd_bg">评分</th><th class="hd_bg">评价</th></tr>
+						<tr><td>1001</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">就是对方脸上的会计法还是地方见到了世界疯了士大夫似的固定个</td></tr>
+						<tr><td>1001</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">就是对方脸上的会计法还是地方见到了世界疯了士大夫似的固定个</td></tr>
+						<tr><td>1001</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">就是对方脸上的会计法还是地方见到了世界疯了士大夫似的固定个</td></tr>
+						<tr><td>1001</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">就是对方脸上的会计法还是地方见到了世界疯了士大夫似的固定个</td></tr>
+						<tr><td>1001</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">就是对方脸上的会计法还是地方见到了世界疯了士大夫似的固定个</td></tr>
+					</table> -->
+				</div>
+				<div class="page" id="evaluation-page" style="display:none;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="tpl-evaluation" type="text/html">
+<table>
+	<colgroup><col class="c100"/><col class="c140"/><col style="width:500px" /></colgroup>
+	<tr><th class="hd_bg">渠道ID</th><th class="hd_bg">评分</th><th class="hd_bg">评价</th></tr>
+	{% each evaluationList %}
+	<tr><td>{% $value.spIdStr %}</td><td>{% #$value.grade | convert2star %}</td><td class="txt">{% $value.comment %}</td></tr>
+	{% /each %}
+</table>
+</script>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/sp/cpdetail.js"></script>
+</body>
+</html>

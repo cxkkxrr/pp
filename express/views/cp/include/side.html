@@ -1,0 +1,9 @@
+<div class="side">
+	<ul class="nav">
+		<li><a href="<!--#echo var='cpBaseUrl'-->" {{if navType==1}}class="cur"{{/if}}>会员中心</a></li>
+		<li><a href="<!--#echo var='cpBaseUrl'-->spsearch.html" {{if navType==2}}class="cur"{{/if}}>我要推广</a></li>
+		<li><a href="<!--#echo var='cpBaseUrl'-->mytask.html" {{if navType==3}}class="cur"{{/if}}>推广管理</a></li>
+		<li><a href="<!--#echo var='cpBaseUrl'-->message.html" class="rel{{if navType==4}} cur{{/if}}">消息中心{{if userInfo && userInfo.msgCount > 0}}<span class="icon msg">{{userInfo.msgCount}}</span>{{/if}}</a></li>
+		<li><a href="<!--#echo var='cpBaseUrl'-->userinfo.html" {{if navType==5}}class="cur"{{/if}}>账号管理</a></li>
+	</ul>
+</div>

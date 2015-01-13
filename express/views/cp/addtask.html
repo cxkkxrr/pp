@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>任务发布-广告主-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<div class="box_nb release_form">
+				<h3>任务发布</h3>
+				<div class="form_box clear">
+					<div class="txtitem" id="product-name">
+						<label class="r_lb"><span class="red">*</span>产品名字：</label>
+						<input type="text" class="intxt">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="product-version">
+						<label class="r_lb"><span class="red">*</span>版本号：</label>
+						<input type="text" class="intxt">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="product-packge-num">
+						<label class="r_lb"><span class="red">*</span>包号：</label>
+						<input type="text" class="intxt">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="product-size">
+						<label class="r_lb"><span class="red">*</span>包大小：</label>
+						<input type="text" class="intxt"><span class="unit">M</span>
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="unit-price">
+						<label class="r_lb"><span class="red">*</span>推广单价：</label>
+						<input type="text" class="intxt"><span class="unit">元</span>
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="push-day-limit">
+						<label class="r_lb"><span class="red">*</span>推广时长：</label>
+						<input type="text" class="intxt"><span class="unit">天</span>
+						<span class="err"></span>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>产品类型：</label>
+						<div class="selbtns select_single" id="product-type">
+							<a href="javascript:;" class="selbtn" data-type="app" data-val="1">应用</a>
+							<a href="javascript:;" class="selbtn" data-type="game" data-val="2">游戏</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem" id="product-type-app-box" style="display:none;">
+						<label class="r_lb"><span class="red">*</span>产品分类：</label>
+						<div class="selbtns select_single" id="product-type-app">
+							{{if formLabel && formLabel.productTypeApp}}
+							{{each formLabel.productTypeApp}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem" id="product-type-game-box" style="display:none;">
+						<label class="r_lb"><span class="red">*</span>产品分类：</label>
+						<div class="selbtns select_single" id="product-type-game">
+							{{if formLabel && formLabel.productTypeGame}}
+							{{each formLabel.productTypeGame}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>操作系统：</label>
+						<div class="selbtns select_single" id="system">
+							<a href="javascript:;" class="selbtn" data-val="1">安卓</a>
+							<a href="javascript:;" class="selbtn" data-val="1">IOS</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb r_lb_m"><span class="red">*</span>推广方式：<br>(多选)　</label>
+						<div class="selbtns select_multi" id="push-type">
+							{{if formLabel && formLabel.pushType}}
+							{{each formLabel.pushType}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>计费方式：</label>
+						<div class="selbtns select_single" id="billing-type">
+							<a href="javascript:;" class="selbtn" data-val="1">互联网激活</a>
+							<a href="javascript:;" class="selbtn" data-val="1">注册激活</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>要求标签：</label>
+						<div class="selbtns select_single" id="requirement-label">
+							<a href="javascript:;" class="selbtn" data-val="1">留存</a>
+							<a href="javascript:;" class="selbtn" data-val="2">活跃</a>
+							<a href="javascript:;" class="selbtn" data-val="3" title="订单率/付费率">订单率/付费率</a>
+							<a href="javascript:;" class="selbtn" data-val="4">时长</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="txtitem" id="push-requirement">
+						<label class="r_lb"><span class="red">*</span>推广要求：</label>
+						<input type="text" class="intxt">
+						<span class="err"></span>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>量级要求：</label>
+						<div class="selbtns select_single" id="quantity">
+							<a href="javascript:;" class="selbtn" data-val="1">1-500</a>
+							<a href="javascript:;" class="selbtn" data-val="2">501-1K</a>
+							<a href="javascript:;" class="selbtn" data-val="3">1K以上</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>数据周期：</label>
+						<div class="selbtns select_single" id="data-cycle">
+							<a href="javascript:;" class="selbtn" data-val="1">实时数据</a>
+							<a href="javascript:;" class="selbtn" data-val="2">非实时数据</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb r_lb_m"><span class="red">*</span>人群标签：<br>(多选)　</label>
+						<div class="selbtns select_multi" id="crowd-label">
+							{{if formLabel && formLabel.crowdLabel}}
+							{{each formLabel.crowdLabel}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="uploaditem clear">
+						<label class="r_lb">包文件上传：</label>
+						<div class="uploadbox">
+							<div class="uploadbtn"><span id="upload-button-placeholder"></span></div>
+							<div class="filename" id="upload-filename-text" style="display:none;"></div>
+							<input id="upload-filename-input" type="text" style="display:none;" />
+							<div class="uploadprocess" id="upload-process-box"></div>
+							<span class="err" id="upload-err"></span>
+							<p class="tips">请在包文件内附上文本文件，写明后台地址和登录账号密码。包文件请以压缩的格式上传。如果产品的安装文件太大，可以只上传其他文件并提供安装文件下载链接。</p>
+							<p class="tips">请在包文件内附上文本文件，写明后台地址和登录账号密码。包文件请以压缩的格式上传。如果产品的安装文件太大，可以只上传其他文件并提供安装文件下载链接。</p>
+						</div>
+					</div>
+					<div class="txtitem" id="download-link">
+						<label class="r_lb">安装文件下载链接：</label>
+						<input type="text" class="intxt">
+						<span class="err"></span>
+					</div>
+					<div>
+						<label class="r_lb"></label>
+						<a href="javascript:;" class="b_r submitbtn" id="submit-btn">确 认 提 交</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/cp/addtask.js"></script>
+</body>
+</html>

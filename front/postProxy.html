@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<script type="text/javascript">
+			function getQueryParamObject(){
+				var str = location.href;
+				var index = str.indexOf('?');
+				var n,arr,obj={};
+				if(index!=-1){
+					str = str.substring(index+1);
+					arr = str.split('#')[0].split('&');
+				}else arr=[];
+				for(n=0;n<arr.length;++n){
+					arr[n] = arr[n].split('=');
+					obj[arr[n][0]] = obj[arr[n][0].toLowerCase()]= arr[n][1];
+				}
+				return obj;
+			}
+		
+			var param = getQueryParamObject();
+			var requestType = param["requestType"];
+			/*var documentDomain = param["documentDomain"];
+			if(documentDomain != null && documentDomain != ""){
+				document.domain = documentDomain;
+			}*/
+			var rtnData = param["rtnData"];
+			if(requestType != null && rtnData != null){
+				rtnData = decodeURIComponent(rtnData);
+				try {
+					var iframe = parent.document.getElementById("iframe"+requestType);
+					if(iframe && iframe.tagName.toLowerCase()=='iframe' && (parent.location.host == 'www.pushpie.com') && parent != self){
+						rtnData = eval( "(" + rtnData + ")");
+					}
+				}catch(e){
+					if(window['console'] && window.console['debug'])console.debug(e);
+				}
+				if(parent["callback"+requestType] != null){
+					parent["callback"+requestType](rtnData);
+				}
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<div class="header">
+	<div class="layout rel">
+		<div class="logo"></div>
+		<div class="b_r slogan">App推广平台</div>
+		{{if userInfo}}
+		<ul class="user">
+			<li>欢迎您，{{userInfo.userName}}</li>
+			{{if userInfo.msgCount > 0}}<li class="b_r msg">您有<span class="num">{{userInfo.msgCount}}</span>条未读通知</li>{{/if}}
+		</ul>
+		{{/if}}
+		<ul class="t_nav">
+			<li><a href="<!--#echo var='baseUrl'-->">首页</a></li>
+			<li><a href="#">渠道服务</a></li>
+			<li><a href="#">联系客服</a></li>
+			<li><a href="#">帮助中心</a></li>
+			<li class="b_r type">渠道</li>
+		</ul>
+	</div>
+</div>

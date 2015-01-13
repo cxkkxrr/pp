@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>登录</title>
+{{include 'include/head'}}
+</head>
+<body>
+<div class="login_box">
+	<form action="login" method="post" onsubmit="return doSubmit();">
+		<div class="item">用户名：<input type="text" name="userName" id="user-name" value="" autocomplete="off"></div>
+		<div class="item">密　码：<input type="password" name="password" id="password" value="" autocomplete="off"></div>
+		<div class="item">验证码：<input type="text" name="vcode" id="v-code" value="" autocomplete="off"></div>
+		<div class="item btnitem"><input type="submit" value="登录"></div>
+	</form>
+</div>
+{{include 'include/footer'}}
+<script>
+(function(){
+	if(parent.location.href != location.href){
+		parent.location.href = location.href;
+	}
+	var $userNameInput = $('#user-name');
+	var $passwordInput = $('#password');
+	var $vCodeInput = $('#v-code');
+	$userNameInput.val('pushpie');
+	$passwordInput.val('HKh@knF;oc44$9i$');
+	$vCodeInput.val('1');
+	window.doSubmit = function(){
+		var userNameVal = $.trim($userNameInput.val());
+		var passwordVal = $.trim($passwordInput.val());
+		var vCodeVal = $.trim($vCodeInput.val());
+		if(!userNameVal){
+			alert('请输入用户名');
+			$userNameInput.focus();
+			return false;
+		}
+		if(!passwordVal){
+			alert('请输入密码');
+			$passwordInput.focus();
+			return false;
+		}
+		/*if(!vCodeVal){
+			alert('请输入验证码');
+			$vCodeInput.focus();
+			return false;
+		}*/
+		$passwordInput.val(hex_md5(hex_md5(passwordVal)));
+		return true;
+	}
+})();
+</script>
+</body>
+</html>

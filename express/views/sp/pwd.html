@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>密码修改-渠道-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<ul class="box_tab_nav">
+				<li><a href="userinfo.html">基本信息</a></li>
+				<li><a href="qualification.html">资质信息</a></li>
+				<li><a href="bankinfo.html">财务信息</a></li>
+				<li class="cur"><a>密码修改</a></li>
+			</ul>
+			<div class="box pwd_form">
+				<div class="form_box clear">
+					<div class="txtitem" id="old-pwd">
+						<label class="r_lb"><span class="red">*</span>输入原密码：</label>
+						<input type="password" class="intxt" maxlength="16">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="new-pwd">
+						<label class="r_lb"><span class="red">*</span>输入新密码：</label>
+						<input type="password" class="intxt" maxlength="16">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="new-pwd-check">
+						<label class="r_lb"><span class="red">*</span>确认新密码：</label>
+						<input type="password" class="intxt" maxlength="16">
+						<span class="err"></span>
+					</div>
+					<div>
+						<label class="r_lb"></label>
+						<a href="javascript:;" class="b_r submitbtn" id="submit-btn">确 认 修 改</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/sp/pwd.js"></script>
+</body>
+</html>

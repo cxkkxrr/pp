@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>推广详情-广告主-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<h3>推广详情</h3>
+			<div class="box_nb">
+				<div class="product_name" id="product-name"></div>
+				<div class="product_detail rel" id="product-detail">
+					<div class="arr">◆</div>
+				</div>
+			</div>
+			<div class="box_nb mt25">
+				<div class="form_box pg_upload_form clear">
+					<div class="txtitem">
+						<label class="r_lb">包号列表</label>
+						<span class="txt">001, 002, 003, 004, 005, 007, 009</span>
+					</div>
+					<div class="uploaditem clear">
+						<label class="r_lb">增加包号</label>
+						<input type="text" class="intxt" id="package-num-input">
+						<div class="uploadbox">
+							<div class="uploadbtn" id="upload-button"><span id="upload-button-placeholder"></span></div>
+							<div class="uploadprocess" id="upload-process-box"></div>
+							<span class="err" id="upload-err"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box_nb tb_list mt25" id="package-list">
+				<table>
+					<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;" /></colgroup>
+				</table>
+			</div>
+
+			<a href="javascript:;" class="btn btn_yellow mt25" id="submit-btn">确认提交</a>
+		</div>
+	</div>
+</div>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/cp/addpackage.js"></script>
+</body>
+</html>

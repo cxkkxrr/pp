@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<!--#include file="/include/head.html"-->
+</head>
+<body>
+<!--#include file="/include/header.html"-->
+<div class="warp">
+	<div class="layout">
+		<div class="banner">
+			<div class="login_reg_box" id="un-login-box" style="display:none;">
+				<div class="tab">
+					<a href="javascript:;" id="login-tab" class='tab_l cur'>登录</a>
+					<a href="javascript:;" id="reg-tab" class='tab_r'>注册</a>
+				</div>
+				<div class="log_box" id="login-box">
+					<div class="tips" id="err-tips"></div>
+					<div class="inputbox rel">
+						<label for="login-username-input">用户名</label>
+						<input type="text" class="intxt" id="login-username-input">
+					</div>
+					<div class="inputbox rel">
+						<label for="login-pwd-input">密　码</label>
+						<input type="password" class="intxt" id="login-pwd-input">
+					</div>
+					<div class="type_radio clear" id="login-type">
+						<div class="item item_selected" data-val="0">
+							<span class="icon icon_radio"></span><span>广告主</span>
+						</div>
+						<div class="item" data-val="1">
+							<span class="icon icon_radio"></span><span>渠道</span>
+						</div>
+					</div>
+					<div class="verify_code rel">
+						<input type="text" class="intxt" maxlength="4" id="login-vcode-input">
+						<a href="javascript:;" class="verify_code_change"><img src="" width="60" height="37"></a>
+						<a href="#" target="_blank" class="forget_pwd">忘记密码</a>
+					</div>
+					<a href="javascript:;" class="btn btn_login" id="login-btn">登　录</a>
+				</div>
+				<div class="log_box" id="reg-box" style="display:none;">
+					<div class="inputbox rel">
+						<label for="reg-username-input">用户名</label>
+						<input type="text" class="intxt" id="reg-username-input">
+					</div>
+					<div class="inputbox rel">
+						<label for="reg-pwd-input">密　码</label>
+						<input type="password" class="intxt" id="reg-pwd-input">
+					</div>
+					<div class="inputbox rel">
+						<label for="reg-check-pwd-input">确认密码</label>
+						<input type="text" class="intxt" id="reg-check-pwd-input">
+					</div>
+					<div class="inputbox rel">
+						<label for="reg-email-input">邮　箱</label>
+						<input type="text" class="intxt" id="reg-email-input">
+					</div>
+					<div class="type_radio clear" id="reg-type">
+						<div class="item item_selected" data-val="0">
+							<span class="icon icon_radio"></span><span>广告主</span>
+						</div>
+						<div class="item" data-val="1">
+							<span class="icon icon_radio"></span><span>渠道</span>
+						</div>
+					</div>
+					<div class="verify_code rel">
+						<input type="text" class="intxt" maxlength="4" id="reg-vcode-input">
+						<a href="javascript:;" class="verify_code_change"><img src="" width="60" height="37"></a>
+					</div>
+					<a href="javascript:;" class="btn btn_login" id="reg-btn">注　册</a>
+				</div>
+			</div>
+			<div class="logined_box" style="display:none;" id="logined-box">
+				
+			</div>
+		</div>
+		<div class="box">
+			<div class="box_title rel">
+				<h2>公告区</h2>
+			</div>
+			<div class="notice_cont">
+				<ul class="clear">
+					<li>
+						<div class="title"><a target="_blank">13451：质优量大渠 寻掌厨 京东无订单 360安全市场</a></div>
+						<!-- <div class="date">2014-07-26</div> -->
+					</li>
+					<li>
+						<div class="title"><a target="_blank">23421：360影视，QQ浏览器，助手，小野猫，京东现包！渠道快来！</a></div>
+						<!-- <div class="date">2014-07-26</div> -->
+					</li>
+					<li>
+						<div class="title"><a target="_blank">52562：360助手 431 432  QQ阅读  平安财富宝 好123  唯品会  1号店  达令礼物店  天天风之旅   小米桌面  结算靠谱准时 寻靠谱大量渠道快来</a></div>
+						<!-- <div class="date">2014-07-26</div> -->
+					</li>
+					<li>
+						<div class="title"><a target="_blank">37217：求包求包，奇峰阅读，易周游，好奇心日报，有包的来小窗，优质渠道在我这。</a></div>
+						<!-- <div class="date">2014-07-26</div> -->
+					</li>
+					<li>
+						<div class="title"><a target="_blank">71736：量大渠道寻高价  考拉社区 365淘房  阿凡题学习神奇  平安健康管家  刀塔来了  偶玩游戏  去吧皮卡丘  格斗冒险岛结算靠谱的来</a></div>
+						<!-- <div class="date">2014-07-26</div> -->
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="box">
+			<div class="box_title rel">
+				<h2>任务列表</h2>
+				<!-- <div class="sub">
+					<a href="javascript:;" class="cur">推荐</a>
+					<span>|</span>
+					<a href="javascript:;">应用</a>
+					<span>|</span>
+					<a href="javascript:;">游戏</a>
+				</div> -->
+			</div>
+			<div class="task_cont">
+				<ul class="clear">
+					<li>
+						<div class="logo">
+							<img src="/images/7.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">神庙逃亡</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/2.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">傲世西游</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/3.jpeg" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">保卫萝卜</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/4.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">愤怒的小鸟</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+				</ul>
+				<ul class="clear">
+					<li>
+						<div class="logo">
+							<img src="/images/5.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">疯狂猜成语</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/6.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">欢乐斗地主</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/1.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">2048</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/8.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">我叫MT</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+				</ul>
+				<ul class="clear last">
+					<li>
+						<div class="logo">
+							<img src="/images/9.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">火线精英</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/10.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">节奏大师</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/11.jpeg" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">密室逃亡</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+					<li>
+						<div class="logo">
+							<img src="/images/12.png" width="72" height="72">
+						</div>
+						<div class="task_info">
+							<div class="task_info_name">开心酷跑</div>
+							<div class="task_info_star"><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="box clear">
+			<div class="rank_box rank_box_1">
+				<div class="title rel">
+					<h2>新上线</h2>
+					<!-- <div class="sub">
+						<a href="javascript:;" class="cur">每周</a>
+						<span>|</span>
+						<a href="javascript:;">每月</a>
+						<span>|</span>
+						<a href="javascript:;">每日</a>
+					</div> -->
+				</div>
+				<div class="rank_list">
+					<div class="list_title clear">
+						<div class="tit_item tit_item1">产品</div>
+						<div class="tit_item tit_item2">激活量</div>
+						<div class="tit_item tit_item3">操作</div>
+					</div>
+					<ul>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/1.png" width="36" height="36">
+								<div class="rank_num rank_num_1">1</div>
+							</div>
+							<div class="con_item con_item1">爸爸去哪儿2</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/2.png" width="36" height="36">
+								<div class="rank_num rank_num_2">2</div>
+							</div>
+							<div class="con_item con_item1">宝石杀</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/3.png" width="36" height="36">
+								<div class="rank_num rank_num_3">3</div>
+							</div>
+							<div class="con_item con_item1">捕鱼达人2</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">4</div>
+							</div>
+							<div class="con_item con_item1">51导游</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">5</div>
+							</div>
+							<div class="con_item con_item1">QQ农场</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">6</div>
+							</div>
+							<div class="con_item con_item1">疯狂赛车</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">7</div>
+							</div>
+							<div class="con_item con_item1">疯狂切水果</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">8</div>
+							</div>
+							<div class="con_item con_item1">神魔联盟</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="rank_box rank_box_2">
+				<div class="title rel">
+					<h2>广告主</h2>
+					<!-- <div class="sub">
+						<a href="javascript:;" class="cur">每周</a>
+						<span>|</span>
+						<a href="javascript:;">每月</a>
+						<span>|</span>
+						<a href="javascript:;">每日</a>
+					</div> -->
+				</div>
+				<div class="rank_list">
+					<div class="list_title clear">
+						<div class="tit_item tit_item1">产品</div>
+						<div class="tit_item tit_item2">激活量</div>
+						<div class="tit_item tit_item3">操作</div>
+					</div>
+					<ul>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/9.png" width="36" height="36">
+								<div class="rank_num rank_num_1">1</div>
+							</div>
+							<div class="con_item con_item1">开心消消乐</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/10.png" width="36" height="36">
+								<div class="rank_num rank_num_2">2</div>
+							</div>
+							<div class="con_item con_item1">疯狂酷跑</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/11.png" width="36" height="36">
+								<div class="rank_num rank_num_3">3</div>
+							</div>
+							<div class="con_item con_item1">劲爆赛车</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">4</div>
+							</div>
+							<div class="con_item con_item1">单机斗地主</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">5</div>
+							</div>
+							<div class="con_item con_item1">超级玛丽</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">6</div>
+							</div>
+							<div class="con_item con_item1">消灭星星2</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">7</div>
+							</div>
+							<div class="con_item con_item1">找你妹</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">8</div>
+							</div>
+							<div class="con_item con_item1">康康血压</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="rank_box rank_box_3">
+				<div class="title rel">
+					<h2>总排行</h2>
+					<!-- <div class="sub">
+						<a href="javascript:;" class="cur">每周</a>
+						<span>|</span>
+						<a href="javascript:;">每月</a>
+						<span>|</span>
+						<a href="javascript:;">每日</a>
+					</div> -->
+				</div>
+				<div class="rank_list">
+					<div class="list_title clear">
+						<div class="tit_item tit_item1">产品</div>
+						<div class="tit_item tit_item2">激活量</div>
+						<div class="tit_item tit_item3">操作</div>
+					</div>
+					<ul>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/17.png" width="36" height="36">
+								<div class="rank_num rank_num_1">1</div>
+							</div>
+							<div class="con_item con_item1">女神联盟</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/18.png" width="36" height="36">
+								<div class="rank_num rank_num_2">2</div>
+							</div>
+							<div class="con_item con_item1">365日历</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/19.png" width="36" height="36">
+								<div class="rank_num rank_num_3">3</div>
+							</div>
+							<div class="con_item con_item1">豪华泡泡龙</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">4</div>
+							</div>
+							<div class="con_item con_item1">疯狂歪脖爱消除</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">5</div>
+							</div>
+							<div class="con_item con_item1">疯狂跑酷</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">6</div>
+							</div>
+							<div class="con_item con_item1">女神保卫站</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">7</div>
+							</div>
+							<div class="con_item con_item1">泡泡龙萌猫版</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">8</div>
+							</div>
+							<div class="con_item con_item1">霹雳战机</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="rank_box rank_box_4">
+				<div class="title rel">
+					<h2>渠　道</h2>
+					<!-- <div class="sub">
+						<a href="javascript:;" class="cur">每周</a>
+						<span>|</span>
+						<a href="javascript:;">每月</a>
+						<span>|</span>
+						<a href="javascript:;">每日</a>
+					</div> -->
+				</div>
+				<div class="rank_list">
+					<div class="list_title clear">
+						<div class="tit_item tit_item1">产品</div>
+						<div class="tit_item tit_item2">激活量</div>
+						<div class="tit_item tit_item3">操作</div>
+					</div>
+					<ul>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/25.png" width="36" height="36">
+								<div class="rank_num rank_num_1">1</div>
+							</div>
+							<div class="con_item con_item1">百度旅游</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/26.png" width="36" height="36">
+								<div class="rank_num rank_num_2">2</div>
+							</div>
+							<div class="con_item con_item1">英雄杀</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li class="top3">
+							<div class="logo">
+								<img src="/images/36/27.png" width="36" height="36">
+								<div class="rank_num rank_num_3">3</div>
+							</div>
+							<div class="con_item con_item1">走江湖</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">4</div>
+							</div>
+							<div class="con_item con_item1">博雅斗地主</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">5</div>
+							</div>
+							<div class="con_item con_item1">海底捕鱼达人</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">6</div>
+							</div>
+							<div class="con_item con_item1">豆你玩</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">7</div>
+							</div>
+							<div class="con_item con_item1">后宫斗地主</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+						<li>
+							<div class="logo">
+								<div class="rank_num">8</div>
+							</div>
+							<div class="con_item con_item1">三国英雄榜</div>
+							<!-- <div class="con_item con_item2">12800</div>
+							<div class="con_item con_item3"><a href="#" class="show_detailk_link">查看详情</a></div> -->
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="box cooperation_box clear">
+			<div class="title">合作品牌</div>
+			<ul class="cooperation_list_t">
+				<li>
+					<div class="logo">
+						<img src="/images/13.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">4399游戏盒</div>
+						<div class="info_sub_title">4399游戏盒</div>
+					</div>
+				</li>
+				<li>
+					<div class="logo">
+						<img src="/images/14.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">七雄争霸</div>
+						<div class="info_sub_title">七雄争霸</div>
+					</div>
+				</li>
+				<li>
+					<div class="logo">
+						<img src="/images/15.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">割绳子</div>
+						<div class="info_sub_title">割绳子</div>
+					</div>
+				</li>
+				<li>
+					<div class="logo">
+						<img src="/images/16.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">三国杀</div>
+						<div class="info_sub_title">三国杀</div>
+					</div>
+				</li>
+			</ul>
+			<ul class="cooperation_list_b">
+				<li>
+					<div class="logo">
+						<img src="/images/17.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">水果忍者</div>
+						<div class="info_sub_title">水果忍者</div>
+					</div>
+				</li>
+				<li>
+					<div class="logo">
+						<img src="/images/18.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">塔防三国志</div>
+						<div class="info_sub_title">塔防三国志</div>
+					</div>
+				</li>
+				<li>
+					<div class="logo">
+						<img src="/images/19.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">天天爱消除</div>
+						<div class="info_sub_title">天天爱消除</div>
+					</div>
+				</li>
+				<li>
+					<div class="logo">
+						<img src="/images/20.png" width="72" height="72">
+					</div>
+					<div class="info">
+						<div class="info_title">植物大战僵尸</div>
+						<div class="info_sub_title">植物大战僵尸</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="box friend_link_box">
+			<!-- 友情链接：<a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a><span>|</span><a href="#" target="_blank">对双方都</a> -->
+		</div>
+	</div>
+</div>
+<script id="tpl-logined-box" type="text/html">
+<div class="logined_box_inner">
+	<div class="user">您好，{%userName%}</div>
+	<a href="{%enterUrl%}" class="btn btn_login">进入个人中心</a>
+</div>	
+</script>
+<script>document.getElementById('header-nav-index').className="cur";</script>
+<!--#include file="/include/footer.html"-->
+<script type="text/javascript" src="/js/pp/index.js"></script>
+</body>
+</html>

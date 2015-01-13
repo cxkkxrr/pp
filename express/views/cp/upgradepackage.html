@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>更新包-广告主-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<h3>推广详情</h3>
+			<div class="box_nb">
+				<div class="product_name" id="product-name"></div>
+				<div class="product_detail rel" id="product-detail">
+					<div class="arr">◆</div>
+				</div>
+			</div>
+			<div class="box_nb tb_list form_box mt25" id="package-list">
+				<table>
+					<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:400px;"/></colgroup>
+					<tr><th class="hd_bg">包号</th><th class="hd_bg">现有版本</th><th class="hd_bg">新版本</th><th class="hd_bg"></th></tr>
+				</table>
+			</div>
+			<div class="box_nb tb_list mt25" id="new-package-list">
+				<table>
+					<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;" /></colgroup>
+				</table>
+			</div>
+
+			<a href="javascript:;" class="btn btn_yellow mt25" id="submit-btn">确认提交</a>
+		</div>
+	</div>
+</div>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/cp/upgradepackage.js"></script>
+</body>
+</html>

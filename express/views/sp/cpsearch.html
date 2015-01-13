@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我要接任务-渠道-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<div class="box">
+				<h3>产品搜索</h3>
+				<div class="search_box rel">
+					<input type="text" class="intxt" id="kw-input">
+					<a href="javascript:;" class="b_r search_btn" id="kw-search-btn">搜 索</a>
+				</div>
+			</div>
+			<div class="box">
+				<h3>按分类筛选</h3>
+				<div class="form_box clear">
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>计费方式</label>
+						<div class="selbtns select_single" id="billing-type">
+							<a href="javascript:;" class="selbtn" data-val="1">互联网激活</a>
+							<a href="javascript:;" class="selbtn" data-val="2">注册激活</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="txtitem txtitem_2" id="unit-price">
+						<label class="r_lb">价格范围</label>
+						<input type="text" class="intxt"><span class="spl">—</span><input type="text" class="intxt"><span class="unit">元</span>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>操作系统</label>
+						<div class="selbtns select_single" id="system">
+							<a href="javascript:;" class="selbtn" data-val="1">安卓</a>
+							<a href="javascript:;" class="selbtn" data-val="2">IOS</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>产品类型</label>
+						<div class="selbtns select_single" id="product-type">
+							<a href="javascript:;" class="selbtn" data-type="app" data-val="1">应用</a>
+							<a href="javascript:;" class="selbtn" data-type="game" data-val="2">游戏</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem" id="product-type-app-box" style="display:none;">
+						<label class="r_lb r_lb_m">产品分类<br>(最多5个)</label>
+						<div class="selbtns select_multi" data-max="5" id="product-type-app">
+							{{if formLabel && formLabel.productTypeApp}}
+							{{each formLabel.productTypeApp}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+						</div>
+					</div>
+					<div class="selitem" id="product-type-game-box" style="display:none;">
+						<label class="r_lb r_lb_m">产品分类<br>(最多5个)</label>
+						<div class="selbtns select_multi" data-max="5" id="product-type-game">
+							{{if formLabel && formLabel.productTypeGame}}
+							{{each formLabel.productTypeGame}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb">产品来源</label>
+						<div class="selbtns select_single" data-canempty="1" id="product-source">
+							<a href="javascript:;" class="selbtn" data-val="1">官方产品</a>
+							<a href="javascript:;" class="selbtn" data-val="2">网盟产品</a>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb r_lb_m">推广要求<br>(最多3个)</label>
+						<div class="selbtns select_multi" data-max="3" id="requirement-label">
+							<a href="javascript:;" class="selbtn" data-val="1">留存</a>
+							<a href="javascript:;" class="selbtn" data-val="2">活跃</a>
+							<a href="javascript:;" class="selbtn" data-val="3">订单率</a>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb">量级要求</label>
+						<div class="selbtns select_single" data-canempty="1" id="quantity">
+							<a href="javascript:;" class="selbtn" data-val="1">1-500</a>
+							<a href="javascript:;" class="selbtn" data-val="2">501-1K</a>
+							<a href="javascript:;" class="selbtn" data-val="3">1K以上</a>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb">数据周期</label>
+						<div class="selbtns select_single" data-canempty="1" id="data-cycle">
+							<a href="javascript:;" class="selbtn" data-val="1">实时数据</a>
+							<a href="javascript:;" class="selbtn" data-val="2">非实时数据</a>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb r_lb_m">推广方式<br>(最多3个)</label>
+						<div class="selbtns select_multi" data-max="3" id="push-type">
+							{{if formLabel && formLabel.pushType}}
+							{{each formLabel.pushType}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb r_lb_m">人群标签<br>(最多5个)</label>
+						<div class="selbtns select_multi" data-max="5" id="crowd-label">
+							{{if formLabel && formLabel.crowdLabel}}
+							{{each formLabel.crowdLabel}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+						</div>
+					</div>
+					<div>
+						<label class="r_lb"></label>
+						<a href="javascript:;" class="b_r submitbtn" id="con-search-btn">搜 索</a>
+					</div>
+				</div>
+			</div>
+			<h3 class="mt25">产品推荐</h3>
+			<ul class="box_tab_nav" id="rec-type">
+				<li data-val="hot"><a href="javascript:;">最热门</a></li>
+				<li data-val="latest"><a href="javascript:;">最新上线</a></li>
+				<li data-val="scores"><a href="javascript:;">最受好评</a></li>
+			</ul>
+			<div class="box tb_list">
+				<div id="rec-list">
+					<!-- <table>
+						<colgroup><col class="c200"/><col class="c100"/><col class="c100"/><col class="c200"/><col class="c300"/></colgroup>
+						<tr><th class="hd_bg">产品</th><th class="hd_bg">单价(元)</th><th class="hd_bg">计价方式</th><th class="hd_bg">推广要求</th><th class="hd_bg">操作</th></tr>
+						<tr><td class="logo"><img src="../images/32x32.jpg" width="32" height="32"> 微信</td><td>1.5</td><td>注册</td><td>Push、推广位、市场</td><td class="btnbox"><a href="cpdetail.html?pid=1" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+						<tr><td class="logo"><img src="../images/32x32.jpg" width="32" height="32"> 微信</td><td>1.5</td><td>注册</td><td>Push、推广位、市场</td><td class="btnbox"><a href="cpdetail.html?pid=1" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+						<tr><td class="logo"><img src="../images/32x32.jpg" width="32" height="32"> 微信</td><td>1.5</td><td>注册</td><td>Push、推广位、市场</td><td class="btnbox"><a href="cpdetail.html?pid=1" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+						<tr><td class="logo"><img src="../images/32x32.jpg" width="32" height="32"> 微信</td><td>1.5</td><td>注册</td><td>Push、推广位、市场</td><td class="btnbox"><a href="cpdetail.html?pid=1" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+						<tr><td class="logo"><img src="../images/32x32.jpg" width="32" height="32"> 微信</td><td>1.5</td><td>注册</td><td>Push、推广位、市场</td><td class="btnbox"><a href="cpdetail.html?pid=1" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+						<tr><td class="logo"><img src="../images/32x32.jpg" width="32" height="32"> 微信</td><td>1.5</td><td>注册</td><td>Push、推广位、市场</td><td class="btnbox"><a href="cpdetail.html?pid=1" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+					</table> -->
+				</div>
+				<div class="page" id="rec-page" style="display:none;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="tpl-rec" type="text/html">
+<table>
+	<colgroup><col class="c200"/><col class="c100"/><col class="c100"/><col class="c200"/><col class="c300"/></colgroup>
+	<tr><th class="hd_bg">产品</th><th class="hd_bg">单价(元)</th><th class="hd_bg">计价方式</th><th class="hd_bg">推广要求</th><th class="hd_bg">操作</th></tr>
+	{% each recList %}
+	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.billingMethod %}</td><td>{% $value.expandTypeList.join(', ') %}</td><td class="btnbox"><a href="cpdetail.html?pid={% $value.taskId %}" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+	{% /each %}
+</table>
+</script>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/sp/cpsearch.js"></script>
+</body>
+</html>

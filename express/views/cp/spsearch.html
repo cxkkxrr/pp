@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>我要推广-广告主-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<div class="box_nb top_btn_box"><a href="addtask.html" target="_blank" class="b_r release_btn">发布产品</a><a href="qualificationreview.html" style="margin-right:5px;" target="_blank" class="b_r release_btn">资质审核</a></div>
+			<div class="box">
+				<h3><input type="radio" name="conditionType" value="1" id="condition-type-1" checked="checked"><label for="condition-type-1">按分类筛选</label>　　<input type="radio" name="conditionType" value="2" id="condition-type-2"><label for="condition-type-2">按渠道ID搜索</label></h3>
+				<div class="form_box clear" id="search-type-box">
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>操作系统</label>
+						<div class="selbtns select_single" id="system">
+							<a href="javascript:;" class="selbtn" data-val="1">安卓</a>
+							<a href="javascript:;" class="selbtn" data-val="2">IOS</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb"><span class="red">*</span>产品类型</label>
+						<div class="selbtns select_single" id="product-type">
+							<a href="javascript:;" class="selbtn" data-val="1">应用</a>
+							<a href="javascript:;" class="selbtn" data-val="2">游戏</a>
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb r_lb_m"><span class="red">*</span>推广方式<br>&nbsp;(最多3个)</label>
+						<div class="selbtns select_multi" data-max="3" id="push-type">
+							{{if formLabel && formLabel.pushType}}
+							{{each formLabel.pushType}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+							<span class="err"></span>
+						</div>
+					</div>
+					<div class="selitem">
+						<label class="r_lb r_lb_m"><span class="red">*</span>人群标签<br>&nbsp;(最多5个)</label>
+						<div class="selbtns select_multi" data-max="5" id="crowd-label">
+							{{if formLabel && formLabel.crowdLabel}}
+							{{each formLabel.crowdLabel}}
+							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							{{/each}}
+							{{/if}}
+							<span class="err"></span>
+						</div>
+					</div>
+					<div style="clear:both;">
+						<label class="r_lb"></label>
+						<a href="javascript:;" class="b_r submitbtn" id="con-search-btn">搜 索</a>
+					</div>
+				</div>
+				<div class="search_box rel" style="display:none;" id="search-keyword-box">
+					<input type="text" class="intxt" maxlength="10">
+					<a href="javascript:;" class="b_r search_btn" id="kw-search-btn">搜索</a>
+				</div>
+			</div>
+			<div class="box_nb tb_list" id="search-result" style="display:none;">
+				<div id="result-list">
+					<!-- <table>
+						<colgroup><col class="c60"/><col class="c140"/><col class="c100"/><col class="c100"/><col style="width:410px;"/></colgroup>
+						<tr><th class="hd_bg">渠道ID</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道等级</th><th class="hd_bg">操作</th><th class="hd_bg"></th></tr>
+						<tr><td>3422</td><td>推荐位</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td><a href="spdetail.html?sid=12" target="_blank" class="btn btn_yellow">查看详情</a></td><td></td></tr>
+						<tr><td>3422</td><td>推荐位</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td><a href="spdetail.html?sid=12" target="_blank" class="btn btn_yellow">查看详情</a></td><td></td></tr>
+						<tr><td>3422</td><td>推荐位</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td><a href="spdetail.html?sid=12" target="_blank" class="btn btn_yellow">查看详情</a></td><td></td></tr>
+						<tr><td>3422</td><td>推荐位</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span><span class="icon_star_hui"></span></td><td><a href="spdetail.html?sid=12" target="_blank" class="btn btn_yellow">查看详情</a></td><td></td></tr>
+						<tr><td>3422</td><td>推荐位</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span><span class="icon_star_hui"></span><span class="icon_star_hui"></span></td><td><a href="spdetail.html?sid=12" target="_blank" class="btn btn_yellow">查看详情</a></td><td></td></tr>
+					</table> -->
+				</div>
+				<div class="page" id="result-page" style="display:none;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="tpl-result" type="text/html">
+<table>
+	<colgroup><col class="c60"/><col class="c140"/><col class="c100"/><col class="c100"/><col style="width:410px;"/></colgroup>
+	<tr><th class="hd_bg">渠道ID</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道等级</th><th class="hd_bg">操作</th><th class="hd_bg"></th></tr>
+	{% each resultList %}
+	<tr><td>{% $value.idStr %}</td><td>{% $value.expandTypeList.join(', ') %}</td><td>{% #$value.grade | convert2star %}</td><td><a href="spdetail.html?sid={% $value.id %}" target="_blank" class="btn btn_yellow">查看详情</a></td><td></td></tr>
+	{% /each %}
+</table>
+</script>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/cp/spsearch.js"></script>
+</body>
+</html>

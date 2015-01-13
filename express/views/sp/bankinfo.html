@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>基本信息-渠道-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<ul class="box_tab_nav">
+				<li><a href="userinfo.html">基本信息</a></li>
+				<li><a href="qualification.html">资质信息</a></li>
+				<li class="cur"><a>财务信息</a></li>
+				<li><a href="pwd.html">密码修改</a></li>
+			</ul>
+			<div class="box userinfo_form">
+				<div class="form_box clear" id="form-box">
+					<div class="txtitem" id="bank-name">
+						<label class="r_lb"><span class="red" style="display:none;">*</span>银行名称：</label>
+						<span class="txt"></span>
+						<input type="text" class="intxt" style="display:none;">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="bank-site">
+						<label class="r_lb"><span class="red" style="display:none;">*</span>开户行：</label>
+						<span class="txt"></span>
+						<input type="text" class="intxt" style="display:none;">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="bank-card-name">
+						<label class="r_lb"><span class="red" style="display:none;">*</span>开户名：</label>
+						<span class="txt"></span>
+						<input type="text" class="intxt" style="display:none;">
+						<span class="err"></span>
+					</div>
+					<div class="txtitem" id="bank-card-number">
+						<label class="r_lb"><span class="red" style="display:none;">*</span>账号：</label>
+						<span class="txt"></span>
+						<input type="text" class="intxt" style="display:none;">
+						<span class="err"></span>
+					</div>
+					<div>
+						<label class="r_lb"></label>
+						<a href="javascript:;" class="b_r submitbtn" id="edit-btn" style="display:none;">修改财务信息</a>
+						<a href="javascript:;" class="b_r submitbtn" id="submit-btn" style="display:none;">确 认 修 改</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/sp/bankinfo.js"></script>
+</body>
+</html>
