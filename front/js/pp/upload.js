@@ -1,8 +1,8 @@
 ;(function(){
 	ppClass.Upload = function(config){
 		var settings = {
-			flash_url : PPG.imgBaseUrl + 'swf/swfupload.swf',
-			flash9_url : PPG.imgBaseUrl + 'swf/swfupload_fp9.swf',
+			flash_url : __uri('/swf/swfupload.swf'),
+			flash9_url : __uri('/swf/swfupload_fp9.swf'),
 			upload_url: PPG.apiBaseUrl + 'appmarket/upload.do?action=uploadFile',
 			post_params: {
 				'type': config.type || '0', //0为图片，否则为压缩包
@@ -32,7 +32,7 @@
 			debug: false,
 
 			// Button Settings
-			button_image_url : PPG.imgBaseUrl + "img/upload_btn.png",
+			button_image_url : __uri('/img/upload_btn.png'),
 			button_placeholder_id : config.buttonPlaceholderId, //"newProblem_uploadFlash",
 			button_width: 75,
 			button_height: 26,
