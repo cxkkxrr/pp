@@ -12,7 +12,7 @@
 	$cpDetailTotal.html('查询中...');
 	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'pid': pid}, function(json){
 		(pid == '111') && (alert('该详情不存在~'),window.close());
-		$cpDetailTotal.html('<li><img src="../images/32x32.jpg" width="32" height="32"></li>\
+		$cpDetailTotal.html('<li><img src="/images/32x32.jpg" width="32" height="32"></li>\
 					<li>微信111</li>\
 					<li>包号：123</li>\
 					<li><span class="orange">价格：1.5元</span></li>\

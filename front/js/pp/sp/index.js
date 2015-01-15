@@ -7,7 +7,7 @@
 	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {}, function(json){
 		var htmlList = [];
 		for(var i = 0; i < 6; i++){
-			htmlList.push('<div class="item"><p class="p_logo"><a href="mytask.html" target="_blank"><img src="../images/32x32.jpg" width="48" height="48"></a></p><p class="p_name"><a href="mytask.html" target="_blank">微信</a></p></div>');
+			htmlList.push('<div class="item"><p class="p_logo"><a href="mytask.html" target="_blank"><img src="/images/32x32.jpg" width="48" height="48"></a></p><p class="p_name"><a href="mytask.html" target="_blank">微信</a></p></div>');
 		}
 		$myProductList.hide().html(htmlList.join('')).fadeIn('slow');
 		$moneyTotal.hide().html('<em>￥</em>888888').fadeIn('slow');
@@ -106,7 +106,7 @@
 		totalCount = 10;
 		var htmlList = [];
 		for(var i = 0; i < totalCount; i++){
-			htmlList.push('<li class="chart_item"><div class="chart" id="chart_id_'+i+'"></div><div class="p_name"><a href="taskdetail.html" target="_blank"><img src="../images/32x32.jpg" width="48" height="48"> 微信 包号01'+i+'</a></div></li>');
+			htmlList.push('<li class="chart_item"><div class="chart" id="chart_id_'+i+'"></div><div class="p_name"><a href="taskdetail.html" target="_blank"><img src="/images/32x32.jpg" width="48" height="48"> 微信 包号01'+i+'</a></div></li>');
 		}
 		$scrollList.css({'width':(sWidth*totalCount+100)+'px'}).hide().html(htmlList.join('')).fadeIn('slow');
 		if(totalCount > 3){

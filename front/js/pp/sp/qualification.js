@@ -27,7 +27,7 @@
 		$mobile.html('mobile');
 		$website.html('website');
 		$tel.html('tel');
-		$yyzz.attr('href','../images/108.jpg').html('<img src="../images/108.jpg" height="80">');
-		$zzjg.attr('href','../images/108.jpg').html('<img src="../images/108.jpg" height="80">');
+		$yyzz.attr('href','/images/108.jpg').html('<img src="/images/108.jpg" height="80">');
+		$zzjg.attr('href','/images/108.jpg').html('<img src="/images/108.jpg" height="80">');
 	});
 })();
