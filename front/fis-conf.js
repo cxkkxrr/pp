@@ -1,5 +1,5 @@
 //Step 1. 取消下面的注释开启simple插件，注意需要先进行插件安装 npm install -g fis-postpackager-simple
- fis.config.set('modules.postpackager', 'simple');
+fis.config.set('modules.postpackager', 'simple');
 
 //通过pack设置干预自动合并结果，将公用资源合并成一个文件，更加利于页面间的共用
 
@@ -25,8 +25,33 @@ fis.config.merge({
 			'/js/pp/upload.js',
 			'/js/pp/checkData.js',
 			'/js/pp/alertWindow.js'
-	    ]
+		]
 	}
+});
+
+fis.config.set('roadmap.path',[
+	{
+        reg: /^\/express-views\/(.*)/i,
+        release: '/express/views/$1',
+        url: '$1'
+    },
+    {
+        reg: '**',
+        release: '/www.pushpie.com/$&',
+        url: '$&'
+    }
+]);
+
+fis.config.merge({
+    roadmap : {
+        domain : {
+            'css/**.css' : 'http://www.pushpie.com',
+            'img/**' : 'http://www.pushpie.com',
+            'images/**' : 'http://www.pushpie.com',
+            'swf/**' : 'http://www.pushpie.com',
+            'js/**.js' : 'http://www.pushpie.com',
+        }
+    }
 });
 
 //Step 3. 取消下面的注释可以开启simple对零散资源的自动合并
