@@ -63,9 +63,9 @@
 		params.action = 'manageTask';
 		params.curPageNum = curPageNum;
 		params.pageSize = pageSize;
-		ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/task.do?callback=?', params, function(json){
+		ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/task.do?callback=?', params, function(json, cmdId){
 			if(json.errorCode == '0' && !!json.result && !!json.result.rows && json.result.rows.length > 0){
-				$resultList.html(template('tpl-result',{'resultList':json.result.rows}));
+				$resultList.html(template('tpl-result-'+cmdId,{'resultList':json.result.rows}));
 				page.refresh(curPageNum, Math.ceil(json.result.total/pageSize));
 			}else if(json.errorCode == '99'){
 				$resultList.html('登录超时，请重新登录');
@@ -74,7 +74,7 @@
 				$resultList.html('无记录');
 				page.hide();
 			}
-		}, null, null, 'getMyTaskData');
+		}, null, params.type, 'getMyTaskData');
 	}
 
 
@@ -116,5 +116,4 @@
 
 
 	$searchConditionType.find('li').eq(1).trigger('click');
-	//loadData();
 })();
