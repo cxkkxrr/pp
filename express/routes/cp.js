@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var ppHttp = require('pushpie-http');
+var ppLogger = require('pushpie-logger');
 var fs = require('fs');
 var exists = fs.existsSync || path.existsSync;
 var ppCache = require('pushpie-cache');
@@ -37,6 +38,47 @@ router.get(['/', /^\/[a-zA-Z0-9]+.html$/], function(req, res, next) {
 router.get(['/','/index.html'], function(req, res, next) {
   res.render('cp/index.html', res._pp_tpl_data);
 });
+
+
+//productdetail
+router.get(['/productdetail.html'], function(req, res, next) {
+  var pid = req.query.pid;
+  if(!pid){
+    res.redirect('mytask.html');
+    return;
+  }
+
+  function _render(json){
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '[productdetail.html error] result is empty.');
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '[productdetail.html error] ' + JSON.stringify(json));
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res.render('cp/productdetail.html', res._pp_tpl_data);
+  }
+
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/task.do?action=taskPackageDetails&taskId='+pid+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
+});
+
 
 //其他页面
 router.get(/^\/[a-zA-Z0-9]+.html$/, function(req, res, next) {

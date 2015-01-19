@@ -12,24 +12,63 @@
 		<div class="contain">
 			<h3>推广详情</h3>
 			<div class="box_nb">
-				<div class="product_name" id="product-name"></div>
-				<div class="product_detail rel" id="product-detail">
+				<div class="product_name"><img src="{{detail.logoPath}}" width="32" height="32">　{{detail.productName}}</div>
+				<div class="product_detail rel">
 					<div class="arr">◆</div>
+					<p>单价：{{detail.unitPrice}}元　　版本号：{{detail.versionNo}}</p><p>推广方式：{{detail.expandTypeList && detail.expandTypeList.join('、 ')}}</p>
 				</div>
 			</div>
-			<div class="box_nb tb_list mt25" id="package-list">
-				<table>
-					<colgroup><col class="c60"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c300"/></colgroup>
-					<tr><th class="hd_bg">包号</th><th class="hd_bg">上线时间</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道ID</th><th class="hd_bg">量级总额</th><th class="hd_bg">金额总计(元)</th><th class="hd_bg">操作</th></tr>
-					<tr><td>1001</td><td>2014.02.03</td><td>PUSH</td><td><a href="spdetail.html" class="txtlink" target="_blank">1021</a></td><td>5000</td><td>1000</td><td class="btnbox"><a href="javascript:;" class="btn btn_yellow offlineBtn">下线处理</a><a href="javascript:;" class="btn btn_yellow addFlowBtn">通知加量</a><a href="packagedetail.html?pid=1" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
-					<tr><td>1001</td><td>2014.02.03</td><td>PUSH</td><td><a href="spdetail.html" class="txtlink" target="_blank">1021</a></td><td>5000</td><td>1000</td><td class="btnbox"><a href="javascript:;" class="btn btn_yellow offlineBtn">下线处理</a><a href="javascript:;" class="btn btn_yellow addFlowBtn">通知加量</a><a href="packagedetail.html?pid=1" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
-					<tr><td>1001</td><td>2014.02.03</td><td>PUSH</td><td><a href="spdetail.html" class="txtlink" target="_blank">1021</a></td><td>5000</td><td>1000</td><td class="btnbox"><a href="javascript:;" class="btn btn_yellow offlineBtn">下线处理</a><a href="javascript:;" class="btn btn_yellow addFlowBtn">通知加量</a><a href="packagedetail.html?pid=1" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
-				</table>
-				<div class="page" id="package-page" style="display:none;"></div>
+			<div class="box_nb tb_list mt25">
+				<div id="result-list">
+					<!-- <table>
+						<colgroup><col class="c60"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c300"/></colgroup>
+						<tr><th class="hd_bg">包号</th><th class="hd_bg">上线时间</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道ID</th><th class="hd_bg">量级总额</th><th class="hd_bg">金额总计(元)</th><th class="hd_bg">操作</th></tr>
+						<tr><td>1001</td><td>2014.02.03</td><td>PUSH</td><td><a href="spdetail.html" class="txtlink" target="_blank">1021</a></td><td>5000</td><td>1000</td><td class="btnbox"><a href="javascript:;" class="btn btn_yellow offlineBtn">下线处理</a><a href="javascript:;" class="btn btn_yellow addFlowBtn">通知加量</a><a href="packagedetail.html?pid=1" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
+						<tr><td>1001</td><td>2014.02.03</td><td>PUSH</td><td><a href="spdetail.html" class="txtlink" target="_blank">1021</a></td><td>5000</td><td>1000</td><td class="btnbox"><a href="javascript:;" class="btn btn_yellow offlineBtn">下线处理</a><a href="javascript:;" class="btn btn_yellow addFlowBtn">通知加量</a><a href="packagedetail.html?pid=1" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
+						<tr><td>1001</td><td>2014.02.03</td><td>PUSH</td><td><a href="spdetail.html" class="txtlink" target="_blank">1021</a></td><td>5000</td><td>1000</td><td class="btnbox"><a href="javascript:;" class="btn btn_yellow offlineBtn">下线处理</a><a href="javascript:;" class="btn btn_yellow addFlowBtn">通知加量</a><a href="packagedetail.html?pid=1" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
+					</table> -->
+				</div>
+				<div class="page" id="result-page" style="display:none;"></div>
 			</div>
 		</div>
 	</div>
 </div>
+<script id="tpl-result-running" type="text/html">
+<table>
+	<colgroup><col class="c60"/><col class="c200"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c200"/></colgroup>
+	<tr><th class="hd_bg">包号</th><th class="hd_bg">待结算时间区间</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道ID</th><th class="hd_bg">量级总额</th><th class="hd_bg">金额总计(元)</th><th class="hd_bg">操作</th></tr>
+	{% each resultList %}
+	<tr><td>{% $value.packageNo %}</td><td>{% $value.payDateRange %}</td><td>{% $value.expandType && $value.expandType %}</td><td>{% $value.spIdStr %}</td><td>{% $value.totalAmount %}</td><td>{% $value.totalAmountPrice %}</td><td class="btnbox"><a href="packagedetail.html?pid={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
+	{% /each %}
+</table>
+</script>
+<script id="tpl-result-toPay" type="text/html">
+<table>
+	<colgroup><col class="c60"/><col class="c200"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c200"/></colgroup>
+	<tr><th class="hd_bg">包号</th><th class="hd_bg">待结算时间区间</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道ID</th><th class="hd_bg">量级总额</th><th class="hd_bg">金额总计(元)</th><th class="hd_bg">操作</th></tr>
+	{% each resultList %}
+	<tr><td>{% $value.packageNo %}</td><td>{% $value.payDateRange %}</td><td>{% $value.expandType && $value.expandType %}</td><td>{% $value.spIdStr %}</td><td>{% $value.totalAmount %}</td><td>{% $value.totalAmountPrice %}</td><td class="btnbox"><a href="packagedetail.html?pid={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看明细</a><a href="javascript:;" class="btn btn_yellow">确认结算</a><a href="javascript:;" class="btn btn_yellow">无法结算</a></td></tr>
+	{% /each %}
+</table>
+</script>
+<script id="tpl-result-toPayThisMonth" type="text/html">
+<table>
+	<colgroup><col class="c60"/><col class="c200"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c200"/></colgroup>
+	<tr><th class="hd_bg">包号</th><th class="hd_bg">待结算时间区间</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道ID</th><th class="hd_bg">量级总额</th><th class="hd_bg">金额总计(元)</th><th class="hd_bg">操作</th></tr>
+	{% each resultList %}
+	<tr><td>{% $value.packageNo %}</td><td>{% $value.payDateRange %}</td><td>{% $value.expandType && $value.expandType %}</td><td>{% $value.spIdStr %}</td><td>{% $value.totalAmount %}</td><td>{% $value.totalAmountPrice %}</td><td class="btnbox"><a href="packagedetail.html?pid={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看明细</a></td></tr>
+	{% /each %}
+</table>
+</script>
+<script id="tpl-result-paid" type="text/html">
+<table>
+	<colgroup><col class="c60"/><col class="c200"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c200"/></colgroup>
+	<tr><th class="hd_bg">包号</th><th class="hd_bg">时间区间</th><th class="hd_bg">推广方式</th><th class="hd_bg">渠道ID</th><th class="hd_bg">量级总额</th><th class="hd_bg">金额总计(元)</th><th class="hd_bg">操作</th></tr>
+	{% each resultList %}
+	<tr><td>{% $value.packageNo %}</td><td>{% $value.payDateRange %}</td><td>{% $value.expandType && $value.expandType %}</td><td>{% $value.spIdStr %}</td><td>{% $value.totalAmount %}</td><td>{% $value.totalAmountPrice %}</td><td class="btnbox"><a href="packagedetail.html?pid={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看明细</a><a href="evaluation.html?pid={% $value.applyId %}" target="_blank" class="btn btn_yellow">评价渠道</a></td></tr>
+	{% /each %}
+</table>
+</script>
 {{include 'include/footer'}}
 <script type="text/javascript" src="/js/pp/cp/productdetail.js"></script>
 </body>

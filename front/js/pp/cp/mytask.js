@@ -65,7 +65,7 @@
 		params.pageSize = pageSize;
 		ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/task.do?callback=?', params, function(json, cmdId){
 			if(json.errorCode == '0' && !!json.result && !!json.result.rows && json.result.rows.length > 0){
-				$resultList.html(template('tpl-result-'+cmdId,{'resultList':json.result.rows}));
+				$resultList.html(template('tpl-result-'+cmdId, {'resultList':json.result.rows}));
 				page.refresh(curPageNum, Math.ceil(json.result.total/pageSize));
 			}else if(json.errorCode == '99'){
 				$resultList.html('登录超时，请重新登录');
