@@ -116,12 +116,12 @@
 .friend_link_box span{padding:0 8px 0 8px;}
 
 
+.banner_nav{width:600px;height:40px;position:absolute;top:222px;left:290px;}
+.banner_nav a{display:block;float:left;margin-right:35px;width:148px;height:38px;color:#fff;font-size:16px;line-height:38px;text-align:center;border:1px solid #fff;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;}
+.banner_nav a.cur{background-color:#fff;color:#3a79c8;}
 
 /*帮助中心*/
 .faq_banner{height:315px;position:relative;background:url(../img/faq_banner.jpg) no-repeat;}
-.faq_nav{width:600px;height:40px;position:absolute;top:222px;left:290px;}
-.faq_nav a{display:block;float:left;margin-right:35px;width:148px;height:38px;color:#fff;font-size:16px;line-height:38px;text-align:center;border:1px solid #fff;-webkit-border-radius:5px;-moz-border-radius:5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;}
-.faq_nav a.cur{background-color:#fff;color:#3a79c8;}
 .faq_cont{width:900px;margin-bottom:30px;}
 .faq_cont .item{margin-top:30px;border-bottom:1px solid #e1e1e1;}
 .faq_cont .item .title{font-weight:bold;margin-bottom:15px;}
@@ -133,6 +133,7 @@
 .about_cont{width:900px;margin-bottom:30px;}
 .about_cont p{margin-bottom:20px;line-height:30px;}
 
+.about_cont .join_title{font-size:18px;font-weight:bold;height:36px;background-color:#ececec;line-height:34px;padding-left:8px;margin-left:-8px;}
 
 /*平台优势*/
 /*.advantage_line{width:900px;margin-top:50px;margin-bottom:50px;}
