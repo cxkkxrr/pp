@@ -50,7 +50,25 @@
 	var $unLoginedBox = $('#un-login-box');
 	var $loginedBox = $('#logined-box');
 
-	$unLoginedBox.fadeIn('fast');
+	if(ppLib.cookie.get('username') != '' && ppLib.cookie.get('usertype') != ''){
+		ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/user.do?callback=?',{'action':'getUserDetails'},function(json){
+			if(json.errorCode == '0'){
+				var enterUrl = (json.result.type == 0) ? '/cp/' : '/sp/';
+				var typeStr = (json.result.type == 0) ? '[广告主]' : '[渠道商]';
+				$loginedBox.html(template('tpl-logined-box',{
+					'userName': json.result.userName + ' ' + typeStr,
+					'enterUrl': enterUrl
+				}));
+				$unLoginedBox.fadeOut('fast');
+				$loginedBox.fadeIn('fast');
+			}else{
+				$unLoginedBox.fadeIn('fast');
+			}
+		}, 7000);
+	}else{
+		$unLoginedBox.fadeIn('fast');
+	}
+	
 
 	$loginBox.find('input').bind('keypress.loginBox',function(e){
 		if(e.which == 13) {
@@ -104,8 +122,9 @@
 			//console.log(json);
 			if(json.errorCode == 0){ //登录成功
 				var enterUrl = (ppLib.cookie.get('usertype') == '0') ? '/cp/' : '/sp/';
+				var typeStr = (ppLib.cookie.get('usertype') == '0') ? '[广告主]' : '[渠道商]';
 				$loginedBox.html(template('tpl-logined-box',{
-					'userName': ppLib.cookie.get('username'),
+					'userName': json.result.userName + ' ' + typeStr,
 					'enterUrl': enterUrl
 				}));
 				$unLoginedBox.fadeOut('fast');
