@@ -5,7 +5,7 @@
 		{{if userInfo}}
 		<ul class="user">
 			<li>欢迎您，{{userInfo.userName}}</li>
-			{{if userInfo.msgCount > 0}}<li class="b_r msg">您有<span class="num">{{userInfo.msgCount}}</span>条未读通知</li>{{/if}}
+			{{if userInfo.msgCount > 0}}<li class="b_r msg" id="header-msg-num-box">您有<span class="num">{{userInfo.msgCount}}</span>条未读通知</li>{{/if}}
 		</ul>
 		{{/if}}
 		<ul class="t_nav">

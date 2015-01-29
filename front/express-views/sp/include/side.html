@@ -3,7 +3,7 @@
 		<li><a href="<!--#echo var='spBaseUrl'-->" {{if navType==1}}class="cur"{{/if}}>会员中心</a></li>
 		<li><a href="<!--#echo var='spBaseUrl'-->cpsearch.html" {{if navType==2}}class="cur"{{/if}}>我要接任务</a></li>
 		<li><a href="<!--#echo var='spBaseUrl'-->mytask.html" {{if navType==3}}class="cur"{{/if}}>任务管理</a></li>
-		<li><a href="<!--#echo var='spBaseUrl'-->message.html" class="rel {{if navType==4}} cur{{/if}}">消息中心{{if userInfo && userInfo.msgCount > 0}}<span class="icon msg">{{userInfo.msgCount}}</span>{{/if}}</a></li>
+		<li><a href="<!--#echo var='spBaseUrl'-->message.html" class="rel {{if navType==4}} cur{{/if}}">消息中心{{if userInfo && userInfo.msgCount > 0}}<span id="side-msg-num-box" class="icon msg msgNumBox">{{userInfo.msgCount}}</span>{{/if}}</a></li>
 		<li><a href="<!--#echo var='spBaseUrl'-->userinfo.html" {{if navType==5}}class="cur"{{/if}}>账号管理</a></li>
 	</ul>
 </div>

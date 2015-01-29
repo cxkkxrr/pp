@@ -64,12 +64,15 @@
 		params.action = 'showMsgByUser';
 		params.curPageNum = curPageNum;
 		params.pageSize = pageSize;
-		ppLib.getJSONEx(PPG.apiBaseUrl + '/appmarket/internalMsg.do?callback=?', params, function(json){
+		ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/internalMsg.do?callback=?', params, function(json){
 			if(json.errorCode == '0' && !!json.result && !!json.result.rows && json.result.rows.length > 0){
 				$resultList.html(template('tpl-result',{'resultList':json.result.rows}));
 				page.refresh(curPageNum, Math.ceil(json.result.total/pageSize));
 			}else if(json.errorCode == '99'){
 				$resultList.html('登录超时，请重新登录');
+				page.hide();
+			}else if(json.errorCode == '9999'){
+				$resultList.html('查询超时，请刷新重试');
 				page.hide();
 			}else{
 				$resultList.html('无记录');
@@ -119,4 +122,26 @@
 
 
 	//loadData();
+	var $headerMsgNumBox = $('#header-msg-num-box');
+	var $sideMsgNumBox = $('#side-msg-num-box');
+	$resultList.on('click', '.contLink', function(){
+		var $this = $(this);
+		$this.parent().html($this.html());
+		var mid = $this.data('mid');
+		ppLib.postEx(PPG.apiBaseUrl + 'appmarket/internalMsg.do?callback=?', {'action':'readMsg','ids':mid}, function(json){
+			if(json.errorCode == '0'){
+				var num = parseInt($headerMsgNumBox.find('.num').html(), 10) || 0;
+				if(num > 0){
+					num--;
+				}
+				$headerMsgNumBox.find('.num').html(num);
+				$sideMsgNumBox.html(num);
+				if(num == 0){
+					$headerMsgNumBox.hide();
+					$sideMsgNumBox.hide();
+				}
+			}
+		});
+		return false;
+	});
 })();

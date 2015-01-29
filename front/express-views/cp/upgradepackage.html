@@ -18,21 +18,31 @@
 				</div>
 			</div>
 			<div class="box_nb tb_list form_box mt25" id="package-list">
-				<table>
-					<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:400px;"/></colgroup>
-					<tr><th class="hd_bg">包号</th><th class="hd_bg">现有版本</th><th class="hd_bg">新版本</th><th class="hd_bg"></th></tr>
-				</table>
+				<!-- <table>
+					<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;"/></colgroup>
+					<tr><th class="hd_bg">包号</th><th class="hd_bg">现有版本号</th><th class="hd_bg">文件</th><th class="hd_bg">操作</th><th class="hd_bg"></th></tr>
+					<tr><td>11</td><td>1.1.1</td><td>xxxx.apk</td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red">已上传新版本1.1.2，审核中</td></tr>
+					<tr><td>11</td><td>1.1.2</td><td>xxxx.apk</td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red"></td></tr>
+					<tr><td>11</td><td>1.1.2</td><td>xxxx.apk</td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red"></td></tr>
+				</table> -->
 			</div>
-			<div class="box_nb tb_list mt25" id="new-package-list">
-				<table>
-					<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;" /></colgroup>
-				</table>
+			<!-- <div class="box_nb tb_list mt25" id="new-package-list">
+				
 			</div>
 
-			<a href="javascript:;" class="btn btn_yellow mt25" id="submit-btn">确认提交</a>
+			<a href="javascript:;" class="btn btn_yellow mt25" id="submit-btn">确认提交</a> -->
 		</div>
 	</div>
 </div>
+<script id="tpl-result" type="text/html">
+<table>
+	<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;"/></colgroup>
+	<tr><th class="hd_bg">包号</th><th class="hd_bg">现有版本号</th><th class="hd_bg">文件</th><th class="hd_bg">操作</th><th class="hd_bg"></th></tr>
+	{% each resultList %}
+	<tr><td>{% $value.msgId %}</td><td>{% $value.msgId %}</td><td>{% $value.msgId %}</td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red">{% !!$value.msgId ? '已上传新版本'+$value.msgId+'，审核中' : '' %}</td></tr>
+	{% /each %}
+</table>
+</script>
 {{include 'include/footer'}}
 <script type="text/javascript" src="/js/pp/cp/upgradepackage.js"></script>
 </body>

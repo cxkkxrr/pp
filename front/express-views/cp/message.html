@@ -58,7 +58,7 @@
 	<colgroup><col class="c10"/><col class="c500"/><col class="c120"/><col style="width:50px;"/></colgroup>
 	<tr><th class="hd_bg"></th><th class="hd_bg">内容</th><th class="hd_bg">时间</th><th class="hd_bg"></th></tr>
 	{% each resultList %}
-	<tr><td></td><td class="txt{% $value.isRead==0 ? ' fb' : '' %}">[{% $value.msgType | convertMsgType %}] {% $value.msgContent %}</td><td>{% $value.formatCreateDate %}</td><td></td></tr>
+	<tr><td></td><td class="txt"><a href="javascript:;" data-mid="{% $value.msgId %}" class="contLink{% $value.isRead==0 ? ' fb' : '' %}">[{% $value.msgType | convertMsgType %}] {% $value.msgContent %}</a></td><td>{% $value.formatCreateDate %}</td><td></td></tr>
 	{% /each %}
 </table>
 </script>

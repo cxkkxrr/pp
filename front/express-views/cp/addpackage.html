@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>推广详情-广告主-推广派-app推广平台</title>
+<title>添加新包-广告主-推广派-app推广平台</title>
 {{include 'include/head'}}
 </head>
 <body>
@@ -10,7 +10,7 @@
 	<div class="warp_inner layout clear">
 		{{include 'include/side'}}
 		<div class="contain">
-			<h3>推广详情</h3>
+			<h3>添加新包</h3>
 			<div class="box_nb">
 				<div class="product_name" id="product-name"></div>
 				<div class="product_detail rel" id="product-detail">
@@ -19,7 +19,7 @@
 			</div>
 			<div class="box_nb mt25">
 				<div class="form_box pg_upload_form clear">
-					<div class="txtitem">
+					<!-- <div class="txtitem">
 						<label class="r_lb">包号列表</label>
 						<span class="txt">001, 002, 003, 004, 005, 007, 009</span>
 					</div>
@@ -31,16 +31,41 @@
 							<div class="uploadprocess" id="upload-process-box"></div>
 							<span class="err" id="upload-err"></span>
 						</div>
+					</div> -->
+					<div class="txtitem" id="product-packge-num">
+						<label class="r_lb"><span class="red">*</span>包号：</label>
+						<input type="text" class="intxt">
+						<span class="err"></span>
+					</div>
+					<div class="uploaditem clear">
+						<label class="r_lb">包文件上传：</label>
+						<div class="uploadbox">
+							<div class="uploadbtn"><span id="upload-button-placeholder"></span></div>
+							<div class="filename" id="upload-filename-text" style="display:none;"></div>
+							<input id="upload-filename-input" type="text" style="display:none;" />
+							<div class="uploadprocess" id="upload-process-box"></div>
+							<span class="err" id="upload-err"></span>
+							<p class="tips">请在包文件内附上文本文件，写明后台地址和登录账号密码。包文件请以压缩的格式上传。如果产品的安装文件太大，可以只上传其他文件并提供安装文件下载链接。</p>
+						</div>
+					</div>
+					<div class="txtitem" id="download-link">
+						<label class="r_lb">安装文件下载链接：</label>
+						<input type="text" class="intxt">
+						<span class="err"></span>
+					</div>
+					<div>
+						<label class="r_lb"></label>
+						<a href="javascript:;" class="b_r submitbtn" id="submit-btn">确 认 提 交</a>
 					</div>
 				</div>
 			</div>
-			<div class="box_nb tb_list mt25" id="package-list">
+			<!-- <div class="box_nb tb_list mt25" id="package-list">
 				<table>
 					<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;" /></colgroup>
 				</table>
 			</div>
 
-			<a href="javascript:;" class="btn btn_yellow mt25" id="submit-btn">确认提交</a>
+			<a href="javascript:;" class="btn btn_yellow mt25" id="submit-btn">确认提交</a> -->
 		</div>
 	</div>
 </div>
