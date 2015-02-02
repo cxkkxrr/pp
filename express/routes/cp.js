@@ -40,13 +40,16 @@ router.get(['/','/index.html'], function(req, res, next) {
 });
 
 
-//productdetail
-router.get(['/productdetail.html'], function(req, res, next) {
+//productdetail addpackage upgradepackage
+router.get(['/productdetail.html','/addpackage.html','/upgradepackage.html'], function(req, res, next) {
   var pid = req.query.pid;
   if(!pid){
     res.redirect('mytask.html');
     return;
   }
+
+  var baseName = path.basename(req.originalUrl || req.url);
+  baseName = baseName.split('.')[0];
 
   function _render(json){
     var detailJson;
@@ -55,15 +58,15 @@ router.get(['/productdetail.html'], function(req, res, next) {
         detailJson = json.result;
       }else{
         detailJson = {};
-        ppLogger.write('error', '[productdetail.html error] result is empty.');
+        ppLogger.write('error', '['+baseName+'.html error] result is empty.');
       }
     }else{
       detailJson = {};
-      ppLogger.write('error', '[productdetail.html error] ' + JSON.stringify(json));
+      ppLogger.write('error', '['+baseName+'.html error] ' + JSON.stringify(json));
     }
 
     res._pp_tpl_data.detail = detailJson;
-    res.render('cp/productdetail.html', res._pp_tpl_data);
+    res.render('cp/'+baseName+'.html', res._pp_tpl_data);
   }
 
   ppHttp.get({

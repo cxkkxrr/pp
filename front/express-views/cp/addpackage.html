@@ -12,9 +12,10 @@
 		<div class="contain">
 			<h3>添加新包</h3>
 			<div class="box_nb">
-				<div class="product_name" id="product-name"></div>
-				<div class="product_detail rel" id="product-detail">
+				<div class="product_name"><img src="{{detail.logoPath}}" width="32" height="32">　{{detail.productName}}</div>
+				<div class="product_detail rel">
 					<div class="arr">◆</div>
+					<p>单价：{{detail.unitPrice}}元</p><p>版本号：{{detail.versionNo}}</p><p>推广方式：{{detail.expandTypeList && detail.expandTypeList.join('、 ')}}</p>
 				</div>
 			</div>
 			<div class="box_nb mt25">

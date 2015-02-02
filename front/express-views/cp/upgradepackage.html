@@ -12,9 +12,10 @@
 		<div class="contain">
 			<h3>推广详情</h3>
 			<div class="box_nb">
-				<div class="product_name" id="product-name"></div>
-				<div class="product_detail rel" id="product-detail">
+				<div class="product_name"><img src="{{detail.logoPath}}" width="32" height="32">　{{detail.productName}}</div>
+				<div class="product_detail rel">
 					<div class="arr">◆</div>
+					<p>单价：{{detail.unitPrice}}元</p><p>版本号：{{detail.versionNo}}</p><p>推广方式：{{detail.expandTypeList && detail.expandTypeList.join('、 ')}}</p>
 				</div>
 			</div>
 			<div class="box_nb tb_list form_box mt25" id="package-list">
@@ -39,7 +40,7 @@
 	<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;"/></colgroup>
 	<tr><th class="hd_bg">包号</th><th class="hd_bg">现有版本号</th><th class="hd_bg">文件</th><th class="hd_bg">操作</th><th class="hd_bg"></th></tr>
 	{% each resultList %}
-	<tr><td>{% $value.msgId %}</td><td>{% $value.msgId %}</td><td>{% $value.msgId %}</td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red">{% !!$value.msgId ? '已上传新版本'+$value.msgId+'，审核中' : '' %}</td></tr>
+	<tr><td>{% $value.packageNo %}</td><td>{% $value.packageVersion %}</td><td><a href="{% $value.filePath %}" target="_blank">{% $value.fileName %}</a></td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red">{% !!$value.newPackageVersion ? '已上传新版本'+$value.newPackageVersion+'，审核中' : '' %}</td></tr>
 	{% /each %}
 </table>
 </script>

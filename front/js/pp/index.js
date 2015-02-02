@@ -124,7 +124,7 @@
 				var enterUrl = (ppLib.cookie.get('usertype') == '0') ? '/cp/' : '/sp/';
 				var typeStr = (ppLib.cookie.get('usertype') == '0') ? '[广告主]' : '[渠道商]';
 				$loginedBox.html(template('tpl-logined-box',{
-					'userName': json.result.userName + ' ' + typeStr,
+					'userName': ppLib.cookie.get('username') + ' ' + typeStr,
 					'enterUrl': enterUrl
 				}));
 				$unLoginedBox.fadeOut('fast');

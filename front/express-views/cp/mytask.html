@@ -49,7 +49,7 @@
 <script id="tpl-result-toApprove" type="text/html">
 <table>
 	<colgroup><col class="c140"/><col class="c100"/><col class="c100"/><col class="c300"/></colgroup>
-	<tr><th class="hd_bg">产品</th><th class="hd_bg">单价(元)</th><th class="hd_bg">申请时间</th><th class="hd_bg"></th></tr>
+	<tr><th class="hd_bg">产品</th><th class="hd_bg">单价(元)</th><th class="hd_bg">发布时间</th><th class="hd_bg"></th></tr>
 	{% each resultList %}
 	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.formatCreateTime %}</td><td class="btnbox"></td></tr>
 	{% /each %}
@@ -61,7 +61,7 @@
 	<colgroup><col class="c140"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c300"/></colgroup>
 	<tr><th class="hd_bg">产品</th><th class="hd_bg">单价(元)</th><th class="hd_bg">推广中包数量</th><th class="hd_bg">空闲包数量</th><th class="hd_bg">激活数</th><th class="hd_bg">操作</th></tr>
 	{% each resultList %}
-	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.runningPackageCount %}</td><td>{% $value.notRunningPackageCount %}</td><td>{% $value.amount %}</td><td class="btnbox"><a href="productdetail.html?pid={% $value.taskId %}" target="_blank" class="btn btn_yellow">查看详情</a><a href="addpackage.html?pid={% $value.taskId %}" target="_blank" class="btn btn_yellow">增加新包</a><a href="upgradepackage.html?pid={% $value.taskId %}&type=running" target="_blank" class="btn btn_yellow">上传更新包</a></td></tr>
+	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.runningPackageCount %}</td><td>{% $value.notRunningPackageCount %}</td><td>{% $value.amount %}</td><td class="btnbox">{% if $value.runningPackageCount > 0%}<a href="productdetail.html?pid={% $value.taskId %}&type=running" target="_blank" class="btn btn_yellow">查看详情</a>{% /if %}<a href="addpackage.html?pid={% $value.taskId %}" target="_blank" class="btn btn_yellow">增加新包</a><a href="upgradepackage.html?pid={% $value.taskId %}" target="_blank" class="btn btn_yellow">上传更新包</a></td></tr>
 	{% /each %}
 </table>
 </script>
@@ -71,7 +71,7 @@
 	<colgroup><col class="c140"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col class="c200"/><col class="c100"/></colgroup>
 	<tr><th class="hd_bg">产品</th><th class="hd_bg">单价(元)</th><th class="hd_bg">推广包数量</th><th class="hd_bg">激活数</th><th class="hd_bg">金额(元)</th><th class="hd_bg">待结算时间区间</th><th class="hd_bg">操作</th></tr>
 	{% each resultList %}
-	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.runningPackageCount %}</td><td>{% $value.amount %}</td><td>{% $value.totalPrice %}</td><td>{% $value.payDateRange %}</td><td class="btnbox"><a href="productdetail.html?pid={% $value.taskId %}&type=toPay" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.runningPackageCount %}</td><td>{% $value.amount %}</td><td>{% $value.totalPrice %}</td><td>{% $value.payDateRange %}</td><td class="btnbox"><a href="productdetail.html?pid={% $value.taskId %}&type={% $value.status == 0 ? 'toPay' : 'toPayThisPeriod' %}" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
 	{% /each %}
 </table>
 </script>
