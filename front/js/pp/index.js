@@ -138,6 +138,8 @@
 				$errTips.html('类型不正确');
 			}else if(json.errorCode == 4){
 				$errTips.html('验证码不正确');
+			}else if(json.errorCode == 5){
+				$errTips.html('此帐号暂未激活，<a href="javascript:;" class="reSendEmail" style="color:#1b66c7;" data-username="'+data.userName+'" data-email="'+json.email+'">重发验证邮件</a>');
 			}else if(json.errorCode == 9999){
 				$errTips.html('登录超时，请重试');
 			}else{
@@ -160,6 +162,8 @@
 	var $regType = $('#reg-type');
 	var $regVcodeInput = $('#reg-vcode-input');
 	var $regBtn = $('#reg-btn');
+	var $unLoginedBox = $('#un-login-box');
+	var $loginedBox = $('#logined-box');
 
 	function getFormValue(){
 		var data = {};
@@ -211,11 +215,18 @@
 		}
 		isDoing = true;
 		$regBtn.html('注　册　中...');
+		//todo
 		ppLib.postEx(PPG.apiBaseUrl+'appmarket/register.do?action=register', data, function(json){
 			isDoing = false;
 			$regBtn.html('注　册');
 			if(json.errorCode == 0){ //登录成功
-				alert('注册成功~');
+				alert('注册成功，请激活邮箱~');
+				$loginedBox.html(template('tpl-logined-send-mail',{
+					'userName': data.userName,
+					'email': data.email
+				}));
+				$unLoginedBox.fadeOut('fast');
+				$loginedBox.fadeIn('fast');
 			}else if(json.errorCode == 1){
 
 			}else if(json.errorCode == 2){
@@ -228,6 +239,40 @@
 				alert('注册超时，请重试~');
 			}else{
 				alert('注册失败，请重试~');
+			}
+		});
+		return false;
+	});
+})();
+
+//验证邮箱
+;(function(){
+	var $unLoginedBox = $('#un-login-box');
+	var $loginedBox = $('#logined-box');
+	var isLoading = false;
+	$('#banner').on('click', '.reSendEmail', function(){
+		if(isLoading){
+			return false;
+		}
+		var $this = $(this);
+		var userName = $this.data('username');
+		var email = $this.data('email');
+		isLoading = true;
+		var orignHtml = $this.html();
+		$this.html('发送中...');
+		ppLib.postEx(PPG.apiBaseUrl+'appmarket/xxx.do?action=xx', {'userName':userName, 'email':email}, function(json){
+			isLoading = false;
+			if(json.errorCode == 0){ //登录成功
+				alert('激活邮件发送成功~');
+				$loginedBox.html(template('tpl-logined-send-mail',{
+					'userName': userName,
+					'email': email
+				}));
+				$unLoginedBox.fadeOut('fast');
+				$loginedBox.fadeIn('fast');
+			}else{
+				alert('激活邮件发送失败，请重试~');
+				$this.html(orignHtml);
 			}
 		});
 		return false;

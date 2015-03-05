@@ -40,7 +40,7 @@
 	<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;"/></colgroup>
 	<tr><th class="hd_bg">包号</th><th class="hd_bg">现有版本号</th><th class="hd_bg">文件</th><th class="hd_bg">操作</th><th class="hd_bg"></th></tr>
 	{% each resultList %}
-	<tr><td>{% $value.packageNo %}</td><td>{% $value.packageVersion %}</td><td><a href="{% $value.filePath %}" target="_blank">{% $value.fileName %}</a></td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red">{% !!$value.newPackageVersion ? '已上传新版本'+$value.newPackageVersion+'，审核中' : '' %}</td></tr>
+	<tr><td>{% $value.packageNo %}</td><td>{% $value.packageVersion %}</td><td><a href="{% $value.filePath %}" target="_blank" style="text-decoration:underline;">{% $value.fileName %}</a></td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red">{% !!$value.newPackageVersion ? '已上传新版本'+$value.newPackageVersion+'，审核中' : '' %}</td></tr>
 	{% /each %}
 </table>
 </script>

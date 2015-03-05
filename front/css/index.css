@@ -36,9 +36,11 @@
 .login_reg_box .btn_login, .logined_box .btn_login{background-position:-0 -170px;display:block;width:268px;height:40px;color:#fff;font-size:16px;line-height:37px;margin:25px auto 0 auto;}
 
 .logined_box{top:35px;-webkit-border-radius:6px;-moz-border-radius:6px;-ms-border-radius:6px;-o-border-radius:6px;border-radius:6px;}
-.logined_box .logined_box_inner{padding:20px 0 20px 0px;}
+.logined_box .logined_box_inner{padding:20px 15px;}
 .logined_box .logined_box_inner .user{text-align:center;width:100%}
-
+.logined_box .logined_box_inner .email{width:100%}
+.logined_box .logined_box_inner .email_notice{width:100%;padding-top:10px;color:#999;font-size: 12px;}
+.logined_box .logined_box_inner .email_notice a{color:#1b66c7;}
 
 .box{margin:25px auto 0 auto;width:980px;}
 

@@ -17,6 +17,8 @@
 	var $uploadFilenameInput = $('#upload-filename-input');
 	var $uploadErr = $('#upload-err');
 	var $downloadLink = $('#download-link');
+	var $consoleUsername = $('#console-username');
+	var $consolePassword = $('#console-password');
 	var $submitBtn = $('#submit-btn');
 
 	//设置上传组件
@@ -114,6 +116,13 @@
 		params['md5'] = uploadValue || '';
 		params['link'] = downloadLinkValue || '';
 
+
+		var consoleUsernameValue = $.trim($consoleUsername.find('input').val());
+		params['consoleUsername'] = consoleUsernameValue;
+
+		var consolePasswordValue = $.trim($consolePassword.find('input').val());
+		params['consolePassword'] = consolePasswordValue;
+		
 		return params;
 	}
 
@@ -141,6 +150,8 @@
 				});
 			}else if(json.errorCode == '1'){
 				errMsg = '包文件上传异常，请重新上传。';
+			}else if(json.errorCode == '4'){
+				errMsg = '该包号已经存在，请更换包号。';
 			}else if(json.errorCode == '99'){
 				errMsg = '登录超时，请重新登录。';
 			}else{

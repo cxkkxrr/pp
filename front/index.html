@@ -7,7 +7,7 @@
 <!--#include file="/include/header.html"-->
 <div class="warp">
 	<div class="layout">
-		<div class="banner">
+		<div class="banner" id="banner">
 			<div class="login_reg_box" id="un-login-box" style="display:none;">
 				<div class="tab">
 					<a href="javascript:;" id="login-tab" class='tab_l cur'>登录</a>
@@ -673,7 +673,18 @@
 <div class="logined_box_inner">
 	<div class="user">您好，{%userName%}</div>
 	<a href="{%enterUrl%}" class="btn btn_login">进入个人中心</a>
-</div>	
+</div>
+</script>
+<script id="tpl-logined-send-mail" type="text/html">
+<div class="logined_box_inner">
+	<div class="email">我们已经向您的邮箱{%email%}发送了一封激活邮件，请点击邮件中的链接完成注册！</div>
+	<div class="email_notice">
+		<p class="fb">没有收到确认邮件，怎么办？</p>
+		<p>* 看看是否在邮箱的回收站中、垃圾邮件中</p>
+		<p>* 重新发送，<a href="javascript:;" class="reSendEmail" data-username="{%userName%}" data-email="{%email%}">点此重发一封</a></p>
+		<p>* 也可以试试更换邮箱地址，<a href="javascript:;" data-username="{%userName%}" data-email="{%email%}">点击这里更换邮箱地址</a></p>
+	</div>
+</div>
 </script>
 <script>document.getElementById('header-nav-index').className="cur";</script>
 <!--#include file="/include/footer.html"-->
