@@ -52,15 +52,15 @@
 				和解
 			{%else%}
 				<a href="packagedetail.html?pid={%$value.applyId%}&type=toPay&payDateRange={% $value.payDateRange %}" target="_blank" class="btn btn_yellow">查看明细</a>
-				{%if $value.status == 1%}
+				{%if $value.status == 0%}
 					{%if $value.isVisible == 1%}
 					<a href="javascript:;" class="btn btn_yellow confirmBtn" data-applyid="{%$value.applyId%}" data-daterange="{%$value.payDateRange%}">确认结算</a>
 					<a href="javascript:;" class="btn btn_yellow noConfirmBtn" data-applyid="{%$value.applyId%}" data-daterange="{%$value.payDateRange%}">无法结算</a>
 					{%/if%}
+				{%else if $value.status == 1%}
+					已确认
 				{%else if $value.status == 2%}
-					已确认
-				{%else if $value.status == 3%}
-					已确认
+					已无法确认
 				{%/if%}
 			{%/if%}
 		</td></tr>

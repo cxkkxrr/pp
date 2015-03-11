@@ -12,26 +12,23 @@
 		<div class="contain">
 			<h3>推广详情</h3>
 			<div class="box_nb">
-				<div class="product_name" id="product-name"></div>
+				<div class="product_name">
+					<img src="{{detail.logoPath}}" width="32" height="32">　{{detail.productName}}{{detail.isOfficial==1 ? '[官方]' : ''}}　　包号：{{detail.packageNo}}　　渠道ID：{{detail.spIdStr}}
+				</div>
 			</div>
-
-			<div class="box_nb tb_list mt25" id="detail-list">
+			<div class="box_nb tb_list mt25">
 				<table>
 					<colgroup><col class="c100"/><col class="c60"/><col class="c60"/><col style="width:300px" /></colgroup>
 					<tr><th class="hd_bg">日期</th><th class="hd_bg">激活量</th><th class="hd_bg">金额(元)</th><th class="hd_bg"></th></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
+					{{ each detail.activedAmountList }}
+					<tr><td>{{$value.formatCreateTime}}</td><td>{{$value.amount}}</td><td>{{$value.totalPrice}}</td><td></td></tr>
+					{{ /each }}
 				</table>
-				<div class="page" id="detail-page" style="display:none;"></div>
 			</div>
 		</div>
 	</div>
 </div>
 {{include 'include/footer'}}
-<script type="text/javascript" src="/js/pp/cp/packagedetail.js"></script>
+<!-- <script type="text/javascript" src="/js/pp/cp/packagedetail.js"></script> -->
 </body>
 </html>

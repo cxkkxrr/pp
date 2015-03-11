@@ -83,6 +83,53 @@ router.get(['/productdetail.html','/addpackage.html','/upgradepackage.html'], fu
 });
 
 
+
+//packagedetail
+router.get(['/packagedetail.html'], function(req, res, next) {
+  var pid = req.query.pid;
+  var type = req.query.type;
+  var payDateRange = req.query.payDateRange || '';
+  if(!pid || !type){
+    res.redirect('mytask.html');
+    return;
+  }
+
+  var baseName = path.basename(req.originalUrl || req.url);
+  baseName = baseName.split('.')[0];
+
+  function _render(json){
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '['+baseName+'.html error] result is empty.');
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '['+baseName+'.html error] ' + JSON.stringify(json));
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res._pp_tpl_data.detail.type = type;
+    res.render('cp/'+baseName+'.html', res._pp_tpl_data);
+  }
+
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/task.do?action=packageAmountDetals&applyId='+pid+'&type='+type+'&payDateRange='+payDateRange+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
+});
+
+
 //其他页面
 router.get(/^\/[a-zA-Z0-9]+.html$/, function(req, res, next) {
   //console.log('==========others========')
