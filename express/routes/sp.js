@@ -47,30 +47,10 @@ router.get(['/cpdetail.html'], function(req, res, next) {
   }
 
   function _render(json){
-    //console.log(json);
-    /*json = {"errorCode":"0", "result":{
-      "logo": "../images/32x32.jpg",
-      "name": "微信",
-      "versionNumber": "1.2.1",
-      "packageSize": "79M",
-      "unitPrize": "2.5",
-      "hasPackage": true,
-      "billingType": "billingType",
-      "quantity": "quantity",
-      "pushRequirement": "pushRequirement",
-      "pushType": "pushType",
-      "dataCycle": "dataCycle",
-      "desc": "的说法都是梵蒂冈电饭锅东方红地方给东方红的海哥发给大概规划股份发大概风光好发给第三方给东方红返回分公司的凡事都电饭锅电饭锅电饭是梵蒂冈电饭锅东方红地方给东方红的海哥发给大概规划股份发大概风光好发给第三方给东方红返回分公司的凡事都电饭锅电饭锅电饭是梵蒂冈电饭锅东方红地方给东方红的海哥发给大概规划股份发大概风光好发给第三方给东方红返回分公司的凡事都电饭锅电饭锅电饭锅",
-      "imgList":["../images/32x32.jpg","../images/32x32.jpg","../images/32x32.jpg"]
-    }};*/
-    //console.log(json);
     var detailJson;
     if(json.errorCode == "0"){
       if(!!json.result){
         detailJson = json.result;
-        // detailJson.status=1
-        // detailJson.applyStatus=1
-        // detailJson.hasSparePackageCount=0
       }else{
         detailJson = {};
         ppLogger.write('error', '[cpdetail.html error] result is empty.');
@@ -98,6 +78,52 @@ router.get(['/cpdetail.html'], function(req, res, next) {
     'callback': _render
   });
 });
+
+
+
+
+//taskdetail
+router.get(['/taskdetail.html'], function(req, res, next) {
+  var applyId = req.query.applyId;
+  var type = req.query.type;
+  if(!applyId || !type){
+    res.redirect('mytask.html');
+    return;
+  }
+
+  function _render(json){
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '[cpdetail.html error] result is empty.');
+        //res.redirect('mytask.html');
+        //return;
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '[taskdetail.html error] ' + JSON.stringify(json));
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res.render('sp/taskdetail.html', res._pp_tpl_data);
+  }
+
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/task.do?action=getSpExpandAmountDetail&applyId='+applyId+'&type='+type+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
+});
+
 
 
 //其他页面

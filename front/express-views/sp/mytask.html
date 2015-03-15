@@ -23,10 +23,10 @@
 					</div>
 					<div class="selitem">
 						<label class="r_lb">结算状态</label>
-						<div class="selbtns select_multi" id="balance-type">
-							<a href="javascript:;" class="selbtn" data-val="approved">已结算</a>
+						<div class="selbtns select_single" id="balance-type">
 							<a href="javascript:;" class="selbtn" data-val="toApprove">未结算</a>
 							<a href="javascript:;" class="selbtn" data-val="approving">结算审核中</a>
+							<a href="javascript:;" class="selbtn" data-val="approved">已结算</a>
 						</div>
 					</div>
 					<div>
@@ -55,10 +55,27 @@
 </div>
 <script id="tpl-result" type="text/html">
 <table>
-	<colgroup><col class="c120"/><col class="c40"/><col class="c160"/><col class="c60"/><col class="c60"/><col class="c60"/><col class="c60"/><col class="c300"/></colgroup>
-	<tr><th class="hd_bg">产品</th><th class="hd_bg">包号</th><th class="hd_bg">推广时间</th><th class="hd_bg">单价(元)</th><th class="hd_bg">量级总计</th><th class="hd_bg">金额总计</th><th class="hd_bg">结算状态</th><th class="hd_bg">操作</th></tr>
+	<colgroup><col class="c140"/><col class="c160"/><col class="c60"/><col class="c60"/><col class="c60"/><col class="c300"/></colgroup>
+	<tr><th class="hd_bg">产品</th><th class="hd_bg">推广时间</th><th class="hd_bg">单价(元)</th><th class="hd_bg">量级总计</th><th class="hd_bg">金额总计</th><th class="hd_bg">操作</th></tr>
 	{% each resultList %}
-	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>012</td><td>2014.12.02-2014.12.31</td><td>1.5</td><td>2454</td><td>5000</td><td>未结算</td><td class="btnbox btnbox_l"><a href="taskdetail.html?pid=1" target="_blank" class="btn btn_yellow">查看详情</a><a href="javascript:;" class="btn btn_yellow settleAccountsBtn">申请结算</a><a href="javascript:;" class="btn btn_yellow stopPushBtn">停止推广</a><a href="evaluation.html?pid=1" target="_blank" class="btn btn_yellow">评价</a></td></tr>
+	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.payDateRange %}</td><td>{% $value.unitPrice %}</td><td>{% $value.totalAmount %}</td><td>{% $value.totalAmountPrice %}</td><td class="btnbox">
+		{%if listType == 'toApprove'%}
+			{%if $value.status == 0%}
+			<a href="taskdetail.html?type=toApprove&applyId={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看详情</a>
+			{%else%}
+			<a href="taskdetail.html?type=toApproveThisPeriod&applyId={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看详情</a>
+			{%/if%}
+			<a href="javascript:;" class="btn btn_yellow settleAccountsBtn" data-applyid="{% $value.applyId %}">申请结算</a>
+			<a href="javascript:;" class="btn btn_yellow stopPushBtn" data-applyid="{% $value.applyId %}">停止推广</a>
+		{%else if listType == 'approving'%}
+			<a href="taskdetail.html?type=approving&applyId={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看详情</a>
+		{%else if listType == 'approved'%}
+			<a href="taskdetail.html?type=approved&applyId={% $value.applyId %}" target="_blank" class="btn btn_yellow">查看详情</a>
+			{%if $value.couldComment == 1%}
+			<a href="evaluation.html?applyId={% $value.applyId %}" target="_blank" class="btn btn_yellow">评价</a>
+			{%/if%}
+		{%/if%}
+		</td></tr>
 	{% /each %}
 </table>
 </script>

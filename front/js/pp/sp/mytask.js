@@ -48,7 +48,7 @@
 		params.pageSize = pageSize;
 		ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/task.do?callback=?', params, function(json){
 			if(json.errorCode == '0' && !!json.result && !!json.result.rows && json.result.rows.length > 0){
-				$resultList.html(template('tpl-result',{'resultList':json.result.rows}));
+				$resultList.html(template('tpl-result',{'resultList':json.result.rows, 'listType':params.type}));
 				page.refresh(curPageNum, Math.ceil(json.result.total/pageSize));
 			}else if(json.errorCode == '99'){
 				$resultList.html('登录超时，请重新登录');
@@ -95,12 +95,17 @@
 		return false;
 	});
 
+	$balanceType.find('.selbtn').eq(0).addClass('selbtn_selected');
+	$searchBtn.trigger('click');
+
 })();
 
 
 ;(function(){
 	var $resultList = $('#result-list');
 	$resultList.on('click' ,'.settleAccountsBtn', function(){
+		var $this = $(this);
+		var applyId = $this.data('applyid');
 		ppLib.alertWindow.show({
 			'content': '<p class="bigger">结算申请</p><p>产品名字：xxx</p><p>推广时间：xxx</p><p>单价：xxx</p><p>量级总计：xxx</p><p>金额总计：xxx</p>',
 			'button' : '<a href="javascript:;" class="pop_btn pop_btn_red" id="real-settle-accounts-btn">确认提交申请</a><a href="javascript:;" class="pop_btn pop_btn_grey closeBtn">取消</a>'
@@ -113,11 +118,11 @@
 			}
 			isLoading = true;
 			$btn.html('申请中...');
-			ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {}, function(json){
+			ppLib.postEx(PPG.apiBaseUrl + 'appmarket/bill/spApply.do', {'applyId': applyId}, function(json){
 				isLoading = false;
 				$btn.html('确认提交申请');
 				ppLib.alertWindow.show({
-					'content': '<p class="bigger">申请成功！</p><p>申请成功！</p>',
+					'content': '<p class="bigger">申请成功1！</p><p>申请成功！</p>',
 					'button' : '<a href="javascript:;" class="pop_btn pop_btn_red closeBtn">确定</a>'
 				});
 			});

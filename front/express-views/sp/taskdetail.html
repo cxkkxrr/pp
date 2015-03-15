@@ -11,29 +11,35 @@
 		{{include 'include/side'}}
 		<div class="contain">
 			<div class="box">
-				<ul class="clear cp_detail_total" id="cp-detail-total"></ul>
+				<ul class="clear cp_detail_total" id="cp-detail-total">
+					<li><img src="{{detail.logoPath}}" width="32" height="32"></li>
+					<li>{{detail.productName}}</li>
+					<li>包号：{{detail.packageNo}}</li>
+					<li><span class="orange">价格：{{detail.unitPrice}}元</span></li>
+					<!-- <li><a href="javascript:;" class="b_r btn_gfht">查看官方后台</a></li> -->
+				</ul>
 			</div>
 			<div class="box">
 				<div class="form_box cp_detail_form clear">
 					<div class="txtitem">
 						<label class="r_lb">计费方式：</label>
-						<span class="txt" id="cp-billing-type"></span>
+						<span class="txt" id="cp-billing-type">{{detail.billingMethod}}</span>
 					</div>
 					<div class="txtitem">
 						<label class="r_lb">量级要求：</label>
-						<span class="txt" id="cp-quantity"></span>
+						<span class="txt" id="cp-quantity">{{detail.amountLevel}}</span>
 					</div>
 					<div class="txtitem">
 						<label class="r_lb">推广要求：</label>
-						<span class="txt" id="cp-push-requirement"></span>
+						<span class="txt" id="cp-push-requirement">{{detail.expandRequirement}}</span>
 					</div>
-					<div class="txtitem">
+					<!-- <div class="txtitem">
 						<label class="r_lb">推广方式：</label>
 						<span class="txt" id="cp-push-type"></span>
-					</div>
+					</div> -->
 					<div class="txtitem">
 						<label class="r_lb">数据周期：</label>
-						<span class="txt" id="cp-data-cycle"></span>
+						<span class="txt" id="cp-data-cycle">{{detail.dataCycle}}</span>
 					</div>
 				</div>
 			</div>
@@ -42,12 +48,9 @@
 				<table>
 					<colgroup><col class="c100"/><col class="c60"/><col class="c60"/><col style="width:300px" /></colgroup>
 					<tr><th class="hd_bg">日期</th><th class="hd_bg">有效数据</th><th class="hd_bg">金额(元)</th><th class="hd_bg"></th></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
-					<tr><td>2014.02.03</td><td>300</td><td>100</td><td></td></tr>
+					{{ each detail.activedAmountList }}
+					<tr><td>{{$value.formatCreateTime}}</td><td>{{$value.amount}}</td><td>xxx</td><td></td></tr>
+					{{ /each }}
 				</table>
 				<div class="page" id="data-page" style="display:none;"></div>
 			</div>
@@ -55,6 +58,6 @@
 	</div>
 </div>
 {{include 'include/footer'}}
-<script type="text/javascript" src="/js/pp/sp/taskdetail.js"></script>
+<!-- <script type="text/javascript" src="/js/pp/sp/taskdetail.js"></script> -->
 </body>
 </html>

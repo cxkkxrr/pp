@@ -1,6 +1,6 @@
-;(function(){
-	var pid = $.trim(ppLib.getUrlParam('pid') || '');
-	(pid == '') && (alert('该详情不存在~'),window.close());
+/*;(function(){
+	var applyId = $.trim(ppLib.getUrlParam('applyId') || '');
+	(applyId == '') && (alert('该详情不存在~'),window.close());
 
 	var $cpDetailTotal = $('#cp-detail-total');
 	var $cpBillingType = $('#cp-billing-type');
@@ -10,8 +10,8 @@
 	var $cpDataCycle = $('#cp-data-cycle');
 
 	$cpDetailTotal.html('查询中...');
-	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'pid': pid}, function(json){
-		(pid == '111') && (alert('该详情不存在~'),window.close());
+	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'applyId': applyId}, function(json){
+		(applyId == '111') && (alert('该详情不存在~'),window.close());
 		$cpDetailTotal.html('<li><img src="/images/32x32.jpg" width="32" height="32"></li>\
 					<li>微信111</li>\
 					<li>包号：123</li>\
@@ -57,4 +57,4 @@
 	});
 
 	loadData();
-})();
+})();*/
