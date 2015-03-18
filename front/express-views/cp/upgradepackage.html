@@ -40,9 +40,36 @@
 	<colgroup><col class="c100"/><col class="c100"/><col class="c100"/><col class="c100"/><col style="width:300px;"/></colgroup>
 	<tr><th class="hd_bg">包号</th><th class="hd_bg">现有版本号</th><th class="hd_bg">文件</th><th class="hd_bg">操作</th><th class="hd_bg"></th></tr>
 	{% each resultList %}
-	<tr><td>{% $value.packageNo %}</td><td>{% $value.packageVersion %}</td><td><a href="{% $value.filePath %}" target="_blank" style="text-decoration:underline;">{% $value.fileName %}</a></td><td><a href="javascript:;" class="btn btn_yellow">上传更新包</a></td><td class="txt red">{% !!$value.newPackageVersion ? '已上传新版本'+$value.newPackageVersion+'，审核中' : '' %}</td></tr>
+	<tr><td>{% $value.packageNo %}</td><td>{% $value.packageVersion %}</td><td><a href="{% $value.filePath %}" target="_blank" style="text-decoration:underline;">{% $value.fileName %}</a></td><td><a href="javascript:;" class="btn btn_yellow updateBtn" data-packageid="{% $value.packageId %}" data-packageno="{% $value.packageNo %}" data-packageversion="{% $value.packageVersion %}">上传更新包</a></td><td class="txt red">{% !!$value.newPackageVersion ? '已上传新版本'+$value.newPackageVersion+'，审核中' : '' %}</td></tr>
 	{% /each %}
 </table>
+</script>
+<script id="tpl-update-form" type="text/html">
+<div class="form_box pg_update_form clear">
+	<div class="txtitem">
+		<label class="r_lb">现有版本号：</label>
+		<div class="txt">{% packageVersion %}</div>
+	</div>
+	<div class="txtitem" id="product-packge-version">
+		<label class="r_lb"><span class="red">*</span>新版本号：</label>
+		<input type="text" class="intxt">
+	</div>
+	<div class="uploaditem clear">
+		<label class="r_lb">包文件上传：</label>
+		<div class="uploadbox">
+			<div class="uploadbtn"><span id="upload-button-placeholder"></span></div>
+			<div class="filename" id="upload-filename-text" style="display:none;"></div>
+			<input id="upload-filename-input" type="text" style="display:none;" />
+			<div class="uploadprocess" id="upload-process-box"></div>
+			<p class="tips">包文件请以压缩的格式上传。如果产品的安装文件太大，可以只上传其他文件并提供安装文件下载链接。</p>
+		</div>
+	</div>
+	<div class="txtitem" id="download-link">
+		<label class="r_lb r_lb_m">安装文件<br>下载链接：</label>
+		<input type="text" class="intxt">
+		<span class="err"></span>
+	</div>
+</div>
 </script>
 {{include 'include/footer'}}
 <script type="text/javascript" src="/js/pp/cp/upgradepackage.js"></script>

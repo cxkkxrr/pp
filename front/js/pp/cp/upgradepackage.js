@@ -12,10 +12,10 @@
 // })();
 
 ;(function(){
-	var pid = $.trim(ppLib.getUrlParam('pid') || '');
+	var taskId = $.trim(ppLib.getUrlParam('pid') || '');
 	var $packageList = $('#package-list');
 
-	ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/package.do?callback=?', {'action': 'listPackage', 'taskId': pid}, function(json){
+	ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/package.do?callback=?', {'action': 'listPackage', 'taskId': taskId}, function(json){
 		if(json.errorCode == '0' && !!json.result && json.result.length > 0){
 			$packageList.html(template('tpl-result',{'resultList':json.result}));
 		}else if(json.errorCode == '99'){
@@ -26,6 +26,129 @@
 			$packageList.html('无记录');
 		}
 	});
+})();
+
+;(function(){
+	var taskId = $.trim(ppLib.getUrlParam('pid') || '');
+	var $packageList = $('#package-list');
+	$packageList.on('click', '.updateBtn', function(){
+		var $this = $(this);
+		var packageId = $this.data('packageid');
+		var packageNo = $this.data('packageno');
+		var packageVersion = $this.data('packageversion');
+		ppLib.alertWindow.show({
+			'title': '更新包 - 包号：' + packageNo,
+			'content': template('tpl-update-form',{'packageVersion':packageVersion}),
+			'button' : '<a href="javascript:;" class="pop_btn pop_btn_red" id="submit-btn">确认提交</a><a href="javascript:;" class="pop_btn pop_btn_grey closeBtn">取消</a>'
+		});
+
+		var $productPackgeVersion = $('#product-packge-version');
+		var $downloadLink = $('#download-link');
+		var $uploadFilenameText = $('#upload-filename-text');
+		var $uploadFilenameInput = $('#upload-filename-input');
+		var $submitBtn = $('#submit-btn');
+		var upload = new ppClass.Upload({
+			'type': '1', //压缩包
+			'fileSizeLimit': '100MB',
+			'fileTypes': '*.zip;*.rar',
+			'fileTypesDescription': '不超过100MB的文件',
+			'buttonPlaceholderId': 'upload-button-placeholder',
+			'progressTarget': 'upload-process-box',
+			'uploadStartCallback': function(){
+				
+			},
+			'uploadSuccessCallback': function(json, file){
+				if(json.errorCode == '0'){
+					$uploadFilenameText.html(ppLib.htmlEncode(file.name) + ' 上传成功 <a href="javascript:;" id="delete-upload-file-btn" style="color:#f00;">删除</a>').show();
+					$uploadFilenameInput.val(json.result.md5);
+				}else if(json.errorCode == '3'){
+					alert('上传格式不正确');
+				}else if(json.errorCode == '4'){
+					alert('上传文件太大');
+				}else if(json.errorCode == '99'){
+					alert('登录超时，请重新登录');
+				}else{
+					alert('上传失败，请重试');
+				}
+			},
+			'uploadErrorCallback': function(){
+				alert('上传失败，请重试');
+			}
+		});
+		$uploadFilenameText.on('click', '#delete-upload-file-btn', function(){
+			$uploadFilenameText.hide().html('');
+			$uploadFilenameInput.val('');
+			$downloadLink.find('input').trigger('blur');
+			return false;
+		});
+
+
+		var isSubmiting = false;
+		function doSubmit(){
+			if(isSubmiting){
+				return;
+			}
+			var params = {};
+
+			var packageVersionValue = ppFun.checkData($productPackgeVersion.find('input'), 'textInput', true);
+			if(packageVersionValue === false){
+				alert('请输入新版本号');
+				return false;
+			}
+			if(packageVersion == packageVersionValue){
+				alert('新版本号不能与现有版本号重复');
+				return false;
+			}
+			params['packageVersion'] = packageVersionValue;
+
+			if(upload.swfObj && upload.swfObj.getStats().files_queued !== 0){
+				alert('文件正在努力上传中~');
+				return false;
+			}
+
+			var uploadValue = ppFun.checkData($uploadFilenameInput, 'textInput');
+			var downloadLinkValue = ppFun.checkData($downloadLink.find('input'), 'textInput');
+			if(uploadValue === false && downloadLinkValue === false){
+				alert('请上传包文件或者提供安装文件下载链接');
+				return false;
+			}
+			params['md5'] = uploadValue || '';
+			params['link'] = downloadLinkValue || '';
+
+			params['taskId'] = taskId;
+			params['packageId'] = packageId;
+			
+			params.action = 'updatePackage';
+			$submitBtn.html('提交中...');
+			isSubmiting = true;
+			ppLib.postEx(PPG.apiBaseUrl + 'appmarket/package.do', params, function(json){
+				$submitBtn.html('确认提交');
+				isSubmiting = false;
+				var errMsg = '';
+				if(json.errorCode == '0'){
+					alert('您已成功更新包，请等候审核通过。');
+					ppLib.reloadLocation();
+				}else if(json.errorCode == '1'){
+					alert('包文件上传异常，请重新上传。');
+				}else if(json.errorCode == '4'){ //todo
+					alert('新版本号不能与现有版本号重复。');
+				}else if(json.errorCode == '99'){
+					alert('登录超时，请重新登录。');
+				}else{
+					alert('提交失败，请重试['+json.errorCode+']。');
+				}
+			});	
+		}
+
+		$submitBtn.click(function(){
+			doSubmit();
+			return false;
+		});
+		return false;
+	});
+	
+	
+	
 })();
 
 

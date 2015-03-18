@@ -1,4 +1,4 @@
-;(function(){
+/*;(function(){
 	var $myProductList = $('#my-product-list');
 	var $moneyTotal = $('#money-total');
 	var $moneyNoBalance = $('#money-no-balance');
@@ -13,7 +13,7 @@
 		$moneyTotal.hide().html('<em>￥</em>888888').fadeIn('slow');
 		$moneyNoBalance.hide().html('<em>￥</em>12345').fadeIn('slow');
 	});
-})();
+})();*/
 
 ;(function(){
 	var isSubmiting = false;
@@ -59,6 +59,10 @@
 		if($box.attr('isset') == '1'){
 			return;
 		}
+		if(c.data.length == 0 || c.categories.length == 0){
+			$box.attr('isset','1').html('<p style="text-align:center;padding-top:70px;">暂无数据</p>');
+			return;
+		}
 		$box.attr('isset','1').highcharts({
 			colors: ['#ffb440'],
 			chart: {backgroundColor:'#efefef'},
@@ -74,23 +78,6 @@
 			series: [{data: c.data}]
 		});
 	}
-	/*setChart({
-		boxId: 'chart_1',
-		categories: ['13', '14', '15', '16', '17', '18','19'],
-		data: [807.0, 725.2, 945.5, 814.5, 825.2, 721.5, 925.2]
-	});
-	setChart({
-		boxId: 'chart_2',
-		categories: ['13', '14', '15', '16', '17', '18','19'],
-		data: [407.0, 425.2, 745.5, 814.5, 925.2, 321.5, 225.2]
-	});
-	setChart({
-		boxId: 'chart_3',
-		categories: ['13', '14', '15', '16', '17', '18','19'],
-		data: [8007.0, 7205.2, 9045.5, 8014.5, 8205.2, 7201.5, 9205.2]
-	});*/
-
-
 
 	var $scrollList = $('#scroll-list');
 	var $scrollPre = $('#scroll-pre');
@@ -100,13 +87,34 @@
 	var isScrolling = false;
 	var marginLeft = 0;
 	var curIdx = 1;
+
+	var chartData = [];
+	function setChatData(idx, orignData){
+		chartData[idx] = {'categories':[], 'data':[]};
+		for(var i = 0; i < orignData.length; i++){
+			var item = orignData[i];
+			chartData[idx].categories.push(item.formatCreateTime.split('-')[2]);
+			chartData[idx].data.push(item.amount);
+		}
+	}
+
 	
 	$scrollList.html('查询中...');
-	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxx.do?callback=?', {}, function(json){
-		totalCount = 10;
+	ppLib.getJSONEx(PPG.apiBaseUrl + 'appmarket/center/package/week/chart.do?callback=?', {}, function(json){
+		if(json.errorCode != 0 || !json.result){
+			$scrollList.html('查询错误，请稍后刷新重试');
+			return;
+		}
+		totalCount = json.result.total;
+		if(totalCount == 0){
+			$scrollList.html('暂无数据');
+			return;
+		}
 		var htmlList = [];
 		for(var i = 0; i < totalCount; i++){
-			htmlList.push('<li class="chart_item"><div class="chart" id="chart_id_'+i+'"></div><div class="p_name"><a href="packagedetail.html" target="_blank"><img src="/images/32x32.jpg" width="48" height="48"> 微信 包号01'+i+'</a></div></li>');
+			var item = json.result.rows[i];
+			htmlList.push('<li class="chart_item"><div class="chart" id="chart_id_'+i+'"></div><div class="p_name"><a href="packagedetail.html" target="_blank"><img src="'+item.logoPath+'" width="48" height="48"> '+item.productName+' 包号'+item.packageNo+'</a></div></li>');
+			setChatData(i, item.activedAmountList);
 		}
 		$scrollList.css({'width':(sWidth*totalCount+100)+'px'}).hide().html(htmlList.join('')).fadeIn('slow');
 		if(totalCount > 3){
@@ -116,8 +124,8 @@
 		for(var i = 0; i < firstShow; i++){
 			setChart({
 				boxId: 'chart_id_'+i,
-				categories: ['13', '14', '15', '16', '17', '18','19'],
-				data: [8007.0, 7205.2, 9045.5, 8014.5, 8205.2, 7201.5, 9205.2]
+				categories: chartData[i].categories, //['13', '14', '15', '16', '17', '18','19'],
+				data: chartData[i].data//[8007.0, 7205.2, 9045.5, 8014.5, 8205.2, 7201.5, 9205.2]
 			});
 		}
 	});
@@ -138,8 +146,8 @@
 			isScrolling = false;
 			setChart({
 				boxId: 'chart_id_'+(curIdx+1),
-				categories: ['13', '14', '15', '16', '17', '18','19'],
-				data: [8007.0, 7205.2, 9045.5, 8014.5, 8205.2, 7201.5, 9205.2]
+				categories: chartData[curIdx+1].categories, //['13', '14', '15', '16', '17', '18','19'],
+				data: chartData[curIdx+1].data //[8007.0, 7205.2, 9045.5, 8014.5, 8205.2, 7201.5, 9205.2]
 			});
 		});
 	}

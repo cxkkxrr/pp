@@ -110,6 +110,9 @@ body{background:#f8f8f8;}
 .pg_upload_form .r_lb{width:110px;}
 /*.pg_upload_form .intxt{width:140px;height:24px;line-height:24px;}
 .pg_upload_form .uploadbox{margin-left:10px;}*/
+.pg_update_form .intxt{width:215px}
+.pg_update_form .uploadbox{width:235px} 
+.pg_update_form .r_lb{width:80px;}
 
 .userinfo_form .r_lb{width:85px;text-align:right;margin-right:20px;}
 .qualification_form .r_lb{width:96px;text-align:right;margin-right:20px;}

@@ -18,14 +18,25 @@
 				<div class="my_product">
 					<h3>您在跑的产品</h3>
 					<a href="javascript:;" class="b_r release_notice_btn">发布公告</a>
-					<div class="product_list clear" id="my-product-list"></div>
+					<div class="product_list clear" id="my-product-list">
+						{{if detail.runningTasks.length == 0}}
+						暂无产品
+						{{else}}
+						{{ each detail.runningTasks }}
+						<div class="item">
+							<p class="p_logo"><a href="mytask.html" target="_blank"><img src="{{$value.formatCreateTime}}" width="48" height="48"></a></p>
+							<p class="p_name"><a href="mytask.html" target="_blank">{{$value.productName}}</a></p>
+						</div>
+						{{ /each }}
+						{{/if}}
+					</div>
 				</div>
 				<div class="money_detal">
 					<div class="item">
-						<span class="tit">迄今收入金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-total"></a>
+						<span class="tit">迄今收入金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-total"><em>￥</em>{{detail.billedMoney}}</a>
 					</div>
 					<div class="item">
-						<span class="tit">未结算金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-no-balance"></a>
+						<span class="tit">未结算金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-no-balance"><em>￥</em>{{detail.toBillMoney}}</a>
 					</div>
 				</div>
 				<div class="chart_detail rel">

@@ -22,6 +22,12 @@
 			isFocus && $newPwd.find('input').focus();
 			return false;
 		}
+		var oldPwdVal = $oldPwd.find('input').val();
+		if(newPwdVal == oldPwdVal){
+			$newPwd.find('.err').html('新旧密码不能相同');
+			isFocus && $newPwd.find('input').focus();
+			return false;
+		}
 		if(/\s+/.test(newPwdVal)){
 			$newPwd.find('.err').html('密码中不能包含空格');
 			isFocus && $newPwd.find('input').focus();
@@ -84,8 +90,9 @@
 		if(newPwdCheckVal === false){
 			return false;
 		}
-		params.oldPwdVal = hex_md5(oldPwdVal);
-		params.newPwdVal = hex_md5(newPwdVal);
+		params.oldPwd = hex_md5(oldPwdVal);
+		params.newPwd = hex_md5(newPwdVal);
+		params.confirmPwd = params.newPwd;
 		return params;
 	}
 
@@ -96,19 +103,30 @@
 			return;
 		}
 		var params = getFormValue();
+		params.action = 'changePwd';
 		if(params === false){
 			return;
 		}
 
 		$submitBtn.html('修 改 中...');
 		isSubmiting = true;
-		ppLib.postEx(PPG.apiBaseUrl + 'xxx.do', params, function(json){
+		ppLib.postEx(PPG.apiBaseUrl + 'appmarket/user.do', params, function(json){
 			$submitBtn.html('确 认 修 改');
 			isSubmiting = false;
-			ppLib.alertWindow.show({
-				'content': '<p>密码修改成功，请重新登录~</p>',
-				'button' : '<a href="#" class="pop_btn pop_btn_red">立即登录</a>'
-			});
+			if(json.errorCode == '0'){
+				ppLib.alertWindow.show({
+					'content': '<p>密码修改成功~</p>',
+					'button' : '<a href="javascript:;" class="pop_btn pop_btn_red closeBtn">确定</a>'
+				});
+				$oldPwd.find('input').val('');
+				$newPwd.find('input').val('');
+				$newPwdCheck.find('input').val('');
+			}else{
+				ppLib.alertWindow.show({
+					'content': '<p>密码修改失败['+json.errorCode+']，请重试~</p>',
+					'button' : '<a href="javascript:;" class="pop_btn pop_btn_red closeBtn">确定</a>'
+				});
+			}
 		});
 	}
 	$submitBtn.click(function(){

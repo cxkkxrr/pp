@@ -34,7 +34,38 @@ router.get(['/', /^\/[a-zA-Z0-9]+.html$/], function(req, res, next) {
 
 //首页
 router.get(['/','/index.html'], function(req, res, next) {
-  res.render('sp/index.html', res._pp_tpl_data);
+  function _render(json){
+    //console.log(json);
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '[sp/index.html error] result is empty.');
+        //res.redirect('cpsearch.html');
+        //return;
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '[sp/index.html error] ' + JSON.stringify(json));
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res.render('sp/index.html', res._pp_tpl_data);
+  }
+
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/center/boardInfo.do?token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
 });
 
 
