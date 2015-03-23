@@ -19,12 +19,12 @@
 					<h3>您在跑的产品</h3>
 					<a href="javascript:;" class="b_r release_notice_btn">发布公告</a>
 					<div class="product_list clear" id="my-product-list">
-						{{if detail.runningTasks.length == 0}}
+						{{if !detail.runningTasks || detail.runningTasks.length == 0}}
 						暂无产品
 						{{else}}
 						{{ each detail.runningTasks }}
 						<div class="item">
-							<p class="p_logo"><a href="mytask.html" target="_blank"><img src="{{$value.formatCreateTime}}" width="48" height="48"></a></p>
+							<p class="p_logo"><a href="mytask.html" target="_blank"><img src="{{$value.logoPath}}" width="48" height="48"></a></p>
 							<p class="p_name"><a href="mytask.html" target="_blank">{{$value.productName}}</a></p>
 						</div>
 						{{ /each }}

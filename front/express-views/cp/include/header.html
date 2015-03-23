@@ -4,7 +4,7 @@
 		<div class="b_r slogan">App推广平台</div>
 		{{if userInfo}}
 		<ul class="user">
-			<li>欢迎您，{{userInfo.userName}}</li>
+			<li>欢迎您，{{userInfo.userName}} | <a href="javascript:;" class="logout">退出</a></li>
 			{{if userInfo.msgCount > 0}}<li class="b_r msg" id="header-msg-num-box">您有<span class="num msgNumBox">{{userInfo.msgCount}}</span>条未读通知</li>{{/if}}
 		</ul>
 		{{/if}}

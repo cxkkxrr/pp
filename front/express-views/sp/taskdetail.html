@@ -49,7 +49,7 @@
 					<colgroup><col class="c100"/><col class="c60"/><col class="c60"/><col style="width:300px" /></colgroup>
 					<tr><th class="hd_bg">日期</th><th class="hd_bg">有效数据</th><th class="hd_bg">金额(元)</th><th class="hd_bg"></th></tr>
 					{{ each detail.activedAmountList }}
-					<tr><td>{{$value.formatCreateTime}}</td><td>{{$value.amount}}</td><td>xxx</td><td></td></tr>
+					<tr><td>{{$value.formatCreateTime}}</td><td>{{$value.amount}}</td><td>{{$value.totalPrice}}</td><td></td></tr>
 					{{ /each }}
 				</table>
 				<div class="page" id="data-page" style="display:none;"></div>

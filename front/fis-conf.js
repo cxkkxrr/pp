@@ -24,7 +24,9 @@ fis.config.merge({
 			'/js/pp/selector.js',
 			'/js/pp/upload.js',
 			'/js/pp/checkData.js',
-			'/js/pp/alertWindow.js'
+			'/js/pp/alertWindow.js',
+			'/js/pp/logout.js',
+			'/js/pp/sideFix.js'
 		]
 	}
 });

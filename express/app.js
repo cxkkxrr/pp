@@ -52,6 +52,12 @@ app.use(['/cp/','/sp/'], function(req, res, next){
 app.use(['/cp/','/sp/'], cacheRoutes);
 //验证登陆
 app.use(['/cp/','/sp/'], function(req, res, next){
+    var cookies = req.cookies;
+    if(!cookies.sessionid || !cookies.username || !cookies.usertype){
+        ppLogger.write('warn', 'without login cookies.');
+        res.redirect('/');
+        return;
+    }
     ppHttp.get({
         'options': {
           'path': '/appmarket/user.do?action=getUserDetails',
@@ -64,7 +70,7 @@ app.use(['/cp/','/sp/'], function(req, res, next){
             if(json.errorCode == "0"){
                 var url = req.originalUrl || req.url;
                 if((json.result.type == 0 && url.indexOf('/cp/') != 0) || (json.result.type == 1 && url.indexOf('/sp/') != 0)){
-                    res.redirect('/index.html');
+                    res.redirect('/');
                 }else{
                     res._pp_tpl_data.userInfo = json.result;
                     //certificate_status 用户资质审核状态 0:未添加资质审核, 1:待审核, 2:审核通过, 3:审核未通过
@@ -72,7 +78,8 @@ app.use(['/cp/','/sp/'], function(req, res, next){
                 }
             }else{
                 console.log(json);
-                res.redirect('/index.html');
+                res.redirect('/');
+                return;
             }
         }
     });

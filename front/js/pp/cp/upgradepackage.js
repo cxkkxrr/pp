@@ -130,7 +130,9 @@
 					ppLib.reloadLocation();
 				}else if(json.errorCode == '1'){
 					alert('包文件上传异常，请重新上传。');
-				}else if(json.errorCode == '4'){ //todo
+				}else if(json.errorCode == '4'){
+					alert('更新包待审核中。');
+				}else if(json.errorCode == '5'){
 					alert('新版本号不能与现有版本号重复。');
 				}else if(json.errorCode == '99'){
 					alert('登录超时，请重新登录。');
