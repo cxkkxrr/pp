@@ -71,8 +71,8 @@ router.get(['/','/index.html'], function(req, res, next) {
 
 //cpdetail
 router.get(['/cpdetail.html'], function(req, res, next) {
-  var pid = req.query.pid;
-  if(!pid){
+  var taskId = req.query.taskId;
+  if(!taskId){
     res.redirect('cpsearch.html');
     return;
   }
@@ -101,7 +101,7 @@ router.get(['/cpdetail.html'], function(req, res, next) {
     'options': {
       'host' : 'localhost',
       'port': '8080',
-      'path': '/appmarket/task.do?action=showTaskById&id='+pid+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'path': '/appmarket/task.do?action=showTaskById&id='+taskId+'&token=469071fdec0e18f33e41bc1faddee02b',
       'headers': {
         'cookie': req.headers.cookie
       }
@@ -113,14 +113,17 @@ router.get(['/cpdetail.html'], function(req, res, next) {
 
 
 
-//taskdetail
-router.get(['/taskdetail.html'], function(req, res, next) {
+//taskdetail evaluation
+router.get(['/taskdetail.html', '/evaluation.html'], function(req, res, next) {
   var applyId = req.query.applyId;
   var type = req.query.type;
   if(!applyId || !type){
     res.redirect('mytask.html');
     return;
   }
+
+  var baseName = path.basename(req.originalUrl || req.url);
+  baseName = baseName.split('.')[0];
 
   function _render(json){
     var detailJson;
@@ -129,17 +132,17 @@ router.get(['/taskdetail.html'], function(req, res, next) {
         detailJson = json.result;
       }else{
         detailJson = {};
-        ppLogger.write('error', '[cpdetail.html error] result is empty.');
+        ppLogger.write('error', '['+baseName+'.html error] result is empty.');
         //res.redirect('mytask.html');
         //return;
       }
     }else{
       detailJson = {};
-      ppLogger.write('error', '[taskdetail.html error] ' + JSON.stringify(json));
+      ppLogger.write('error', '['+baseName+'.html error] ' + JSON.stringify(json));
     }
 
     res._pp_tpl_data.detail = detailJson;
-    res.render('sp/taskdetail.html', res._pp_tpl_data);
+    res.render('sp/'+baseName+'.html', res._pp_tpl_data);
   }
 
   ppHttp.get({

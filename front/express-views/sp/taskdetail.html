@@ -11,7 +11,7 @@
 		{{include 'include/side'}}
 		<div class="contain">
 			<div class="box">
-				<ul class="clear cp_detail_total" id="cp-detail-total">
+				<ul class="clear cp_detail_total">
 					<li><img src="{{detail.logoPath}}" width="32" height="32"></li>
 					<li>{{detail.productName}}</li>
 					<li>包号：{{detail.packageNo}}</li>
@@ -43,7 +43,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box_nb tb_list mt25" id="data-list">
+			<div class="box_nb tb_list mt25">
 				<h3>推广详情</h3>
 				<table>
 					<colgroup><col class="c100"/><col class="c60"/><col class="c60"/><col style="width:300px" /></colgroup>
@@ -52,7 +52,7 @@
 					<tr><td>{{$value.formatCreateTime}}</td><td>{{$value.amount}}</td><td>{{$value.totalPrice}}</td><td></td></tr>
 					{{ /each }}
 				</table>
-				<div class="page" id="data-page" style="display:none;"></div>
+				<!-- <div class="page" id="data-page" style="display:none;"></div> -->
 			</div>
 		</div>
 	</div>

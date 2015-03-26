@@ -1,10 +1,10 @@
 // ;(function(){
-// 	var pid = $.trim(ppLib.getUrlParam('pid') || '');
-// 	(pid == '') && (alert('该详情不存在~'),window.close());
+// 	var applyId = $.trim(ppLib.getUrlParam('applyId') || '');
+// 	(applyId == '') && (alert('该详情不存在~'),window.close());
 // 	var $productName = $('#product-name');
 // 	$productName.html('查询中...');
-// 	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'pid': pid}, function(json){
-// 		(pid == '111') && (alert('该详情不存在~'),window.close());
+// 	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'applyId': applyId}, function(json){
+// 		(applyId == '111') && (alert('该详情不存在~'),window.close());
 // 		$productName.html('<img src="/images/32x32.jpg" width="32" height="32">　微信111　　包号：101　　渠道ID：1000');
 // 	});
 // })();

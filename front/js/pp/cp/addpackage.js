@@ -1,17 +1,18 @@
 // ;(function(){
-// 	var pid = $.trim(ppLib.getUrlParam('pid') || '');
-// 	(pid == '') && (alert('该详情不存在~'),window.close());
+// 	var taskId = $.trim(ppLib.getUrlParam('taskId') || '');
+// 	(taskId == '') && (alert('该详情不存在~'),window.close());
 // 	var $productName = $('#product-name');
 // 	var $productDetail = $('#product-detail');
 // 	$productName.html('查询中...');
-// 	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'pid': pid}, function(json){
-// 		(pid == '111') && (alert('该详情不存在~'),window.close());
+// 	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'taskId': taskId}, function(json){
+// 		(taskId == '111') && (alert('该详情不存在~'),window.close());
 // 		$productName.html('<img src="/images/32x32.jpg" width="32" height="32">　微信111');
 // 		$productDetail.append('<p>单价：1.5元　　版本号：2.0.3</p><p>推广中包数量：2　　空闲包数量：3</p><p>推广方式：弹窗、Banner</p>');
 // 	});
 // })();
 
 ;(function(){
+	var taskId = $.trim(ppLib.getUrlParam('taskId') || '');
 	var $productPackgeNum = $('#product-packge-num');
 	var $uploadFilenameText = $('#upload-filename-text');
 	var $uploadFilenameInput = $('#upload-filename-input');
@@ -122,6 +123,8 @@
 
 		var consolePasswordValue = $.trim($consolePassword.find('input').val());
 		params['consolePassword'] = consolePasswordValue;
+
+		params['taskId'] = taskId;
 		
 		return params;
 	}

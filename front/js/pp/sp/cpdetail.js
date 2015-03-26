@@ -1,6 +1,6 @@
 /*;(function(){
-	var pid = $.trim(ppLib.getUrlParam('pid') || '');
-	//(pid == '') && (alert('该详情不存在~'),window.close());
+	var taskId = $.trim(ppLib.getUrlParam('taskId') || '');
+	//(taskId == '') && (alert('该详情不存在~'),window.close());
 
 	var $cpDetailTotal = $('#cp-detail-total');
 	var $cpBillingType = $('#cp-billing-type');
@@ -12,8 +12,8 @@
 	var $cpDetailImgs = $('#cp-detail-imgs');
 
 	$cpDetailTotal.html('查询中...');
-	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'pid': pid}, function(json){
-		//(pid == '111') && (alert('该详情不存在~'),window.close());
+	ppLib.getJSONEx(PPG.apiBaseUrl + 'xxxx.do?callback=?', {'taskId': taskId}, function(json){
+		//(taskId == '111') && (alert('该详情不存在~'),window.close());
 		$cpDetailTotal.html('<li><img src="/images/32x32.jpg" width="32" height="32"></li>\
 					<li>微信111</li>\
 					<li>版本号：123</li>\
@@ -35,7 +35,7 @@
 
 
 ;(function(){
-	var pid = $.trim(ppLib.getUrlParam('pid') || '');
+	var taskId = $.trim(ppLib.getUrlParam('taskId') || '');
 	var $sqrwBtn = $('#sqrw-btn');
 	var $qqjbBtn = $('#qqjb-btn');
 	var isDoing = false;
@@ -46,7 +46,7 @@
 			return;
 		}
 		var params = {};
-		params.taskId = pid;
+		params.taskId = taskId;
 		params.action = 'applyTask';
 		$sqrwBtn.html('申请中...');
 		isDoing = true;
@@ -94,7 +94,7 @@
 			return;
 		}
 		var params = {};
-		params.taskId = pid;
+		params.taskId = taskId;
 		params.action = 'addPackageForSpApply';
 		$qqjbBtn.html('操作中...');
 		isDoing = true;
@@ -127,7 +127,7 @@
 })();
 
 ;(function(){
-	var pid = $.trim(ppLib.getUrlParam('pid') || '');
+	var taskId = $.trim(ppLib.getUrlParam('taskId') || '');
 	var $evaluationList = $('#evaluation-list');
 	var curPageNum = 1;
 	var pageSize = 10;
@@ -136,7 +136,7 @@
 	function loadData(){
 		var params = {};
 		params.action = 'searchCommentByTaskId';
-		params.taskId = pid;
+		params.taskId = taskId;
 		params.curPageNum = curPageNum;
 		params.pageSize = pageSize;
 		ppLib.getJSONEx(PPG.apiBaseUrl + '/appmarket/comment.do?callback=?', params, function(json){

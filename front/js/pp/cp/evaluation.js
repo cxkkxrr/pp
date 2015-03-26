@@ -1,19 +1,12 @@
 ;(function(){
 	var applyId = $.trim(ppLib.getUrlParam('applyId') || '');
-	var $pjzhBox = $('#pjzh-box');
 	var $evalContentBox = $('#eval-content-box');
-	// var $sjgxPoint = $('#sjgx-point');
-	// var $nrzmPoint = $('#nrzm-point');
-	// var $zgkfPoint = $('#zgkf-point');
 	var $totalScore = $('#total-point');
 
 	var $submitBtn = $('#submit-btn');
 
 	var clickPoint = {
-		// 'sjgxPoint': 4,
-		// 'nrzmPoint': 4,
-		// 'zgkfPoint': 4,
-		'totalScore': 4
+		'score': 4
 	};
 
 	function setStart($box, onNum){
@@ -35,10 +28,7 @@
 		});
 	}
 
-	// selectStart($sjgxPoint, 'sjgxPoint');
-	// selectStart($nrzmPoint, 'nrzmPoint');
-	// selectStart($zgkfPoint, 'zgkfPoint');
-	selectStart($totalScore, 'totalScore');
+	selectStart($totalScore, 'score');
 	
 
 	var isSubmiting = false;
@@ -49,26 +39,13 @@
 
 		var params = $.extend({}, clickPoint);
 
-		var pjzh = ppFun.checkData($pjzhBox.find('input'), 'textInput', true);
-		if(pjzh === false){
-			$pjzhBox.find('.err').html('请输入0到100之间的数字');
-			return false;
-		}
-		if(!($.isNumeric(pjzh) && (parseFloat(pjzh) >= 0) && (parseFloat(pjzh) <= 100))){
-			$pjzhBox.find('.err').html('请输入0到100之间的数字');
-			$pjzhBox.find('input').focus();
-			return false;
-		}
-		$pjzhBox.find('.err').html('');
-		params.transform = pjzh;
-
 		var evalContent = ppFun.checkData($evalContentBox.find('textarea'), 'textInput', true);
 		if(evalContent === false){
 			return false;
 		}
-		params.comment = encodeURIComponent(evalContent);
+		params.commentContent = encodeURIComponent(evalContent);
 
-		params.action = 'spCommentTask';
+		params.action = 'cpCommentApply';
 		params.applyId = applyId;
 
 		$submitBtn.html('提 交 中...');

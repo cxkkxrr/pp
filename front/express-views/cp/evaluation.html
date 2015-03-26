@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>评价-渠道-推广派-app推广平台</title>
+{{include 'include/head'}}
+</head>
+<body>
+{{include 'include/header'}}
+<div class="warp">
+	<div class="warp_inner layout clear">
+		{{include 'include/side'}}
+		<div class="contain">
+			<div class="box_nb release_form">
+				<h3>对渠道进行评价</h3>
+			</div>
+			<div class="box_nb">
+				<div class="product_name">
+					<img src="{{detail.logoPath}}" width="32" height="32">　{{detail.productName}}
+				</div>
+			</div>
+			<div class="box mt25">
+				<div class="form_box cp_detail_form clear">
+					<div class="txtitem">
+						<label class="r_lb">包号：</label>
+						<span class="txt">{{detail.packageNo}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">渠道ID：</label>
+						<span class="txt">{{detail.spIdStr}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">时间区间：</label>
+						<span class="txt">{{detail.payDateRange}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">量级总额：</label>
+						<span class="txt">{{detail.totalAmount}}</span>
+					</div>
+					<div class="txtitem">
+						<label class="r_lb">金额总计：</label>
+						<span class="txt">{{detail.totalAmountPrice}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="box_nb eval_form mt13">
+				<div class="form_box clear">
+					<div class="txtitem" id="total-point">
+						<label class="r_lb"><span class="red">*</span>请为渠道打分：</label>
+						<span class="txt"><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b"></span></span>
+					</div>
+					<div class="txtareaitem" id="eval-content-box">
+						<label class="r_lb"><span class="red">*</span>评价内容：</label>
+						<textarea class="intxt" maxlength="100"></textarea>
+						<span class="err"></span>
+					</div>
+					<div>
+						<label class="r_lb"></label>
+						<a href="javascript:;" class="b_r submitbtn" id="submit-btn">确 认 提 交</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{include 'include/footer'}}
+<script type="text/javascript" src="/js/pp/cp/evaluation.js"></script>
+</body>
+</html>

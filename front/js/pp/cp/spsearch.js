@@ -161,3 +161,41 @@
 		}
 	});
 })();
+
+
+//发布产品
+;(function(){
+	var $releaseBtn = $('#release-btn');
+	if($releaseBtn.length > 0){
+		$releaseBtn.click(function(){
+			var status = parseInt($(this).data('status')) || '';
+			//0:未添加资质审核, 1:待审核, 2:审核通过, 3:审核未通过
+			if(status === 0){
+				ppLib.alertWindow.show({
+					'content': '<p class="bigger">您尚未进行资质审核，不能发布任务。</p><p>提交资质审核并通过后，方可进行任务发布和推广合作。</p>',
+					'button': '<a href="qualificationreview.html" class="pop_btn pop_btn_red">前往进行资质审核</a><a href="javascript:;" class="pop_btn pop_btn_grey closeBtn">取消</a>'
+				});
+
+			}else if(status === 1){
+				ppLib.alertWindow.show({
+					'content': '<p class="bigger">您的资质信息已经提交，正在审核中。</p><p>提交资质审核并通过后，方可进行任务发布和推广合作。</p>',
+					'button': '<a href="qualification.html" class="pop_btn pop_btn_red">查看资质信息</a><a href="javascript:;" class="pop_btn pop_btn_grey closeBtn">取消</a>'
+				});
+
+			}else if(status === 3){
+				ppLib.alertWindow.show({
+					'content': '<p class="bigger">您的资质信息未通过审核，请重新提交</p><p>提交资质审核并通过后，方可进行任务发布和推广合作。</p>',
+					'button': '<a href="qualification.html" class="pop_btn pop_btn_red">修改资质信息</a><a href="javascript:;" class="pop_btn pop_btn_grey closeBtn">取消</a>'
+				});
+
+			}else{
+				ppLib.alertWindow.show({
+					'content': '<p>获取资质审核状态失败，请刷新重试。</p>',
+					'button': '<a href="javascript:;" class="pop_btn pop_btn_red closeBtn">关闭</a>'
+				});
+			}
+			
+			return false;
+		});
+	}
+})();

@@ -14,16 +14,18 @@
 				<h3>对产品进行评价</h3>
 			</div>
 			<div class="box_nb">
-				<div class="product_name" id="product-name"></div>
+				<div class="product_name">
+					<img src="{{detail.logoPath}}" width="32" height="32">　{{detail.productName}}
+				</div>
 			</div>
 			<div class="box_nb eval_form mt13">
 				<div class="form_box clear">
 					<div class="txtitem txtitem_2" id="pjzh-box">
 						<label class="r_lb"><span class="red">*</span>平均转化：</label>
-						<input type="text" class="intxt"><span class="unit">%</span>
+						<input type="text" class="intxt" maxlength="3"><span class="unit">%</span>
 						<span class="err"></span>
 					</div>
-					<div class="txtitem" id="sjgx-point">
+					<!-- <div class="txtitem" id="sjgx-point">
 						<label class="r_lb"><span class="red">*</span>数据更新及时：</label>
 						<span class="txt"><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b"></span></span>
 					</div>
@@ -34,14 +36,14 @@
 					<div class="txtitem" id="zgkf-point">
 						<label class="r_lb"><span class="red">*</span>正规扣费方式：</label>
 						<span class="txt"><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b"></span></span>
-					</div>
-					<div class="txtitem" id="ztpj-point">
-						<label class="r_lb"><span class="red">*</span>整体评价：</label>
+					</div> -->
+					<div class="txtitem" id="total-point">
+						<label class="r_lb"><span class="red">*</span>请为产品打分：</label>
 						<span class="txt"><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b icon_star_b_on"></span><span class="icon_star_b"></span></span>
 					</div>
 					<div class="txtareaitem" id="eval-content-box">
 						<label class="r_lb"><span class="red">*</span>评价内容：</label>
-						<textarea class="intxt"></textarea>
+						<textarea class="intxt" maxlength="100"></textarea>
 						<span class="err"></span>
 					</div>
 					<div>

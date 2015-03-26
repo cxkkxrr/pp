@@ -35,7 +35,6 @@ router.get(['/', /^\/[a-zA-Z0-9]+.html$/], function(req, res, next) {
 });
 
 //首页
-//首页
 router.get(['/','/index.html'], function(req, res, next) {
   function _render(json){
     //console.log(json);
@@ -71,11 +70,52 @@ router.get(['/','/index.html'], function(req, res, next) {
   });
 });
 
+//evaluation
+router.get(['/evaluation.html'], function(req, res, next) {
+  var applyId = req.query.applyId;
+  if(!applyId){
+    res.redirect('productdetail.html');
+    return;
+  }
+
+  function _render(json){
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '[evaluation.html error] result is empty.');
+        //res.redirect('productdetail.html');
+        //return;
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '[evaluation.html error] ' + JSON.stringify(json));
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res.render('cp/evaluation.html', res._pp_tpl_data);
+  }
+
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/task.do?action=getApplyTotalAmount&applyId='+applyId+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
+});
+
 
 //productdetail addpackage upgradepackage
 router.get(['/productdetail.html','/addpackage.html','/upgradepackage.html'], function(req, res, next) {
-  var pid = req.query.pid;
-  if(!pid){
+  var taskId = req.query.taskId;
+  if(!taskId){
     res.redirect('mytask.html');
     return;
   }
@@ -105,7 +145,7 @@ router.get(['/productdetail.html','/addpackage.html','/upgradepackage.html'], fu
     'options': {
       'host' : 'localhost',
       'port': '8080',
-      'path': '/appmarket/task.do?action=taskPackageDetails&taskId='+pid+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'path': '/appmarket/task.do?action=taskPackageDetails&taskId='+taskId+'&token=469071fdec0e18f33e41bc1faddee02b',
       'headers': {
         'cookie': req.headers.cookie
       }
@@ -118,10 +158,10 @@ router.get(['/productdetail.html','/addpackage.html','/upgradepackage.html'], fu
 
 //packagedetail
 router.get(['/packagedetail.html'], function(req, res, next) {
-  var pid = req.query.pid;
+  var applyId = req.query.applyId;
   var type = req.query.type;
   var payDateRange = req.query.payDateRange || '';
-  if(!pid || !type){
+  if(!applyId || !type){
     res.redirect('mytask.html');
     return;
   }
@@ -152,7 +192,7 @@ router.get(['/packagedetail.html'], function(req, res, next) {
     'options': {
       'host' : 'localhost',
       'port': '8080',
-      'path': '/appmarket/task.do?action=packageAmountDetals&applyId='+pid+'&type='+type+'&payDateRange='+payDateRange+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'path': '/appmarket/task.do?action=packageAmountDetals&applyId='+applyId+'&type='+type+'&payDateRange='+payDateRange+'&token=469071fdec0e18f33e41bc1faddee02b',
       'headers': {
         'cookie': req.headers.cookie
       }

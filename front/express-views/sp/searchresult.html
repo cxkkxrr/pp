@@ -35,7 +35,7 @@
 	<colgroup><col class="c200"/><col class="c100"/><col class="c100"/><col class="c200"/><col class="c300"/></colgroup>
 	<tr><th class="hd_bg">产品</th><th class="hd_bg">单价(元)</th><th class="hd_bg">计价方式</th><th class="hd_bg">推广要求</th><th class="hd_bg">操作</th></tr>
 	{% each resultList %}
-	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.billingMethod %}</td><td>{% $value.expandTypeList.join(', ') %}</td><td class="btnbox"><a href="cpdetail.html?pid={% $value.taskId %}" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
+	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.unitPrice %}</td><td>{% $value.billingMethod %}</td><td>{% $value.expandTypeList.join(', ') %}</td><td class="btnbox"><a href="cpdetail.html?taskId={% $value.taskId %}" target="_blank" class="btn btn_yellow">查看详情</a></td></tr>
 	{% /each %}
 </table>
 </script>
