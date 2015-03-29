@@ -202,6 +202,48 @@ router.get(['/packagedetail.html'], function(req, res, next) {
 });
 
 
+
+//spdetail
+router.get(['/spdetail.html'], function(req, res, next) {
+  var spid = req.query.sid;
+  if(!spid){
+    res.redirect('spsearch.html');
+    return;
+  }
+
+  function _render(json){
+    console.log(json);
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '[spdetail.html error] result is empty.');
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '[spdetail.html error] ' + JSON.stringify(json));
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res.render('cp/spdetail.html', res._pp_tpl_data);
+  }
+
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/user.do?action=selectSpById&spId='+spid+'&token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
+});
+
+
 //其他页面
 router.get(/^\/[a-zA-Z0-9]+.html$/, function(req, res, next) {
   //console.log('==========others========')

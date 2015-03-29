@@ -15,35 +15,47 @@
 				<div class="form_box clear">
 					<div class="txtitem">
 						<label class="r_lb">渠道ID</label>
-						<span class="txt" id="sp-id-box"></span>
+						<span class="txt">{{detail.idStr}}</span>
 					</div>
 					<div class="selitem">
 						<label class="r_lb">推广方式</label>
-						<div class="selbtns" id="sp-push-type-box"></div>
+						<div class="selbtns">{{ each detail.expandTypeList }}<a class="selbtn">{{ $value }}</a>{{ /each }}</div>
 					</div>
+					<div class="entrust_box"><a href="javascript:;" class="b_r entrust_btn" id="entrust-btn">委托该渠道推广产品</a></div>
 				</div>
 			</div>
 
 			<h3 class="mt25">推广记录</h3>
-			<div class="box_nb tb_list" id="sp-push-record">
-				<table>
-					<colgroup><col class="c140"/><col class="c140"/><col class="c60"/><col class="c100"/><col style="width:300px;"/></colgroup>
-					<tr><th class="hd_bg">产品</th><th class="hd_bg">时间</th><th class="hd_bg">激活总额</th><th class="hd_bg">CP评分</th><th class="hd_bg">CP评价</th></tr>
-					<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信111</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
-					<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信2</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
-					<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信22222</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
-					<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信1</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
-					<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信11</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
-					<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信3</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
-				</table>
+			<div class="box_nb tb_list">
+				<div id="sp-push-record">
+					<!-- <table>
+						<colgroup><col class="c140"/><col class="c140"/><col class="c60"/><col class="c100"/><col style="width:300px;"/></colgroup>
+						<tr><th class="hd_bg">产品</th><th class="hd_bg">时间</th><th class="hd_bg">激活总额</th><th class="hd_bg">CP评分</th><th class="hd_bg">CP评价</th></tr>
+						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信111</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
+						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信2</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
+						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信22222</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
+						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信1</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
+						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信11</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
+						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信3</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">十分的十分激动死垃圾分类的数据分类看电视就放了电视剧</td></tr>
+					</table> -->
+				</div>
 				<div class="page" id="sp-record-page" style="display:none;"></div>
 			</div>
 
-			<div class="entrust_box"><a href="javascript:;" class="b_r entrust_btn" id="entrust-btn">委托该渠道推广产品</a></div>
+			
 			
 		</div>
 	</div>
 </div>
+<script id="tpl-sp-push-record" type="text/html">
+<table>
+	<colgroup><col class="c140"/><col class="c140"/><col class="c60"/><col class="c100"/><col style="width:300px;"/></colgroup>
+	<tr><th class="hd_bg">产品</th><th class="hd_bg">时间</th><th class="hd_bg">激活总额</th><th class="hd_bg">CP评分</th><th class="hd_bg">CP评价</th></tr>
+	{% each resultList %}
+	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.payDateRange %}</td><td>{% $value.totalAmount %}</td><td>{% #$value.commentGrade | convert2star %}</td><td class="txt">{% $value.commentContent %}</td></tr>
+	{% /each %}
+</table>
+</script>
 {{include 'include/footer'}}
 <script type="text/javascript" src="/js/pp/cp/spdetail.js"></script>
 </body>
