@@ -1,4 +1,5 @@
 ;(function(){
+	var pageAction = ppLib.getUrlParam('action');
 	var $quaCpType = $('#qua-cp-type');
 	var $typeCompanyForm = $('#type-company-form');
 	var $typePeopleForm = $('#type-people-form');
@@ -11,6 +12,7 @@
 	var $qua_c_Contact = $('#qua-c-contact');
 	var $qua_c_Mobile = $('#qua-c-mobile');
 	var $qua_c_Website = $('#qua-c-website');
+	var $qua_c_Email = $('#qua-c-email');
 	var $qua_c_Tel = $('#qua-c-tel');
 	var $qua_c_YyzzInput = $('#qua-c-yyzz-input');
 	var $qua_c_YyzzImg = $('#qua-c-yyzz-img');
@@ -102,14 +104,14 @@
 		});
 	}
 	function destroyCompanyUpload(){
-		if(uploadYyzz.swfObj){
+		if(uploadYyzz && uploadYyzz.swfObj){
 			clearTimeout(uploadYyzz.swfObj.customSettings.loadingTimeout);
 			uploadYyzz.swfObj.destroy();
 			uploadYyzz.swfObj = null;
 			$('#upload-button-yyzz').html('<span id="upload-button-placeholder-yyzz"></span>');
 			$('#upload-process-box-yyzz').html('');
 		}
-		if(uploadZzjg.swfObj){
+		if(uploadZzjg && uploadZzjg.swfObj){
 			clearTimeout(uploadZzjg.swfObj.customSettings.loadingTimeout);
 			uploadZzjg.swfObj.destroy();
 			uploadZzjg.swfObj = null;
@@ -152,7 +154,7 @@
 		});
 	}
 	function destroyPeopleUpload(){
-		if(uploadIdcard.swfObj){
+		if(uploadIdcard && uploadIdcard.swfObj){
 			clearTimeout(uploadIdcard.swfObj.customSettings.loadingTimeout);
 			uploadIdcard.swfObj.destroy();
 			uploadIdcard.swfObj = null;
@@ -202,6 +204,12 @@
 			paramName: 'website',
 			type: 'textInput',
 			errMsg: '请输入公司网址'
+		},{
+			g: 1,
+			$obj: $qua_c_Email,
+			paramName: 'email',
+			type: 'textInput',
+			errMsg: '请输入电子邮箱'
 		},{
 			g: 1,
 			$obj: $qua_c_Tel,
@@ -300,30 +308,32 @@
 			}
 		}
 
-		if(uploadYyzz.swfObj && uploadYyzz.swfObj.getStats().files_queued !== 0){
-			alert('图片正在努力上传中~');
-			return false;
-		}
+		if(pageAction != 'edit'){
+			if(uploadYyzz.swfObj && uploadYyzz.swfObj.getStats().files_queued !== 0){
+				alert('图片正在努力上传中~');
+				return false;
+			}
 
-		if(uploadZzjg.swfObj && uploadZzjg.swfObj.getStats().files_queued !== 0){
-			alert('图片正在努力上传中~');
-			return false;
-		}
+			if(uploadZzjg.swfObj && uploadZzjg.swfObj.getStats().files_queued !== 0){
+				alert('图片正在努力上传中~');
+				return false;
+			}
 
-		var quaYyzzInputValue = ppFun.checkData($qua_c_YyzzInput, 'textInput');
-		if(quaYyzzInputValue === false){
-			$qua_c_YyzzErr.html('请上传营业执照扫描件');
-			return false;
-		}
-		params['licenseMd5'] = quaYyzzInputValue;
+			var quaYyzzInputValue = ppFun.checkData($qua_c_YyzzInput, 'textInput');
+			if(quaYyzzInputValue === false){
+				$qua_c_YyzzErr.html('请上传营业执照扫描件');
+				return false;
+			}
+			params['licenseMd5'] = quaYyzzInputValue;
 
-
-		var quaZzjgInputValue = ppFun.checkData($qua_c_ZzjgInput, 'textInput');
-		if(quaZzjgInputValue === false){
-			$qua_c_ZzjgErr.html('请上传组织机构代码证');
-			return false;
+			var quaZzjgInputValue = ppFun.checkData($qua_c_ZzjgInput, 'textInput');
+			if(quaZzjgInputValue === false){
+				$qua_c_ZzjgErr.html('请上传组织机构代码证');
+				return false;
+			}
+			params['organizationCodeMd5'] = quaZzjgInputValue;
 		}
-		params['organizationCodeMd5'] = quaZzjgInputValue;
+		
 
 		return params;
 	}
@@ -348,17 +358,19 @@
 			}
 		}
 
-		if(uploadIdcard.swfObj && uploadIdcard.swfObj.getStats().files_queued !== 0){
-			alert('图片正在努力上传中~');
-			return false;
-		}
+		if(pageAction != 'edit'){
+			if(uploadIdcard.swfObj && uploadIdcard.swfObj.getStats().files_queued !== 0){
+				alert('图片正在努力上传中~');
+				return false;
+			}
 
-		var quaIdcardInputValue = ppFun.checkData($qua_p_IdcardInput, 'textInput');
-		if(quaIdcardInputValue === false){
-			$qua_p_IdcardErr.html('请上传身份证扫描件');
-			return false;
+			var quaIdcardInputValue = ppFun.checkData($qua_p_IdcardInput, 'textInput');
+			if(quaIdcardInputValue === false){
+				$qua_p_IdcardErr.html('请上传身份证扫描件');
+				return false;
+			}
+			params['md5'] = quaIdcardInputValue;
 		}
-		params['md5'] = quaIdcardInputValue;
 
 		return params;
 	}
@@ -381,14 +393,19 @@
 
 		$submitBtn.html('提 交 中...');
 		isSubmiting = true;
-		var urlPath = (curCpType == 2) ? 'appmarket/individual.do?action=insertCp' : 'appmarket/corporate.do?action=insertCp';
+		var urlPath;
+		if(pageAction != 'edit'){//新增
+			urlPath = (curCpType == 2) ? 'appmarket/individual.do?action=insertCp' : 'appmarket/corporate.do?action=insertCp';
+		}else{//修改
+			urlPath = (curCpType == 2) ? 'appmarket/individual.do?action=updateCp' : 'appmarket/corporate.do?action=updateCp';
+		}
 		ppLib.postEx(PPG.apiBaseUrl + urlPath, params, function(json){
 			$submitBtn.html('确 认 提 交');
 			isSubmiting = false;
 			if(json.errorCode == '0'){
 				ppLib.alertWindow.show({
 					'content': '<p class="bigger">提交成功！</p><p>您已提交资质审核，请等待审核通过。审核通过后，您将会收到站内信和邮件通知。</p>',
-					'button' : '<a href="#" class="pop_btn pop_btn_red">确定</a>'
+					'button' : '<a href="qualification.html" class="pop_btn pop_btn_red">确定</a>'
 				});
 			}else if(json.errorCode == '99'){
 				ppLib.alertWindow.show({
@@ -412,24 +429,30 @@
 
 
 
-
-	$quaCpType.on('click', '.selbtn', function(){
+	function chuangeType(){
 		var type = $quaCpType.ppGetSelectorValue().join('');
 		if(type != curCpType){
 			curCpType = type;
 			if(curCpType == 2){ //people
 				$typeCompanyForm.hide();
 				$typePeopleForm.show();
-				destroyCompanyUpload();
-				initPeopleUpload();
+				if(pageAction != 'edit'){
+					destroyCompanyUpload();
+					initPeopleUpload();
+				}
 			}else{ //company
 				$typeCompanyForm.show();
 				$typePeopleForm.hide();
-				destroyPeopleUpload();
-				initCompanyUpload();
+				if(pageAction != 'edit'){
+					destroyPeopleUpload();
+					initCompanyUpload();
+				}
 			}
 		}
+	}
+	$quaCpType.on('click', '.selbtn', function(){
+		chuangeType();
 	});
 
-	initCompanyUpload();
+	chuangeType();
 })();

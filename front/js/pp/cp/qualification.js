@@ -1,4 +1,4 @@
-;(function(){
+/*;(function(){
 	var $cpType = $('#qualification-cp-type');
 	var $company = $('#qualification-company');
 	var $address = $('#qualification-address');
@@ -22,4 +22,4 @@
 		$yyzz.attr('href','/images/108.jpg').html('<img src="/images/108.jpg" height="80">');
 		$zzjg.attr('href','/images/108.jpg').html('<img src="/images/108.jpg" height="80">');
 	});
-})();
+})();*/

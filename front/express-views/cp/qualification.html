@@ -17,48 +17,114 @@
 			</ul>
 			<div class="box qualification_form">
 				<div class="form_box clear">
-					<div class="txtitem">
-						<label class="r_lb">广告主类型：</label>
-						<span class="txt" id="qualification-cp-type"></span>
-					</div>
-					<div class="txtitem">
-						<label class="r_lb">公司名字：</label>
-						<span class="txt" id="qualification-company"></span>
-					</div>
-					<div class="txtitem">
-						<label class="r_lb">公司地址：</label>
-						<span class="txt" id="qualification-address"></span>
-					</div>
-					<div class="txtitem">
-						<label class="r_lb">对接人：</label>
-						<span class="txt" id="qualification-contact"></span>
-					</div>
-					<div class="txtitem">
-						<label class="r_lb">手机号码：</label>
-						<span class="txt" id="qualification-mobile"></span>
-					</div>
-					<div class="txtitem">
-						<label class="r_lb">公司网址：</label>
-						<span class="txt" id="qualification-website"></span>
-					</div>
-					<div class="txtitem">
-						<label class="r_lb">固定电话：</label>
-						<span class="txt" id="qualification-tel"></span>
-					</div>
-					<div class="imgitem">
-						<label class="r_lb">营业执照扫描件：</label>
-						<span class="txt"><a id="qualification-yyzz" href="#" target="_blank"></a></span>
-					</div>
-					<div class="imgitem">
-						<label class="r_lb">组织机构代码证：</label>
-						<span class="txt"><a id="qualification-zzjg" href="#" target="_blank"></a></span>
-					</div>
+					{{if userInfo.certificateStatus == 0}}<!-- 未填写 -->
+					<p class="tips">您尚未进行资质审核，提交资质信息并审核通过后，方可进行任务发布、任务委托和推广合作。</p>
+					<p><a href="qualificationreview.html" class="b_r submitbtn">立即去填写</a></p>
+
+					{{else if userInfo.certificateStatus == 1 || userInfo.certificateChangeStatus == 1}}<!-- 待审核 -->
+					<p class="tips">您的资质信息已经提交，正在审核中。</p>
+
+					{{else if userInfo.certificateStatus == 2}}<!-- 审核通过 -->
+
+					{{else if userInfo.certificateStatus == 3}}<!-- 审核未通过 -->
+					<p class="tips">您的资质信息未通过审核，请重新提交。</p>
+					{{/if}}
+
+
+
+					{{if userInfo.certificateStatus != 0}}<!-- 只要填写一次就出现资质信息了 -->
+						{{if userInfo.certificateType == 1}}<!-- 公司 -->
+							<div class="txtitem">
+								<label class="r_lb">广告主类型：</label>
+								<span class="txt">公司</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">公司名字：</label>
+								<span class="txt">{{detail.name}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">公司地址：</label>
+								<span class="txt">{{detail.address}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">对接人：</label>
+								<span class="txt">{{detail.contactPerson}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">手机号码：</label>
+								<span class="txt">{{detail.mobileNum}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">公司网址：</label>
+								<span class="txt">{{detail.website}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">电子邮箱：</label>
+								<span class="txt">{{detail.email}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">固定电话：</label>
+								<span class="txt">{{detail.telephone}}</span>
+							</div>
+							<div class="imgitem">
+								<label class="r_lb">营业执照扫描件：</label>
+								<span class="txt"><a href="{{detail.licenseAttachement}}" target="_blank"><img src="{{detail.licenseAttachement}}" height="80"></a></span>
+							</div>
+							<div class="imgitem">
+								<label class="r_lb">组织机构代码证：</label>
+								<span class="txt"><a href="{{detail.organizationCodeAttachement}}" target="_blank"><img src="{{detail.organizationCodeAttachement}}" height="80"></a></span>
+							</div>
+
+						{{else if userInfo.certificateType == 2}}<!-- 个人 -->
+							<div class="txtitem">
+								<label class="r_lb">广告主类型：</label>
+								<span class="txt">个人</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">姓名：</label>
+								<span class="txt">{{detail.name}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">手机号码：</label>
+								<span class="txt">{{detail.mobileNum}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">地址：</label>
+								<span class="txt">{{detail.address}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">网址：</label>
+								<span class="txt">{{detail.website}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">固定电话：</label>
+								<span class="txt">{{detail.telephone}}</span>
+							</div>
+							<div class="txtitem">
+								<label class="r_lb">身份证号码：</label>
+								<span class="txt">{{detail.idCard}}</span>
+							</div>
+							<div class="imgitem">
+								<label class="r_lb">身份证扫描件：</label>
+								<span class="txt"><a href="{{detail.idCardAttachement}}" target="_blank"><img src="{{detail.idCardAttachement}}" height="80"></a></span>
+							</div>
+						{{/if}}
+
+						{{if (userInfo.certificateStatus == 2 || userInfo.certificateStatus == 3) && userInfo.certificateChangeStatus != 1}}
+							<div class="txtitem">
+								<label class="r_lb"></label>
+								<a href="qualificationreview.html?action=edit" class="b_r submitbtn">修改资质信息</a>
+							</div>
+						{{/if}}
+					{{/if}}
+
+
+
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 {{include 'include/footer'}}
-<script type="text/javascript" src="/js/pp/cp/qualification.js"></script>
 </body>
 </html>

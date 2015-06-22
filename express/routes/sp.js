@@ -5,7 +5,7 @@ var ppHttp = require('pushpie-http');
 var ppLogger = require('pushpie-logger');
 var fs = require('fs');
 var exists = fs.existsSync || path.existsSync;
-var ppCache = require('pushpie-cache');
+//var ppCache = require('pushpie-cache');
 
 var navPageMap = {
   "sp" : 1,
@@ -159,6 +159,84 @@ router.get(['/taskdetail.html', '/evaluation.html'], function(req, res, next) {
 });
 
 
+//qualification
+router.get(['/qualification.html','/qualificationreview.html'], function(req, res, next) {
+
+  var baseName = path.basename(req.originalUrl || req.url);
+  baseName = baseName.split('.')[0];
+
+  var action = req.query.action;
+  res._pp_tpl_data.pageAction = action;
+  if(baseName == 'qualificationreview' && action != 'edit'){
+    res._pp_tpl_data.detail = {};
+    res._pp_tpl_data.detail.productLabelIdList = [];
+    res._pp_tpl_data.detail.expandTypeIdList = [];
+    res.render('sp/'+baseName+'.html', res._pp_tpl_data);
+    return;
+  }
+
+  function _render(json){
+    //console.log(json);
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '['+baseName+'.html error] result is empty.');
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '['+baseName+'.html error] ' + JSON.stringify(json));
+    }
+
+    var productLabelList = [];
+    var productLabelIdList = [];
+    if(!!detailJson.productLabelList){
+      for(var i = 0; i < detailJson.productLabelList.length; i++){
+        productLabelList.push(detailJson.productLabelList[i].name);
+        productLabelIdList.push(detailJson.productLabelList[i].id);
+      }
+    }
+    detailJson.productLabel = productLabelList.join('、');
+    detailJson.productLabelIdList = productLabelIdList;
+
+    var expandTypeList = [];
+    var expandTypeIdList = [];
+    if(!!detailJson.expandTypeList){
+      for(var i = 0; i < detailJson.expandTypeList.length; i++){
+        expandTypeList.push(detailJson.expandTypeList[i].name);
+        expandTypeIdList.push(detailJson.expandTypeList[i].id);
+      }
+    }
+    detailJson.expandType = expandTypeList.join('、');
+    detailJson.expandTypeIdList = expandTypeIdList;
+
+    if(detailJson.spOsAndProductType != undefined){
+      if(detailJson.spOsAndProductType.productType != undefined){
+        detailJson.productType = detailJson.spOsAndProductType.productType
+      }
+      if(detailJson.spOsAndProductType.os != undefined){
+        detailJson.os = detailJson.spOsAndProductType.os
+      }
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res.render('sp/'+baseName+'.html', res._pp_tpl_data);
+  }
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/user.do?action=showCertificate&token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
+});
+
 
 //其他页面
 router.get(/^\/[a-zA-Z0-9]+.html$/, function(req, res, next) {
@@ -166,7 +244,7 @@ router.get(/^\/[a-zA-Z0-9]+.html$/, function(req, res, next) {
   var baseName = path.basename(req.originalUrl || req.url);
   baseName = baseName.split('.')[0];
   var relativePath = 'sp/'+baseName+'.html';
-  res._pp_tpl_data.formLabel = ppCache.label;
+  //res._pp_tpl_data.formLabel = ppCache.label;
   res.render(relativePath, res._pp_tpl_data, function(err, str){
     var absolutePath = path.join(req.app.get('views'), relativePath);
     if(err && !exists(absolutePath)){ //找不到模板

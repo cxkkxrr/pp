@@ -8,6 +8,7 @@
 		$regTab.removeClass('cur');
 		$loginBox.show();
 		$regBox.hide();
+		$loginBox.find('.verify_code_change').trigger('click');
 		return false;
 	});
 	$regTab.click(function(){
@@ -15,6 +16,7 @@
 		$regTab.addClass('cur');
 		$loginBox.hide();
 		$regBox.show();
+		$regBox.find('.verify_code_change').trigger('click');
 		return false;
 	});
 
@@ -27,10 +29,10 @@
 //切换验证码
 ;(function(){
 	function change($img){
-		$img.attr('src', 'xxx');
+		$img.attr('src', 'http://api.pushpie.com/appmarket/authcode.do?_' + (new Date()).getTime() + Math.ceil(Math.random()*1000000));
 	}
 	$('.verify_code_change').click(function(){
-		change($(this),find('img'));
+		change($(this).find('img'));
 		return false;
 	});
 })();
@@ -40,6 +42,7 @@
 	if(ppLib.getUrlParam('dev') != '1'){
 		return;
 	}
+	var $loginTab = $('#login-tab');
 	var $loginBox = $('#login-box');
 	var $errTips = $('#err-tips');
 	var $loginUsernameInput = $('#login-username-input');
@@ -63,10 +66,12 @@
 				$loginedBox.fadeIn('fast');
 			}else{
 				$unLoginedBox.fadeIn('fast');
+				$loginTab.trigger('click');
 			}
 		}, 7000);
 	}else{
 		$unLoginedBox.fadeIn('fast');
+		$loginTab.trigger('click');
 	}
 	
 
@@ -132,18 +137,28 @@
 				//alert('登录成功~');
 			}else if(json.errorCode == 1){
 				$errTips.html('用户名不存在');
+				$loginVcodeInput.val('');
+				$loginBox.find('.verify_code_change').trigger('click');
 			}else if(json.errorCode == 2){
 				$errTips.html('密码不正确');
+				$loginVcodeInput.val('');
+				$loginBox.find('.verify_code_change').trigger('click');
 			}else if(json.errorCode == 3){
-				$errTips.html('类型不正确');
-			}else if(json.errorCode == 4){
 				$errTips.html('验证码不正确');
-			}else if(json.errorCode == 5){
-				$errTips.html('此帐号暂未激活，<a href="javascript:;" class="reSendEmail" style="color:#1b66c7;" data-username="'+data.userName+'" data-email="'+json.email+'">重发验证邮件</a>');
+				$loginVcodeInput.val('');
+				$loginBox.find('.verify_code_change').trigger('click');
+			}else if(json.errorCode == 4){
+				$errTips.html('此帐号暂未激活，<a href="javascript:;" class="reSendEmail" style="color:#1b66c7;" data-username="'+data.userName+'" data-email="'+json.result+'">重发验证邮件</a>');
+				$loginVcodeInput.val('');
+				$loginBox.find('.verify_code_change').trigger('click');
 			}else if(json.errorCode == 9999){
 				$errTips.html('登录超时，请重试');
+				$loginVcodeInput.val('');
+				$loginBox.find('.verify_code_change').trigger('click');
 			}else{
 				$errTips.html('登录失败，请重试');
+				$loginVcodeInput.val('');
+				$loginBox.find('.verify_code_change').trigger('click');
 			}
 		});
 		return false;
@@ -155,6 +170,7 @@
 
 //注册
 ;(function(){
+	var $regBox = $('#reg-box');
 	var $regUsernameInput = $('#reg-username-input');
 	var $regPwdInput = $('#reg-pwd-input');
 	var $regCheckPwdInput = $('#reg-check-pwd-input');
@@ -164,7 +180,6 @@
 	var $regBtn = $('#reg-btn');
 	var $unLoginedBox = $('#un-login-box');
 	var $loginedBox = $('#logined-box');
-
 	function getFormValue(){
 		var data = {};
 		var userName = ppFun.checkData($regUsernameInput, 'textInput', true);
@@ -227,25 +242,29 @@
 				}));
 				$unLoginedBox.fadeOut('fast');
 				$loginedBox.fadeIn('fast');
-			}else if(json.errorCode == 1){
-
 			}else if(json.errorCode == 2){
-
+				alert('该用户名已经注册了~');
+				$regVcodeInput.val('');
+				$regBox.find('.verify_code_change').trigger('click');
 			}else if(json.errorCode == 3){
-				alert('该用户已经注册~');
-			}else if(json.errorCode == 4){
-
+				alert('该邮箱已经注册了~');
+				$regVcodeInput.val('');
+				$regBox.find('.verify_code_change').trigger('click');
 			}else if(json.errorCode == 9999){
 				alert('注册超时，请重试~');
+				$regVcodeInput.val('');
+				$regBox.find('.verify_code_change').trigger('click');
 			}else{
 				alert('注册失败，请重试~');
+				$regVcodeInput.val('');
+				$regBox.find('.verify_code_change').trigger('click');
 			}
 		});
 		return false;
 	});
 })();
 
-//验证邮箱
+//重发邮件
 ;(function(){
 	var $unLoginedBox = $('#un-login-box');
 	var $loginedBox = $('#logined-box');
@@ -260,7 +279,7 @@
 		isLoading = true;
 		var orignHtml = $this.html();
 		$this.html('发送中...');
-		ppLib.postEx(PPG.apiBaseUrl+'appmarket/xxx.do?action=xx', {'userName':userName, 'email':email}, function(json){
+		ppLib.postEx(PPG.apiBaseUrl+'appmarket/register.do?action=resendEmail', {'userName':userName, 'email':email}, function(json){
 			isLoading = false;
 			if(json.errorCode == 0){ //登录成功
 				alert('激活邮件发送成功~');
@@ -270,10 +289,82 @@
 				}));
 				$unLoginedBox.fadeOut('fast');
 				$loginedBox.fadeIn('fast');
+			}else if(json.errorCode == 3){
+				alert('邮箱已经激活了，请重新登录~');
+				location.reload();
 			}else{
 				alert('激活邮件发送失败，请重试~');
 				$this.html(orignHtml);
 			}
+		});
+		return false;
+	});
+})();
+
+//修改邮箱
+;(function(){
+	var $unLoginedBox = $('#un-login-box');
+	var $loginedBox = $('#logined-box');
+	$('#banner').on('click', '.changeEmail', function(){
+		var $this = $(this);
+		var email = $this.data('email');
+		var userName = $this.data('username');
+		ppLib.alertWindow.show({
+			'title': '更换邮箱地址',
+			'content': '<p>用户名：'+userName+'</p><p style="margin-top:10px;">旧邮箱：'+email+'</p><p style="margin-top:10px;">新邮箱：<input type="text" id="changeEmail_newEmail" class="intxt" style="height:25px;" /></p><p style="margin-top:10px;">密　码：<input type="password" id="changeEmail_password" class="intxt" style="height:25px;" /></p>',
+			'button' : '<a href="javascript:;" class="pop_btn pop_btn_red" id="real-change-emain-btn">确定更换</a><a href="javascript:;" class="pop_btn pop_btn_grey closeBtn">取消</a>'
+		});
+		var $newEmailInput = $('#changeEmail_newEmail');
+		var $passwordInput = $('#changeEmail_password');
+		var $realChangeEmainBtn = $('#real-change-emain-btn');
+		var isLoading = false;
+		$realChangeEmainBtn.unbind('click').bind('click', function(){
+			if(isLoading){
+				return false;
+			}
+			var newEmailVal = $.trim($newEmailInput.val());
+			var passwordVal = $passwordInput.val();
+			if(!newEmailVal){
+				alert('请输入新邮箱');
+				return false;
+			}
+			if(newEmailVal == email){
+				alert('新邮箱不能和旧邮箱相同');
+				return false;
+			}
+			if(!passwordVal){
+				alert('请输入密码');
+				return false;
+			}
+			$realChangeEmainBtn.html('更换中...');
+			isLoading = true;
+			ppLib.postEx(PPG.apiBaseUrl+'appmarket/register.do?action=changeEmail', {'userName':userName, 'password':hex_md5(passwordVal), 'email':newEmailVal}, function(json){
+				isLoading = false;
+				$realChangeEmainBtn.html('确定更换');
+				if(json.errorCode == 0){ //登录成功
+					alert('更换成功，我们已经向您的新邮箱'+newEmailVal+'发送了一封激活邮件，请点击邮件中的链接完成注册！');
+					$loginedBox.html(template('tpl-logined-send-mail',{
+						'userName': userName,
+						'email': newEmailVal
+					}));
+					$unLoginedBox.fadeOut('fast');
+					$loginedBox.fadeIn('fast');
+					ppLib.alertWindow.hide()
+				}else if(json.errorCode == 1){
+					alert('邮箱格式不正确~');
+				}else if(json.errorCode == 3){
+					alert('密码不正确~');
+					$passwordInput.val('');
+				}else if(json.errorCode == 4){
+					alert('旧邮箱已经激活绑定，无法更换~');
+				}else if(json.errorCode == 6){
+					alert('邮箱已经被其他人注册~');
+				}else{
+					alert('更换失败，请重试~');
+					$passwordInput.val('');
+				}
+			});
+			return false;
 		});
 		return false;
 	});

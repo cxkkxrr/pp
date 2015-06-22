@@ -9,10 +9,10 @@ var ppHttp = require('pushpie-http');
 var cpRoutes = require('./routes/cp');
 var spRoutes = require('./routes/sp');
 var weixinRoutes = require('./routes/weixin');
-var adminRoutes = require('./routes/admin');
 var cacheRoutes = require('./routes/cache');
 var session = require('express-session');
 var crypto = require('crypto');
+var ppCache = require('pushpie-cache');
 
 ppLogger.write('info', 'pushpie server start');
 
@@ -46,6 +46,7 @@ ppLogger.write('info', '=======> info');*/
 //设置公用默认值
 app.use(['/cp/','/sp/'], function(req, res, next){
     res._pp_tpl_data = {}; //模板数据
+    res._pp_tpl_data.formLabel = ppCache.label;
     next();
 });
 //更新缓存
@@ -73,7 +74,19 @@ app.use(['/cp/','/sp/'], function(req, res, next){
                     res.redirect('/');
                 }else{
                     res._pp_tpl_data.userInfo = json.result;
-                    //certificate_status 用户资质审核状态 0:未添加资质审核, 1:待审核, 2:审核通过, 3:审核未通过
+                    /*{
+                        userName: 'rocky',
+                        lastLoginDateStr: '2015-06-07 00:58:58',
+                        certificateChangeStatus: 0,
+                        scoreLevel: 5,
+                        msgCount: 0,
+                        registDateStr: '2014-09-29 00:31:01',
+                        email: 'dakuan007@163.com',
+                        certificateStatus: 2,
+                        id: 1,
+                        type: 0
+                    }*/
+                    //certificateStatus 用户资质审核状态 0:未添加资质审核, 1:待审核, 2:审核通过, 3:审核未通过
                     next();
                 }
             }else{
@@ -89,18 +102,6 @@ app.use('/sp/', spRoutes);
 
 app.use('/weixin/', weixinRoutes);
 
-app.use(session({
-    name: 'pp_sesskey',
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-}));
-// app.use('/ppadminpp/', function(req, res, next){
-//     console.log(req.session);
-//     console.log(req.sessionStore);
-//     next();
-// });
-app.use('/ppadminpp/', adminRoutes);
 
 
 // catch 404 and forward to error handler

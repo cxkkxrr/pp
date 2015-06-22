@@ -36,23 +36,29 @@
 					</div>
 				</div>
 				<h3 class="mt25">收到的评价</h3>
-				<div class="tb_list" id="evaluation-list">
-					<table>
-						<colgroup><col class="c120"/><col class="c160"/><col class="c100"/><col class="c100"/><col style="width:260px;"/></colgroup>
-						<tr><th class="hd_bg">产品/CP</th><th class="hd_bg">时间</th><th class="hd_bg">激活总额</th><th class="hd_bg">CP评分</th><th class="hd_bg">CP评价</th></tr>
-						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">地上了飞机的历史解放路口的数据来看</td></tr>
-						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">地上了飞机的历史解放路口的数据来看</td></tr>
-						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">地上了飞机的历史解放路口的数据来看</td></tr>
-						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">地上了飞机的历史解放路口的数据来看</td></tr>
-						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">地上了飞机的历史解放路口的数据来看</td></tr>
-						<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">地上了飞机的历史解放路口的数据来看</td></tr>
-					</table>
+				<div class="tb_list">
+					<div id="evaluation-list">
+						<!-- <table>
+							<colgroup><col class="c160"/><col class="c160"/><col class="c100"/><col style="width:320px;"/></colgroup>
+							<tr><th class="hd_bg">产品/CP</th><th class="hd_bg">时间</th><th class="hd_bg">CP评分</th><th class="hd_bg">CP评价</th></tr>
+							<tr><td class="logo"><img src="/images/32x32.jpg" width="32" height="32"> 微信</td><td>2014.01.02-2014.02.28</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">地上了飞机的历史解放路口的数据来看</td></tr>
+						</table> -->
+					</div>
 					<div class="page" id="evaluation-page" style="display:none;"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script id="evaluation-result" type="text/html">
+<table>
+	<colgroup><col class="c160"/><col class="c160"/><col class="c100"/><col style="width:320px;"/></colgroup>
+	<tr><th class="hd_bg">产品/CP</th><th class="hd_bg">时间</th><th class="hd_bg">CP评分</th><th class="hd_bg">CP评价</th></tr>
+	{% each resultList %}
+	<tr><td class="logo"><img src="{% $value.logoPath %}" width="32" height="32"> {% $value.productName %}</td><td>{% $value.payDateRange %}</td><td>{% #$value.grade | convert2star %}</td><td class="txt">{% $value.comment %}</td></tr>
+	{% /each %}
+</table>
+</script>
 {{include 'include/footer'}}
 <script type="text/javascript" src="/js/pp/sp/userinfo.js"></script>
 </body>

@@ -33,10 +33,10 @@
 				</div>
 				<div class="money_detal">
 					<div class="item">
-						<span class="tit">迄今收入金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-total"><em>￥</em>{{detail.billedMoney}}</a>
+						<span class="tit">迄今收入金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-total"><em>￥</em>{{detail.billedMoney || 0}}</a>
 					</div>
 					<div class="item">
-						<span class="tit">未结算金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-no-balance"><em>￥</em>{{detail.toBillMoney}}</a>
+						<span class="tit">未结算金额：</span><a href="mytask.html" target="_blank" class="txt" id="money-no-balance"><em>￥</em>{{detail.toBillMoney || 0}}</a>
 					</div>
 				</div>
 				<div class="chart_detail rel">

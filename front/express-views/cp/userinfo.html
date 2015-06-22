@@ -35,23 +35,29 @@
 					</div>
 				</div>
 				<h3 class="mt25">收到的评价</h3>
-				<div class="tb_list" id="evaluation-list">
-					<table>
-						<colgroup><col class="c60"/><col class="c200"/><col class="c80"/><col class="c100"/><col style="width:300px;"/></colgroup>
-						<tr><th class="hd_bg">渠道ID</th><th class="hd_bg">时间</th><th class="hd_bg">激活总额</th><th class="hd_bg">渠道评分</th><th class="hd_bg">渠道评价</th></tr>
-						<tr><td>1002</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">多了几分历史的肌肤立即收到了飞机</td></tr>
-						<tr><td>1002</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">多了几分历史的肌肤立即收到了飞机</td></tr>
-						<tr><td>1002</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">多了几分历史的肌肤立即收到了飞机</td></tr>
-						<tr><td>1002</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">多了几分历史的肌肤立即收到了飞机</td></tr>
-						<tr><td>1002</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">多了几分历史的肌肤立即收到了飞机</td></tr>
-						<tr><td>1002</td><td>2014.01.02-2014.02.28</td><td>50000</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">多了几分历史的肌肤立即收到了飞机</td></tr>
-					</table>
+				<div class="tb_list">
+					<div id="evaluation-list">
+						<!-- <table>
+							<colgroup><col class="c60"/><col class="c200"/><col class="c100"/><col style="width:380px;"/></colgroup>
+							<tr><th class="hd_bg">渠道ID</th><th class="hd_bg">时间</th><th class="hd_bg">渠道评分</th><th class="hd_bg">渠道评价</th></tr>
+							<tr><td>1002</td><td>2014.01.02-2014.02.28</td><td><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star"></span><span class="icon_star_hui"></span></td><td class="txt">多了几分历史的肌肤立即收到了飞机</td></tr>
+						</table> -->
+					</div>
 					<div class="page" id="evaluation-page" style="display:none;"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script id="evaluation-result" type="text/html">
+<table>
+	<colgroup><col class="c60"/><col class="c200"/><col class="c100"/><col style="width:380px;"/></colgroup>
+	<tr><th class="hd_bg">渠道ID</th><th class="hd_bg">时间</th><th class="hd_bg">渠道评分</th><th class="hd_bg">渠道评价</th></tr>
+	{% each resultList %}
+	<tr><td>{% $value.userIdStr %}</td><td>{% $value.payDateRange %}</td><td>{% #$value.grade | convert2star %}</td><td class="txt">{% $value.comment %}</td></tr>
+	{% /each %}
+</table>
+</script>
 {{include 'include/footer'}}
 <script type="text/javascript" src="/js/pp/cp/userinfo.js"></script>
 </body>

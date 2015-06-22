@@ -2,6 +2,24 @@
 <html>
 <head>
 <title>资质信息-渠道-推广派-app推广平台</title>
+<script>
+	{{if pageAction == 'edit'}}
+		{{if userInfo.certificateStatus == 0}}/*未填写，直接跳转到没有action的*/
+			location.href="qualificationreview.html";
+		{{else if userInfo.certificateStatus == 1 || userInfo.certificateChangeStatus == 1}}/*待审核,不可修改*/
+			alert('您的资质信息已经提交，正在审核中。');
+			location.href="qualification.html";
+		{{else if userInfo.certificateStatus == 2}}/*审核通过,可修改*/
+		{{else if userInfo.certificateStatus == 3}}/*审核未通过,可修改*/
+		{{/if}}
+
+	{{else}}
+		{{if userInfo.certificateStatus != 0}}/*已填写过了*/
+			alert('您已经提交过资质信息了。');
+			location.href="qualification.html";
+		{{/if}}
+	{{/if}}
+</script>
 {{include 'include/head'}}
 </head>
 <body>
@@ -11,29 +29,36 @@
 		{{include 'include/side'}}
 		<div class="contain">
 			<div class="box_nb release_form">
-				<h3>请提交资质资料通过资质审核，审核通过后方可进行任务申请。</h3>
+				{{if pageAction!='edit'}}
+				<h3>请提交资质资料通过资质审核，审核通过后方可进行任务发布和推广合作。</h3>
+				{{else}}
+				<h3>修改资质信息</h3>
+				{{/if}}
 				<div class="form_box clear">
 					<div class="selitem">
-						<label class="r_lb"><span class="red">*</span>渠道类型：</label>
-						<div class="selbtns select_single" id="qua-sp-type">
-							<a href="javascript:;" class="selbtn selbtn_selected" data-val="1">公司</a>
-							<a href="javascript:;" class="selbtn" data-val="2">个人</a>
+						<label class="r_lb">{{if pageAction != 'edit'}}<span class="red">*</span>{{/if}}渠道类型：</label>
+						<div class="selbtns select_single" id="qua-sp-type" style="{{if pageAction == 'edit'}}display:none;{{/if}}">
+							<a href="javascript:;" class="selbtn {{if userInfo.certificateType!=2}}selbtn_selected{{/if}}" data-val="1">公司</a>
+							<a href="javascript:;" class="selbtn {{if userInfo.certificateType==2}}selbtn_selected{{/if}}" data-val="2">个人</a>
 							<span class="err"></span>
 						</div>
+						{{if pageAction == 'edit'}}
+						<span class="txt">{{userInfo.certificateType!=2 ? '公司' : '个人'}}</span>
+						{{/if}}
 					</div>
 					<div class="selitem">
 						<label class="r_lb"><span class="red">*</span>操作系统：</label>
 						<div class="selbtns select_single" id="qua-system">
-							<a href="javascript:;" class="selbtn" data-val="1">安卓</a>
-							<a href="javascript:;" class="selbtn" data-val="2">IOS</a>
+							<a href="javascript:;" class="selbtn {{if detail.os == 1}}selbtn_selected{{/if}}" data-val="1">安卓</a>
+							<a href="javascript:;" class="selbtn {{if detail.os == 2}}selbtn_selected{{/if}}" data-val="2">IOS</a>
 							<span class="err"></span>
 						</div>
 					</div>
 					<div class="selitem">
 						<label class="r_lb"><span class="red">*</span>产品类型：</label>
 						<div class="selbtns select_single" id="qua-product-type">
-							<a href="javascript:;" class="selbtn" data-val="1">应用</a>
-							<a href="javascript:;" class="selbtn" data-val="2">游戏</a>
+							<a href="javascript:;" class="selbtn {{if detail.productType == 1}}selbtn_selected{{/if}}" data-val="1">应用</a>
+							<a href="javascript:;" class="selbtn {{if detail.productType == 2}}selbtn_selected{{/if}}" data-val="2">游戏</a>
 							<span class="err"></span>
 						</div>
 					</div>
@@ -42,7 +67,7 @@
 						<div class="selbtns select_multi" id="qua-push-type">
 							{{if formLabel && formLabel.pushType}}
 							{{each formLabel.pushType}}
-							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							<a href="javascript:;" class="selbtn {{detail.expandTypeIdList.indexOf($value.id) != -1 ? 'selbtn_selected' : ''}}" data-val="{{$value.id}}">{{$value.name}}</a>
 							{{/each}}
 							{{/if}}
 							<span class="err"></span>
@@ -53,106 +78,132 @@
 						<div class="selbtns select_multi" id="qua-aim-crowd">
 							{{if formLabel && formLabel.crowdLabel}}
 							{{each formLabel.crowdLabel}}
-							<a href="javascript:;" class="selbtn" data-val="{{$value.id}}">{{$value.name}}</a>
+							<a href="javascript:;" class="selbtn {{detail.productLabelIdList.indexOf($value.id) != -1 ? 'selbtn_selected' : ''}}" data-val="{{$value.id}}">{{$value.name}}</a>
 							{{/each}}
 							{{/if}}
 							<span class="err"></span>
 						</div>
 					</div>
-					<div id="type-company-form">
+					<div id="type-company-form" style="{{if userInfo.certificateType==2}}display:none;{{/if}}">
 						<div class="txtitem" id="qua-c-company">
-							<label class="r_lb"><span class="red">*</span>公司名字：</label>
-							<input type="text" class="intxt">
+							<label class="r_lb">{{if pageAction != 'edit'}}<span class="red">*</span>{{/if}}公司名字：</label>
+							<input type="text" class="intxt" value="{{userInfo.certificateType!=2 && detail.name}}" style="{{if pageAction == 'edit'}}display:none;{{/if}}">
+							{{if pageAction == 'edit'}}<span class="txt">{{userInfo.certificateType!=2 && detail.name}}</span>{{/if}}
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-c-address">
 							<label class="r_lb"><span class="red">*</span>公司地址：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType!=2 && detail.address}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-c-contact">
 							<label class="r_lb"><span class="red">*</span>对接人：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType!=2 && detail.contactPerson}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-c-mobile">
 							<label class="r_lb"><span class="red">*</span>手机号码：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType!=2 && detail.mobileNum}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-c-website">
 							<label class="r_lb"><span class="red">*</span>公司网址：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType!=2 && detail.website}}">
+							<span class="err"></span>
+						</div>
+						<div class="txtitem" id="qua-c-email">
+							<label class="r_lb"><span class="red">*</span>电子邮箱：</label>
+							<input type="text" class="intxt" value="{{userInfo.certificateType!=2 && detail.email}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-c-tel">
 							<label class="r_lb"><span class="red">*</span>固定电话：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType!=2 && detail.telephone}}">
 							<span class="err"></span>
 						</div>
 						<div class="uploaditem clear">
-							<label class="r_lb"><span class="red">*</span>营业执照扫描件：</label>
+							<label class="r_lb">{{if pageAction != 'edit'}}<span class="red">*</span>{{/if}}营业执照扫描件：</label>
 							<div class="uploadbox">
-								<div class="uploadbtn" id="upload-button-yyzz"><span id="upload-button-placeholder-yyzz"></span></div>
-								<div class="uploadprocess" id="upload-process-box-yyzz"></div>
-								<span class="err" id="qua-c-yyzz-err"></span>
-								<input id="qua-c-yyzz-input" type="text" style="display:none;" />
-								<div class="fileimg" id="qua-c-yyzz-img"></div>
-								<p class="tips">支持.jpg .jpeg .bmp .gif .png格式图片，大小不超过3M。</p>
+								{{if pageAction!='edit'}}
+									<div class="uploadbtn" id="upload-button-yyzz"><span id="upload-button-placeholder-yyzz"></span></div>
+									<div class="uploadprocess" id="upload-process-box-yyzz"></div>
+									<span class="err" id="qua-c-yyzz-err"></span>
+									<input id="qua-c-yyzz-input" type="text" value="{{pageAction=='edit'?'nomodify':''}}" style="display:none;" />
+									<div class="fileimg" id="qua-c-yyzz-img"></div>
+									<p class="tips">支持.jpg .jpeg .bmp .gif .png格式图片，大小不超过3M。</p>
+								{{else}}
+									<div class="fileimg">
+										<a href="{{detail.licenseAttachement}}" target="_blank"><img src="{{detail.licenseAttachement}}" height="80"></a>
+									</div>
+								{{/if}}
 							</div>
 						</div>
 						<div class="uploaditem clear">
-							<label class="r_lb"><span class="red">*</span>组织机构代码证：</label>
+							<label class="r_lb">{{if pageAction != 'edit'}}<span class="red">*</span>{{/if}}组织机构代码证：</label>
 							<div class="uploadbox">
-								<div class="uploadbtn" id="upload-button-zzjg"><span id="upload-button-placeholder-zzjg"></span></div>
-								<div class="uploadprocess" id="upload-process-box-zzjg"></div>
-								<span class="err" id="qua-c-zzjg-err"></span>
-								<input id="qua-c-zzjg-input" type="text" style="display:none;" />
-								<div class="fileimg" id="qua-c-zzjg-img"></div>
-								<p class="tips">支持.jpg .jpeg .bmp .gif .png格式图片，大小不超过3M。</p>
+								{{if pageAction!='edit'}}
+									<div class="uploadbtn" id="upload-button-zzjg"><span id="upload-button-placeholder-zzjg"></span></div>
+									<div class="uploadprocess" id="upload-process-box-zzjg"></div>
+									<span class="err" id="qua-c-zzjg-err"></span>
+									<input id="qua-c-zzjg-input" type="text" value="{{pageAction=='edit'?'nomodify':''}}" style="display:none;" />
+									<div class="fileimg" id="qua-c-zzjg-img"></div>
+									<p class="tips">支持.jpg .jpeg .bmp .gif .png格式图片，大小不超过3M。</p>
+								{{else}}
+									<div class="fileimg">
+										<a href="{{detail.organizationCodeAttachement}}" target="_blank"><img src="{{detail.organizationCodeAttachement}}" height="80"></a>
+									</div>
+								{{/if}}
 							</div>
 						</div>
 					</div>
-					<div id="type-people-form" style="display:none;">
+					<div id="type-people-form" style="{{if userInfo.certificateType!=2}}display:none;{{/if}}">
 						<div class="txtitem" id="qua-p-name">
-							<label class="r_lb"><span class="red">*</span>姓名：</label>
-							<input type="text" class="intxt">
+							<label class="r_lb">{{if pageAction != 'edit'}}<span class="red">*</span>{{/if}}姓名：</label>
+							<input type="text" class="intxt" value="{{userInfo.certificateType==2 && detail.name}}" style="{{if pageAction == 'edit'}}display:none;{{/if}}">
+							{{if pageAction == 'edit'}}<span class="txt">{{userInfo.certificateType==2 && detail.name}}</span>{{/if}}
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-p-mobile">
 							<label class="r_lb"><span class="red">*</span>手机号码：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType==2 && detail.mobileNum}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-p-address">
 							<label class="r_lb"><span class="red">*</span>地址：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType==2 && detail.address}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-p-website">
 							<label class="r_lb">网址：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType==2 && detail.website}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-p-tel">
 							<label class="r_lb">固定电话：</label>
-							<input type="text" class="intxt">
+							<input type="text" class="intxt" value="{{userInfo.certificateType==2 && detail.telephone}}">
 							<span class="err"></span>
 						</div>
 						<div class="txtitem" id="qua-p-idcard">
-							<label class="r_lb"><span class="red">*</span>身份证号码：</label>
-							<input type="text" class="intxt">
+							<label class="r_lb">{{if pageAction != 'edit'}}<span class="red">*</span>{{/if}}身份证号码：</label>
+							<input type="text" class="intxt" value="{{userInfo.certificateType==2 && detail.idCard}}" style="{{if pageAction == 'edit'}}display:none;{{/if}}">
+							{{if pageAction == 'edit'}}<span class="txt">{{userInfo.certificateType==2 && detail.idCard}}</span>{{/if}}
 							<span class="err"></span>
 						</div>
 						<div class="uploaditem clear">
-							<label class="r_lb"><span class="red">*</span>身份证扫描件：</label>
+							<label class="r_lb">{{if pageAction != 'edit'}}<span class="red">*</span>{{/if}}身份证扫描件：</label>
 							<div class="uploadbox">
-								<div class="uploadbtn" id="upload-button-idcard"><span id="upload-button-placeholder-idcard"></span></div>
-								<div class="uploadprocess" id="upload-process-box-idcard"></div>
-								<span class="err" id="qua-p-idcard-err"></span>
-								<input id="qua-p-idcard-input" type="text" style="display:none;" />
-								<div class="fileimg" id="qua-p-idcard-img"></div>
-								<p class="tips">支持.jpg .jpeg .bmp .gif .png格式图片，大小不超过3M。</p>
+								{{if pageAction!='edit'}}
+									<div class="uploadbtn" id="upload-button-idcard"><span id="upload-button-placeholder-idcard"></span></div>
+									<div class="uploadprocess" id="upload-process-box-idcard"></div>
+									<span class="err" id="qua-p-idcard-err"></span>
+									<input id="qua-p-idcard-input" type="text" value="{{pageAction=='edit'?'nomodify':''}}" style="display:none;" />
+									<div class="fileimg" id="qua-p-idcard-img"></div>
+									<p class="tips">支持.jpg .jpeg .bmp .gif .png格式图片，大小不超过3M。</p>
+								{{else}}
+									<div class="fileimg">
+										<a href="{{detail.idCardAttachement}}" target="_blank"><img src="{{detail.idCardAttachement}}" height="80"></a>
+									</div>
+								{{/if}}
 							</div>
 						</div>
 					</div>

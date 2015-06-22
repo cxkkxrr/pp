@@ -78,5 +78,10 @@ router.get('/update_label_cache', function(req, res, next) {
 
 
 
+router.post('/addlog', function(req, res, next) {
+  res.send(req.body.log);
+});
+
+
 
 module.exports = router;

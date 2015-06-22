@@ -5,7 +5,7 @@ var ppHttp = require('pushpie-http');
 var ppLogger = require('pushpie-logger');
 var fs = require('fs');
 var exists = fs.existsSync || path.existsSync;
-var ppCache = require('pushpie-cache');
+//var ppCache = require('pushpie-cache');
 
 var navPageMap = {
   "cp" : 1,
@@ -212,7 +212,7 @@ router.get(['/spdetail.html'], function(req, res, next) {
   }
 
   function _render(json){
-    console.log(json);
+    //console.log(json);
     var detailJson;
     if(json.errorCode == "0"){
       if(!!json.result){
@@ -244,13 +244,59 @@ router.get(['/spdetail.html'], function(req, res, next) {
 });
 
 
+//qualification
+router.get(['/qualification.html','/qualificationreview.html'], function(req, res, next) {
+
+  var baseName = path.basename(req.originalUrl || req.url);
+  baseName = baseName.split('.')[0];
+
+  var action = req.query.action;
+  res._pp_tpl_data.pageAction = action;
+  if(baseName == 'qualificationreview' && action != 'edit'){
+    res._pp_tpl_data.detail = {};
+    res.render('cp/'+baseName+'.html', res._pp_tpl_data);
+    return;
+  }
+
+  function _render(json){
+    //console.log(json);
+    var detailJson;
+    if(json.errorCode == "0"){
+      if(!!json.result){
+        detailJson = json.result;
+      }else{
+        detailJson = {};
+        ppLogger.write('error', '['+baseName+'.html error] result is empty.');
+      }
+    }else{
+      detailJson = {};
+      ppLogger.write('error', '['+baseName+'.html error] ' + JSON.stringify(json));
+    }
+
+    res._pp_tpl_data.detail = detailJson;
+    res.render('cp/'+baseName+'.html', res._pp_tpl_data);
+  }
+  ppHttp.get({
+    'options': {
+      'host' : 'localhost',
+      'port': '8080',
+      'path': '/appmarket/user.do?action=showCertificate&token=469071fdec0e18f33e41bc1faddee02b',
+      'headers': {
+        'cookie': req.headers.cookie
+      }
+    },
+    'callback': _render
+  });
+});
+
+
 //其他页面
 router.get(/^\/[a-zA-Z0-9]+.html$/, function(req, res, next) {
   //console.log('==========others========')
   var baseName = path.basename(req.originalUrl || req.url);
   baseName = baseName.split('.')[0];
   var relativePath = 'cp/'+baseName+'.html';
-  res._pp_tpl_data.formLabel = ppCache.label;
+  //res._pp_tpl_data.formLabel = ppCache.label;
   //var data = {userInfo:res._pp_user, formLabel:ppCache.label};
   res.render(relativePath, res._pp_tpl_data, function(err, str){
     var absolutePath = path.join(req.app.get('views'), relativePath);

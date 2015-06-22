@@ -106,8 +106,13 @@
 	$resultList.on('click' ,'.settleAccountsBtn', function(){
 		var $this = $(this);
 		var applyId = $this.data('applyid');
+		var productName = $this.data('productname') || '';
+		var payDateRange = $this.data('paydaterange') || '';
+		var unitPrice = $this.data('unitprice') || '';
+		var totalAmount = $this.data('totalamount') || '';
+		var totalAmountPrice = $this.data('totalamountprice') || '';
 		ppLib.alertWindow.show({
-			'content': '<p class="bigger">结算申请</p><p>产品名字：xxx</p><p>推广时间：xxx</p><p>单价：xxx</p><p>量级总计：xxx</p><p>金额总计：xxx</p>',
+			'content': '<p class="bigger">结算申请</p><p>产品名字：'+productName+'</p><p>推广时间：'+payDateRange+'</p><p>单价：'+unitPrice+'</p><p>量级总计：'+totalAmount+'</p><p>金额总计：'+totalAmountPrice+'</p>',
 			'button' : '<a href="javascript:;" class="pop_btn pop_btn_red" id="real-settle-accounts-btn">确认提交申请</a><a href="javascript:;" class="pop_btn pop_btn_grey closeBtn">取消</a>'
 		});
 		var isLoading = false;
@@ -122,7 +127,7 @@
 				isLoading = false;
 				$btn.html('确认提交申请');
 				ppLib.alertWindow.show({
-					'content': '<p class="bigger">申请成功1！</p><p>申请成功！</p>',
+					'content': '<p class="bigger">申请成功！</p>',
 					'button' : '<a href="javascript:;" class="pop_btn pop_btn_red closeBtn">确定</a>'
 				});
 			});

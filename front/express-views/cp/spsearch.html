@@ -11,11 +11,7 @@
 		{{include 'include/side'}}
 		<div class="contain">
 			<div class="box_nb top_btn_box">
-				{{if userInfo.certificate_status == 2}}
-				<a href="addtask.html" target="_blank" class="b_r release_btn">发布产品</a>
-				{{else}}
-				<a href="javascript:;" class="b_r release_btn" data-status="{{userInfo.certificate_status}}" id="release-btn">发布产品</a>
-				{{/if}}
+				<a href="addtask.html" target="_blank" class="b_r release_btn" id="release-btn">发布产品</a>
 				<!-- <a href="qualificationreview.html" style="margin-right:5px;" target="_blank" class="b_r release_btn">资质审核</a> -->
 			</div>
 			<div class="box">

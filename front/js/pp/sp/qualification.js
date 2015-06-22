@@ -1,4 +1,4 @@
-;(function(){
+/*;(function(){
 	var $spType = $('#qualification-sp-type');
 	var $pushSystem = $('#qualification-system');
 	var $pushProductType = $('#qualification-product-type');
@@ -30,4 +30,4 @@
 		$yyzz.attr('href','/images/108.jpg').html('<img src="/images/108.jpg" height="80">');
 		$zzjg.attr('href','/images/108.jpg').html('<img src="/images/108.jpg" height="80">');
 	});
-})();
+})();*/
